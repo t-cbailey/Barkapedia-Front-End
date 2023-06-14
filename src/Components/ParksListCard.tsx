@@ -40,10 +40,12 @@ export default function ParksListCard({ park }: ParksListCardProps) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader title={park.name} />
+      <CardContent>
       <StarRating
         rating={park.current_average_rating}
         reviewCount={park.current_review_count}
       />
+      </CardContent>
       <CardMedia
         component="img"
         height="194"
