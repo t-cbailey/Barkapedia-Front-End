@@ -8,7 +8,7 @@ interface ParkRatingProps {
 
   const ParkRating: React.FC<ParkRatingProps> = ({ rating, reviewCount }) => {
     return (
-      <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ display: "flex", alignItems: "center"}}>
         <Typography variant="body2" sx={{ marginRight: "8px", marginTop: "3px" }}>
           {rating}
         </Typography>
