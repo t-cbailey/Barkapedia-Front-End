@@ -1,4 +1,5 @@
 export interface Park {
+ 
     id: string;
     name: string;
     desc: string;
@@ -22,4 +23,5 @@ export interface Park {
     image_url: string;
     website_url: string;
     phone_number: string;
+  
   }
