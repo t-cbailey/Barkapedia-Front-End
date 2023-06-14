@@ -1,6 +1,7 @@
-import Header from "./Components/Header"
+import Header from "./Components/Header";
+import SinglePark from "./Components/SinglePark";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import ParksList from "./Components/ParksList";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -9,12 +10,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/parks" element={<ParksList />} />
+          <Route path="/parks/:park_id" element={<SinglePark />}></Route>
         </Routes>
       </BrowserRouter>
     </>
   );
 }
-
-
 
 export default App;
