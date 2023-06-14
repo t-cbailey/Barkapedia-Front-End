@@ -8,11 +8,10 @@ import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Park } from "../../types/CustomTypes";
+import { Rating } from "@mui/material";
+import Box from "@mui/material/Box";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -38,18 +37,27 @@ export default function ParksListCard({ park }: ParksListCardProps) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const averageRating = park.current_average_rating;
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={park.name}
-        subheader={park.current_average_rating}
-      />
+      <CardHeader title={park.name} />
+      <Box
+        sx={{
+          width: 200,
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Rating
+          name="read-only"
+          value={Number(averageRating.toFixed(1))}
+          readOnly
+          precision={0.1}
+        />
+        <Box>{park.current_average_rating}</Box>
+      </Box>
+
       <CardMedia
         component="img"
         height="194"
@@ -62,12 +70,6 @@ export default function ParksListCard({ park }: ParksListCardProps) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -80,17 +82,15 @@ export default function ParksListCard({ park }: ParksListCardProps) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Opening Hours</Typography>
-          <Typography paragraph>
-            <ul>
-              <li>{`Monday: ${park.opening_hours.monday}`}</li>
-              <li>{`Tuesday: ${park.opening_hours.tuesday}`}</li>
-              <li>{`Wednesday: ${park.opening_hours.wednesday}`}</li>
-              <li>{`Thursday: ${park.opening_hours.thursday}`}</li>
-              <li>{`Friday: ${park.opening_hours.friday}`}</li>
-              <li>{`Saturday: ${park.opening_hours.saturday}`}</li>
-              <li>{`Sunday: ${park.opening_hours.sunday}`}</li>
-            </ul>
-          </Typography>
+          <ul>
+            <li>{`Monday: ${park.opening_hours.monday}`}</li>
+            <li>{`Tuesday: ${park.opening_hours.tuesday}`}</li>
+            <li>{`Wednesday: ${park.opening_hours.wednesday}`}</li>
+            <li>{`Thursday: ${park.opening_hours.thursday}`}</li>
+            <li>{`Friday: ${park.opening_hours.friday}`}</li>
+            <li>{`Saturday: ${park.opening_hours.saturday}`}</li>
+            <li>{`Sunday: ${park.opening_hours.sunday}`}</li>
+          </ul>
         </CardContent>
       </Collapse>
     </Card>
