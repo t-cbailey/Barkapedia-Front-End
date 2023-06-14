@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import getSinglePark from "../utils/getSinglePark.utils";
 import { useParams } from "react-router-dom";
 import { Park } from "../types/CustomTypes";
+import SingleParkCard from "./SingleParkCard";
 
 function SinglePark() {
   const { park_id } = useParams();
@@ -13,6 +14,7 @@ function SinglePark() {
       .then((park) => {
         setSinglePark(park.data);
         setIsLoading(false);
+        console.log(singlePark);
       })
       .catch((error) => {
         console.log("Error fetching single park", error);
@@ -73,6 +75,7 @@ function SinglePark() {
           <p>{phone_number}</p>
         </li>
       </ul>
+      <SingleParkCard singlePark={singlePark}/>
     </main>
   );
 }
