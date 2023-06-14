@@ -10,8 +10,7 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Park } from "../../types/CustomTypes";
-import { Rating } from "@mui/material";
-import Box from "@mui/material/Box";
+import StarRating from "./StarRating";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -37,28 +36,16 @@ export default function ParksListCard({ park }: ParksListCardProps) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const averageRating = park.current_average_rating;
 
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader title={park.name} />
-      {/* INSERT STARS COMPONENT */}
-      {/* <Box
-        sx={{
-          width: 200,
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Rating
-          name="read-only"
-          value={Number(averageRating.toFixed(1))}
-          readOnly
-          precision={0.1}
-        />
-        <Box>{park.current_average_rating}</Box>
-      </Box> */}
-
+      <CardContent>
+      <StarRating
+        rating={park.current_average_rating}
+        reviewCount={park.current_review_count}
+      />
+      </CardContent>
       <CardMedia
         component="img"
         height="194"
