@@ -5,16 +5,13 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
-import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
-import {Park} from "../types/CustomTypes"
+import { Park } from "../types/CustomTypes";
+import Box from "@mui/material/Box";
+import ParkRating from "./StarRating";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -32,52 +29,86 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 interface SingleParkProps {
-    singlePark: Park
+  singlePark: Park;
 }
 
-export default function SingleParkCard({singlePark}:SingleParkProps) {
+export default function SingleParkCard({ singlePark }: SingleParkProps) {
   const [expanded, setExpanded] = useState(false);
-console.log(singlePark);
+  console.log(singlePark);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const averageRating = singlePark.current_average_rating;
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 3000 }}>
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
-        }
+        title={singlePark.name}
+        subheader={singlePark.address.city}
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          <ParkRating
+            rating={singlePark.current_average_rating}
+            reviewCount={singlePark.current_review_count}
+          />
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
       />
       <CardMedia
         component="img"
         height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
+        image={singlePark.image_url}
+        alt={singlePark.name}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {singlePark.desc}
         </Typography>
+        <Box sx={{ display: "grid" }}>
+          <Typography variant="body2" color="text.secondary">
+            <br />
+            <h3>Features</h3>
+            {singlePark.features.map((feature) => {
+              return (
+                <ul>
+                  <li>{feature}</li>
+                </ul>
+              );
+            })}
+            <h3>Address</h3>
+            {singlePark.address.firstLine && (
+              <p>{singlePark.address.firstLine}</p>
+            )}
+            {singlePark.address.secondLine && (
+              <p>{singlePark.address.secondLine}</p>
+            )}
+            {singlePark.address.postCode && (
+              <p>{singlePark.address.postCode}</p>
+            )}
+            {singlePark.address.city && <p>{singlePark.address.city}</p>}
+            <a href={singlePark.website_url}>Visit Website</a>
+            {}
+            <br />
+            <a href={`tel:${singlePark.phone_number}`}>
+              {singlePark.phone_number}
+            </a>
+            <h3>Opening Hours</h3>
+          </Typography>
+        </Box>
+        <CardActions>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <ul>
+              <li>{`Monday: ${singlePark.opening_hours.monday}`}</li>
+              <li>{`Tuesday: ${singlePark.opening_hours.tuesday}`}</li>
+              <li>{`Wednesday: ${singlePark.opening_hours.wednesday}`}</li>
+              <li>{`Thursday: ${singlePark.opening_hours.thursday}`}</li>
+              <li>{`Friday: ${singlePark.opening_hours.friday}`}</li>
+              <li>{`Saturday: ${singlePark.opening_hours.saturday}`}</li>
+              <li>{`Sunday: ${singlePark.opening_hours.sunday}`}</li>
+            </ul>
+          </Box>
+        </CardActions>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

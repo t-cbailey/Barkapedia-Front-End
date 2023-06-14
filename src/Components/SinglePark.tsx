@@ -29,52 +29,8 @@ function SinglePark() {
     return <p>No data found</p>;
   }
 
-  const {
-    name,
-    desc,
-    size,
-    current_average_rating,
-    current_review_count,
-    features,
-    opening_hours,
-    address,
-    location,
-    image_url,
-    website_url,
-    phone_number,
-  } = singlePark;
-
-  const openingHoursArray = Object.entries(opening_hours);
-
   return (
     <main>
-      <ul>
-        <li>
-          <h2>{name}</h2>
-          <p>{desc}</p>
-          <p>{size}</p>
-          <p>{current_average_rating}</p>
-          <p>{current_review_count}</p>
-          <p>{features}</p>
-          <ul>
-            {openingHoursArray.map(([day, hours]) => (
-              <li key={day}>
-                {day}: {hours as string}
-              </li>
-            ))}
-          </ul>
-          {address.firstLine && <p>{address.firstLine}</p>}
-          {address.secondLine && <p>{address.secondLine}</p>}
-          {address.postCode && <p>{address.postCode}</p>}
-          {address.city && <p>{address.city}</p>}
-          <p>
-            Location: {location.lat}, {location.long}
-          </p>
-          <p>{image_url}</p>
-          <p>{website_url}</p>
-          <p>{phone_number}</p>
-        </li>
-      </ul>
       <SingleParkCard singlePark={singlePark}/>
     </main>
   );
