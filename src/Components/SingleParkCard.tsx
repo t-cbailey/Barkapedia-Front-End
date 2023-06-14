@@ -39,20 +39,15 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
     setExpanded(!expanded);
   };
 
-  const averageRating = singlePark.current_average_rating;
-
   return (
     <Card sx={{ maxWidth: 3000 }}>
-      <CardHeader
-        title={singlePark.name}
-        subheader={singlePark.address.city}
-        action={
-          <ParkRating
-            rating={singlePark.current_average_rating}
-            reviewCount={singlePark.current_review_count}
-          />
-        }
+      <CardHeader title={singlePark.name} subheader={singlePark.address.city} />
+      <CardContent>
+        <ParkRating
+        rating={singlePark.current_average_rating}
+        reviewCount={singlePark.current_review_count}
       />
+      </CardContent>
       <CardMedia
         component="img"
         height="194"
@@ -63,10 +58,9 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
         <Typography variant="body2" color="text.secondary">
           {singlePark.desc}
         </Typography>
-        <Box sx={{ display: "grid" }}>
+        <Box>
           <Typography variant="body2" color="text.secondary">
             <br />
-            <h3>Features</h3>
             {singlePark.features.map((feature) => {
               return (
                 <ul>
@@ -74,7 +68,6 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
                 </ul>
               );
             })}
-            <h3>Address</h3>
             {singlePark.address.firstLine && (
               <p>{singlePark.address.firstLine}</p>
             )}
@@ -85,27 +78,52 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
               <p>{singlePark.address.postCode}</p>
             )}
             {singlePark.address.city && <p>{singlePark.address.city}</p>}
-            <a href={singlePark.website_url}>Visit Website</a>
-            {}
-            <br />
-            <a href={`tel:${singlePark.phone_number}`}>
-              {singlePark.phone_number}
-            </a>
-            <h3>Opening Hours</h3>
+            <ul style={{ listStyleType: "none", padding: 0 }}>
+              <li style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>{`Monday:`}</span>
+                <span>{singlePark.opening_hours.monday}</span>
+              </li>
+              <li style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>{`Tuesday:`}</span>
+                <span>{singlePark.opening_hours.tuesday}</span>
+              </li>
+              <li style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>{`Wednesday:`}</span>
+                <span>{singlePark.opening_hours.wednesday}</span>
+              </li>
+              <li style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>{`Thursday:`}</span>
+                <span>{singlePark.opening_hours.thursday}</span>
+              </li>
+              <li style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>{`Friday:`}</span>
+                <span>{singlePark.opening_hours.friday}</span>
+              </li>
+              <li style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>{`Saturday:`}</span>
+                <span>{singlePark.opening_hours.saturday}</span>
+              </li>
+              <li style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>{`Sunday:`}</span>
+                <span>{singlePark.opening_hours.sunday}</span>
+              </li>
+            </ul>
+            <ul>
+              <li style={{ display: "flex", justifyContent: "space-around", paddingRight: "40px"}}>
+                <span>
+                  <a href={singlePark.website_url}>Visit Website</a>
+                </span>
+                <span>
+                  <a href={`tel:${singlePark.phone_number}`}>
+                    {singlePark.phone_number}
+                  </a>
+                </span>
+              </li>
+            </ul>
           </Typography>
         </Box>
         <CardActions>
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <ul>
-              <li>{`Monday: ${singlePark.opening_hours.monday}`}</li>
-              <li>{`Tuesday: ${singlePark.opening_hours.tuesday}`}</li>
-              <li>{`Wednesday: ${singlePark.opening_hours.wednesday}`}</li>
-              <li>{`Thursday: ${singlePark.opening_hours.thursday}`}</li>
-              <li>{`Friday: ${singlePark.opening_hours.friday}`}</li>
-              <li>{`Saturday: ${singlePark.opening_hours.saturday}`}</li>
-              <li>{`Sunday: ${singlePark.opening_hours.sunday}`}</li>
-            </ul>
-          </Box>
+          <Box></Box>
         </CardActions>
       </CardContent>
       <CardActions disableSpacing>
@@ -119,35 +137,7 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            Transfer shrimp to a large plate and set aside, leaving chicken and
-            chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-            onion, salt and pepper, and cook, stirring often until thickened and
-            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
-            cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is
-            absorbed, 15 to 18 minutes. Reduce heat to medium-low, add reserved
-            shrimp and mussels, tucking them down into the rice, and cook again
-            without stirring, until mussels have opened and rice is just tender,
-            5 to 7 minutes more. (Discard any mussels that don&apos;t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
-          </Typography>
-        </CardContent>
+        <CardContent></CardContent>
       </Collapse>
     </Card>
   );
