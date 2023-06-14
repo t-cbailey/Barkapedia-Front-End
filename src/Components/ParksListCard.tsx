@@ -42,7 +42,8 @@ export default function ParksListCard({ park }: ParksListCardProps) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader title={park.name} />
-      <Box
+      {/* INSERT STARS COMPONENT */}
+      {/* <Box
         sx={{
           width: 200,
           display: "flex",
@@ -56,7 +57,7 @@ export default function ParksListCard({ park }: ParksListCardProps) {
           precision={0.1}
         />
         <Box>{park.current_average_rating}</Box>
-      </Box>
+      </Box> */}
 
       <CardMedia
         component="img"
