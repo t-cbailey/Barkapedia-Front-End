@@ -12,6 +12,8 @@ import { useState } from "react";
 import { Park } from "../types/CustomTypes";
 import Box from "@mui/material/Box";
 import ParkRating from "./StarRating";
+import Map from "./Map"
+import {LatLngTuple} from "leaflet"
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -34,10 +36,22 @@ interface SingleParkProps {
 
 export default function SingleParkCard({ singlePark }: SingleParkProps) {
   const [expanded, setExpanded] = useState(false);
-  console.log(singlePark);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+const parsedLat = parseFloat(singlePark.location.lat)
+const parsedLong = parseFloat(singlePark.location.long)
+
+
+  const mapCenter = [parsedLat, parsedLong];
+  const parsedCenter: LatLngTuple = [parsedLat, parsedLong]
+  const mapMarkers = [
+    {
+      position: [parsedLat, parsedLong] as LatLngTuple,
+      content: singlePark.name,
+    },
+  ];
 
   return (
     <Card sx={{ maxWidth: 3000 }}>
@@ -55,30 +69,24 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
         alt={singlePark.name}
       />
       <CardContent>
+      <Map center={parsedCenter} markers={mapMarkers} />
         <Typography variant="body2" color="text.secondary">
           {singlePark.desc}
         </Typography>
         <Box>
           <Typography variant="body2" color="text.secondary">
             <br />
-            {singlePark.features.map((feature) => {
+          
+            {singlePark.features.map((feature, idx) => {
               return (
-                <ul>
-                  <li>{feature}</li>
-                </ul>
+                  <li key={idx}>{feature}</li>
               );
             })}
-            {singlePark.address.firstLine && (
-              <p>{singlePark.address.firstLine}</p>
-            )}
-            {singlePark.address.secondLine && (
-              <p>{singlePark.address.secondLine}</p>
-            )}
-            {singlePark.address.postCode && (
-              <p>{singlePark.address.postCode}</p>
-            )}
-            {singlePark.address.city && <p>{singlePark.address.city}</p>}
-            <ul style={{ listStyleType: "none", padding: 0 }}>
+      
+            {singlePark.address.firstLine && singlePark.address.firstLine + ', '}
+            {singlePark.address.secondLine && singlePark.address.secondLine + ', '}
+            {singlePark.address.postCode && singlePark.address.postCode + ', '}
+            {singlePark.address.city && singlePark.address.city}
               <li style={{ display: "flex", justifyContent: "space-between" }}>
                 <span>{`Monday:`}</span>
                 <span>{singlePark.opening_hours.monday}</span>
@@ -107,8 +115,6 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
                 <span>{`Sunday:`}</span>
                 <span>{singlePark.opening_hours.sunday}</span>
               </li>
-            </ul>
-            <ul>
               <li style={{ display: "flex", justifyContent: "space-around", paddingRight: "40px"}}>
                 <span>
                   <a href={singlePark.website_url}>Visit Website</a>
@@ -119,7 +125,6 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
                   </a>
                 </span>
               </li>
-            </ul>
           </Typography>
         </Box>
         <CardActions>
