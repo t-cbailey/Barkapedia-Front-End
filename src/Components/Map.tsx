@@ -3,9 +3,10 @@ import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import { LatLngTuple, LatLngExpression } from "leaflet";
+import markerIconPng from "leaflet/dist/images/marker-icon.png"
 
 interface MapProps {
-  center: LatLngExpression | undefined;
+  center: LatLngExpression;
   markers: {
     position: LatLngTuple;
     content: string;
@@ -14,8 +15,8 @@ interface MapProps {
 
 export default function Map({ center, markers }: MapProps) {
   const icon = new Icon({
-    iconUrl: "./images.icon.png",
-    iconSize: [36, 38],
+    iconUrl: markerIconPng,
+    iconSize: [20, 30],
   });
 
   return (

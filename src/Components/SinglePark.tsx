@@ -14,7 +14,6 @@ function SinglePark() {
       .then((park) => {
         setSinglePark(park.data);
         setIsLoading(false);
-        console.log(singlePark);
       })
       .catch((error) => {
         console.log("Error fetching single park", error);
