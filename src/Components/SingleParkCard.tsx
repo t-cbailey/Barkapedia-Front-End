@@ -12,6 +12,10 @@ import { useState } from "react";
 import { Park } from "../types/CustomTypes";
 import Box from "@mui/material/Box";
 import ParkRating from "./StarRating";
+import Map from "./Map"
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import {Icon} from 'leaflet'
+import {LatLngTuple} from "leaflet"
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -39,6 +43,24 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
     setExpanded(!expanded);
   };
 
+const parsedLat = parseFloat(singlePark.location.lat)
+const parsedLong = parseFloat(singlePark.location.long)
+
+
+  const mapCenter = [parsedLat, parsedLong];
+  const parsedCenter: LatLngTuple = [parsedLat, parsedLong]
+  console.log(mapCenter);
+  const mapMarkers = [
+    {
+      position: [parsedLat, parsedLong] as LatLngTuple,
+      content: singlePark.name,
+    },
+  ];
+
+  interface SingleParkProps {
+    singlePark: Park;
+  }
+
   return (
     <Card sx={{ maxWidth: 3000 }}>
       <CardHeader title={singlePark.name} subheader={singlePark.address.city} />
@@ -55,12 +77,14 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
         alt={singlePark.name}
       />
       <CardContent>
+      <Map center={parsedCenter} markers={mapMarkers} />
         <Typography variant="body2" color="text.secondary">
           {singlePark.desc}
         </Typography>
         <Box>
           <Typography variant="body2" color="text.secondary">
             <br />
+          
             {singlePark.features.map((feature) => {
               return (
                 <ul>
@@ -68,6 +92,7 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
                 </ul>
               );
             })}
+      
             {singlePark.address.firstLine && (
               <p>{singlePark.address.firstLine}</p>
             )}
