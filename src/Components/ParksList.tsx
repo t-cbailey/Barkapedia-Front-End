@@ -17,7 +17,7 @@ function ParksList({ parks, isLoading }: ParksListProps) {
           {parks.map((park) => {
             return (
               <li key={park.id}>
-                <ParksListCard park={park} />
+                <ParksListCard park={park} fullWidth={false} />
               </li>
             );
           })}

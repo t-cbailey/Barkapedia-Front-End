@@ -4,8 +4,8 @@ import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import { LatLngTuple, LatLngExpression } from "leaflet";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
-import { Link } from "react-router-dom";
 import ParksListCard from "./ParksListCard";
+import { Park } from "../types/CustomTypes";
 
 interface MapProps {
   center: LatLngExpression;
@@ -17,16 +17,16 @@ interface MapProps {
   onMarkerClick: (parkId: string) => void;
   selectedParkId: string | null;
   parks: Park[];
+  isListView: boolean;
 }
 
 export default function Map({
   center,
   markers,
-  isListPage,
   onMarkerClick,
   selectedParkId,
-  showCard,
   parks,
+  isListView
 }: MapProps) {
   const icon = new Icon({
     iconUrl: markerIconPng,
@@ -44,7 +44,7 @@ export default function Map({
         className="map"
         center={center}
         zoom={13}
-        scrollWheelZoom={false}
+        scrollWheelZoom={true}
       >
         <TileLayer
           key="TileLayer"
@@ -60,26 +60,20 @@ export default function Map({
               click: () => handleMarkerClick(marker.parkId),
             }}
           >
-            <Popup>
-              {isListPage ? (
-                <Link to={`/parks/${marker.parkId}`}>{marker.content}</Link>
-              ) : (
-                <>{marker.content}</>
-              )}
-              {selectedParkId !== null && selectedParkId === marker.parkId && (
-                <ParksListCard
-                  park={
-                    parks.find(
-                      (park) => park.id.toString() === selectedParkId
-                    ) || null
-                  }
-                  parks={parks}
-                />
-              )}
-            </Popup>
+            <Popup>{marker.content}</Popup>
           </Marker>
         ))}
       </MapContainer>
+
+      {isListView && selectedParkId !== null && (
+        <ParksListCard
+          park={
+            parks.find((park) => park.id.toString() === selectedParkId) || null
+          }
+          parks={parks}
+          fullWidth={true}
+        />
+      )}
     </>
   );
 }

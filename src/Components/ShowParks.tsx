@@ -8,6 +8,7 @@ import Map from "./Map";
 import server from "../Api/api";
 import { Park } from "../types/CustomTypes";
 import { LatLngTuple } from "leaflet";
+import ParksListCard from "./ParksListCard";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -28,7 +29,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component="div">{children}</Typography>
         </Box>
       )}
     </div>
@@ -52,6 +53,7 @@ export default function ShowParks() {
   const [selectedParkId, setSelectedParkId] = React.useState<string | null>(
     null
   );
+  const [selectedPark, setSelectedPark] = React.useState<Park | null>(null);
 
   const center: LatLngTuple = [51.507268, -0.166791];
 
@@ -72,12 +74,11 @@ export default function ShowParks() {
     });
   }, []);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   const handleMarkerClick = (parkId: string) => {
-    console.log("Marker clicked: " + parkId);
     setSelectedParkId(parkId);
   };
 
@@ -100,13 +101,14 @@ export default function ShowParks() {
           onMarkerClick={handleMarkerClick}
           selectedParkId={selectedParkId}
           parks={parks}
+          isListView={true}
         />
+        {selectedPark && (<ParksListCard park={selectedPark} />)}
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ParksList
           parks={parks}
           isLoading={isLoading}
-          selectedParkId={selectedParkId}
         />
       </TabPanel>
     </Box>

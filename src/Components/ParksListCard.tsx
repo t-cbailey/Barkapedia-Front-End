@@ -28,29 +28,28 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 interface ParksListCardProps {
-  park: Park;
+  parks: Park[];
+  fullWidth: boolean;
 }
 
-export default function ParksListCard({ park }: ParksListCardProps) {
+export default function ParksListCard({ park, fullWidth }: ParksListCardProps) {
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  console.log('ParksListCard rendered:', park);
-
-if (!park) {
-  return <p>Loading...</p>
-}
+  if (!park) {
+    return <p>Loading...</p>;
+  }
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: fullWidth ? "100%" : 345 }}>
       <CardHeader title={park.name} />
       <CardContent>
-      <StarRating
-        rating={park.current_average_rating}
-        reviewCount={park.current_review_count}
-      />
+        <StarRating
+          rating={park.current_average_rating}
+          reviewCount={park.current_review_count}
+        />
       </CardContent>
       <CardMedia
         component="img"
@@ -76,13 +75,13 @@ if (!park) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Opening Hours</Typography>
-            <li>{`Monday: ${park.opening_hours.monday}`}</li>
-            <li>{`Tuesday: ${park.opening_hours.tuesday}`}</li>
-            <li>{`Wednesday: ${park.opening_hours.wednesday}`}</li>
-            <li>{`Thursday: ${park.opening_hours.thursday}`}</li>
-            <li>{`Friday: ${park.opening_hours.friday}`}</li>
-            <li>{`Saturday: ${park.opening_hours.saturday}`}</li>
-            <li>{`Sunday: ${park.opening_hours.sunday}`}</li>
+          <li>{`Monday: ${park.opening_hours.monday}`}</li>
+          <li>{`Tuesday: ${park.opening_hours.tuesday}`}</li>
+          <li>{`Wednesday: ${park.opening_hours.wednesday}`}</li>
+          <li>{`Thursday: ${park.opening_hours.thursday}`}</li>
+          <li>{`Friday: ${park.opening_hours.friday}`}</li>
+          <li>{`Saturday: ${park.opening_hours.saturday}`}</li>
+          <li>{`Sunday: ${park.opening_hours.sunday}`}</li>
         </CardContent>
       </Collapse>
     </Card>

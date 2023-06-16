@@ -1,7 +1,6 @@
 import Header from "./Components/Header";
 import SinglePark from "./Components/SinglePark";
 import { Routes, Route } from "react-router-dom";
-import ParksList from "./Components/ParksList";
 import ShowParks from "./Components/ShowParks";
 
 function App() {
