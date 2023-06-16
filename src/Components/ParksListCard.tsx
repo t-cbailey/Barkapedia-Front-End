@@ -37,6 +37,12 @@ export default function ParksListCard({ park }: ParksListCardProps) {
     setExpanded(!expanded);
   };
 
+  console.log('ParksListCard rendered:', park);
+
+if (!park) {
+  return <p>Loading...</p>
+}
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader title={park.name} />
@@ -70,7 +76,6 @@ export default function ParksListCard({ park }: ParksListCardProps) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Opening Hours</Typography>
-          <ul>
             <li>{`Monday: ${park.opening_hours.monday}`}</li>
             <li>{`Tuesday: ${park.opening_hours.tuesday}`}</li>
             <li>{`Wednesday: ${park.opening_hours.wednesday}`}</li>
@@ -78,7 +83,6 @@ export default function ParksListCard({ park }: ParksListCardProps) {
             <li>{`Friday: ${park.opening_hours.friday}`}</li>
             <li>{`Saturday: ${park.opening_hours.saturday}`}</li>
             <li>{`Sunday: ${park.opening_hours.sunday}`}</li>
-          </ul>
         </CardContent>
       </Collapse>
     </Card>
