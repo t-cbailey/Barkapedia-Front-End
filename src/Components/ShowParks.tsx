@@ -103,13 +103,10 @@ export default function ShowParks() {
           parks={parks}
           isListView={true}
         />
-        {selectedPark && (<ParksListCard park={selectedPark} />)}
+        {selectedPark && <ParksListCard park={selectedPark} />}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ParksList
-          parks={parks}
-          isLoading={isLoading}
-        />
+        <ParksList parks={parks} isLoading={isLoading} />
       </TabPanel>
     </Box>
   );
