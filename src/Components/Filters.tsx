@@ -78,7 +78,7 @@ function Filters({ setQueries }: any) {
   }
 
   if (orderObj.orderParam !== "") {
-    queryString += `${queryString.length === 0 ? "?" : "&"}$orderBy=${
+    queryString += `${queryString.length === 0 ? "?" : "&"}orderBy=${
       orderObj.orderParam
     }`;
   }
