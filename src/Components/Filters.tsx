@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { orderObj } from "../types/CustomTypes";
+import Button from "@mui/material/Button";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -54,14 +55,28 @@ function Filters({ setQueries }: any) {
     });
   };
 
+  const [orderParam, setOrderParam] = React.useState("");
+  const handleOrderParamChange = (event: SelectChangeEvent) => {
+    setOrderParam(event.target.value);
+  };
+
   const [order, setOrder] = React.useState("");
   const handleOrderChange = (event: SelectChangeEvent) => {
     setOrder(event.target.value);
   };
 
-  const [orderParam, setOrderParam] = React.useState("");
-  const handleOrderParamChange = (event: SelectChangeEvent) => {
-    setOrderParam(event.target.value);
+  const handleReset = () => {
+    setOrderParam("");
+    setOrder("");
+    setCheckboxes({
+      isFree: false,
+      isWellLit: false,
+      isFreeParking: false,
+      isParking: false,
+      hasAgilityEquipment: false,
+      isFullyEnclosed: false,
+      hasDisabledAccess: false,
+    });
   };
 
   const orderObj: orderObj = {
@@ -218,6 +233,9 @@ function Filters({ setQueries }: any) {
               ) : null}
             </div>
           </FormGroup>
+          <Button variant="contained" onClick={handleReset}>
+            Reset Filters
+          </Button>
         </CardContent>
       </Collapse>
     </Card>

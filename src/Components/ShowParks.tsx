@@ -89,7 +89,9 @@ export default function ShowParks() {
   return (
     <Box sx={{ width: "100%" }}>
       <Filters setQueries={setQueries} />
-      <h2>{parks.length} results</h2>
+      <h3>
+        {parks.length} {parks.length > 1 ? "results" : "result"}
+      </h3>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
