@@ -47,14 +47,7 @@ export interface Review {
   votes: number;
 }
 
-export interface FiltersObj {
-  isFree: boolean;
-  isWellLit: boolean;
-  isFreeParking: boolean;
-  IsParking: boolean;
-  hasAgilityEquipment: boolean;
-  isFullyEnclosed: boolean;
-  hasDisabledAccess: boolean;
+export interface orderObj {
   order: string;
   orderParam: string;
 }

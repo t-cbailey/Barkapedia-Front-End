@@ -14,7 +14,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import { FiltersObj } from "../types/CustomTypes";
+import { orderObj } from "../types/CustomTypes";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -31,10 +31,27 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-function Filters() {
+function Filters({ setQueries }: any) {
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const [checkboxes, setCheckboxes] = React.useState({
+    isFree: false,
+    isWellLit: false,
+    isFreeParking: false,
+    isParking: false,
+    hasAgilityEquipment: false,
+    isFullyEnclosed: false,
+    hasDisabledAccess: false,
+  });
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckboxes({
+      ...checkboxes,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   const [order, setOrder] = React.useState("");
@@ -44,24 +61,34 @@ function Filters() {
 
   const [orderParam, setOrderParam] = React.useState("");
   const handleOrderParamChange = (event: SelectChangeEvent) => {
-    console.log(event.target.value);
     setOrderParam(event.target.value);
   };
 
-  const filtersObj: FiltersObj = {
-    isFree: false,
-    isWellLit: false,
-    isFreeParking: false,
-    IsParking: false,
-    hasAgilityEquipment: false,
-    isFullyEnclosed: false,
-    hasDisabledAccess: false,
-    order: "",
-    orderParam: "",
+  const orderObj: orderObj = {
+    order: order,
+    orderParam: orderParam,
   };
 
-  console.log(filtersObj);
+  let queryString = "";
 
+  for (const checkbox in checkboxes) {
+    if (checkboxes[checkbox as keyof object] === true) {
+      queryString += `${queryString.length === 0 ? "?" : "&"}${checkbox}=true`;
+    }
+  }
+
+  if (orderObj.orderParam !== "") {
+    queryString += `${queryString.length === 0 ? "?" : "&"}$orderBy=${
+      orderObj.orderParam
+    }`;
+  }
+
+  if (orderObj.order !== "") {
+    queryString += `:${orderObj.order}`;
+  }
+  React.useEffect(() => {
+    setQueries(queryString);
+  }, [queryString]);
   return (
     <Card sx={{ maxWidth: "100%" }}>
       <CardHeader title="Filters" />
@@ -78,20 +105,74 @@ function Filters() {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <FormGroup>
-            <FormControlLabel control={<Checkbox />} label="No Entry Fee" />
-            <FormControlLabel control={<Checkbox />} label="Well Lit" />
-            <FormControlLabel control={<Checkbox />} label="Free Parking" />
             <FormControlLabel
-              control={<Checkbox />}
+              control={
+                <Checkbox
+                  checked={checkboxes.isFree}
+                  onChange={handleCheckboxChange}
+                  name="isFree"
+                />
+              }
+              label="Free Entry"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkboxes.isWellLit}
+                  onChange={handleCheckboxChange}
+                  name="isWellLit"
+                />
+              }
+              label="Well Lit"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkboxes.isFreeParking}
+                  onChange={handleCheckboxChange}
+                  name="isFreeParking"
+                />
+              }
+              label="Free Parking"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkboxes.isParking}
+                  onChange={handleCheckboxChange}
+                  name="isParking"
+                />
+              }
               label="Parking Available"
             />
             <FormControlLabel
-              control={<Checkbox />}
+              control={
+                <Checkbox
+                  checked={checkboxes.hasAgilityEquipment}
+                  onChange={handleCheckboxChange}
+                  name="hasAgilityEquipment"
+                />
+              }
               label="Agility Equipment"
             />
-            <FormControlLabel control={<Checkbox />} label="Fully Enclosed" />
             <FormControlLabel
-              control={<Checkbox />}
+              control={
+                <Checkbox
+                  checked={checkboxes.isFullyEnclosed}
+                  onChange={handleCheckboxChange}
+                  name="isFullyEnclosed"
+                />
+              }
+              label="Fully Enclosed"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkboxes.hasDisabledAccess}
+                  onChange={handleCheckboxChange}
+                  name="hasDisabledAccess"
+                />
+              }
               label="	Mobility Accessible"
             />
 
@@ -118,21 +199,23 @@ function Filters() {
                   </MenuItem>
                 </Select>
               </FormControl>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id="demo-simple-select-helper-label">
-                  Order
-                </InputLabel>
-                <Select
-                  labelId="sortBy"
-                  id="sortBy"
-                  value={order}
-                  label="Order"
-                  onChange={handleOrderChange}
-                >
-                  <MenuItem value={"asc"}>Ascending</MenuItem>
-                  <MenuItem value={"desc"}>Descending</MenuItem>
-                </Select>
-              </FormControl>
+              {orderParam !== "" ? (
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                  <InputLabel id="demo-simple-select-helper-label">
+                    Order
+                  </InputLabel>
+                  <Select
+                    labelId="sortBy"
+                    id="sortBy"
+                    value={order}
+                    label="Order"
+                    onChange={handleOrderChange}
+                  >
+                    <MenuItem value={"asc"}>Ascending</MenuItem>
+                    <MenuItem value={"desc"}>Descending</MenuItem>
+                  </Select>
+                </FormControl>
+              ) : null}
             </div>
           </FormGroup>
         </CardContent>
