@@ -106,17 +106,19 @@ function Filters({ setQueries }: any) {
   }, [queryString]);
   return (
     <Card sx={{ maxWidth: "100%" }}>
-      <CardHeader title="Filters" />
-      <CardActions disableSpacing>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
+      <div>
+        <CardActions disableSpacing>
+          <CardHeader title="Filters" />
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show Filters"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+      </div>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <FormGroup>
@@ -203,7 +205,6 @@ function Filters({ setQueries }: any) {
                   label="Sort By"
                   onChange={handleOrderParamChange}
                 >
-                  <MenuItem value={""}>All Parks</MenuItem>
                   <MenuItem value={"name"}>Park Name</MenuItem>
                   <MenuItem value={"current_average_rating"}>
                     Average Rating
