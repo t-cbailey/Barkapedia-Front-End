@@ -1,4 +1,13 @@
 .card-list {
     list-style-type: none;
     margin-bottom: 1rem;
+    margin-left: 0;
+    padding-left: 0;
+}
+ .card-text {
+    text-decoration: none;
+    color: black;
+ }
+.card {
+    margin-bottom: 2vh;
 }

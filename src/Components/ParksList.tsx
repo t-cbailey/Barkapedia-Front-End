@@ -1,5 +1,6 @@
 import ParksListCard from "./ParksListCard";
 import { Park } from "../../types/CustomTypes";
+import "../Styles/card-list.css"
 
 interface ParksListProps {
   parks: Park[];
@@ -13,11 +14,11 @@ function ParksList({ parks, isLoading }: ParksListProps) {
       {isLoading ? (
         <h3>Loading...</h3>
       ) : (
-        <ul>
+        <ul className="card-list">
           {parks.map((park) => {
             return (
-              <li key={park.id}>
-                <ParksListCard park={park} fullWidth={false} />
+              <li key={park.id} className="card">
+                <ParksListCard park={park} fullWidth={true} />
               </li>
             );
           })}

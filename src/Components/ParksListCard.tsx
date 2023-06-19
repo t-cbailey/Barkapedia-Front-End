@@ -11,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Park } from "../../types/CustomTypes";
 import StarRating from "./StarRating";
+import { Link } from "react-router-dom";
+import "../Styles/card-list.css";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -44,24 +46,26 @@ export default function ParksListCard({ park, fullWidth }: ParksListCardProps) {
 
   return (
     <Card sx={{ maxWidth: fullWidth ? "100%" : 345 }}>
-      <CardHeader title={park.name} />
-      <CardContent>
-        <StarRating
-          rating={park.current_average_rating}
-          reviewCount={park.current_review_count}
+      <Link className="card-text" key={park.id} to={park.id}>
+        <CardHeader title={park.name} />
+        <CardContent>
+          <StarRating
+            rating={park.current_average_rating}
+            reviewCount={park.current_review_count}
+          />
+        </CardContent>
+        <CardMedia
+          component="img"
+          height="194"
+          image={park.image_url}
+          alt={park.name}
         />
-      </CardContent>
-      <CardMedia
-        component="img"
-        height="194"
-        image={park.image_url}
-        alt={park.name}
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {park.desc}
-        </Typography>
-      </CardContent>
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {park.desc}
+          </Typography>
+        </CardContent>
+      </Link>
       <CardActions disableSpacing>
         <ExpandMore
           expand={expanded}
@@ -73,16 +77,20 @@ export default function ParksListCard({ park, fullWidth }: ParksListCardProps) {
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Opening Hours</Typography>
-          <li>{`Monday: ${park.opening_hours.monday}`}</li>
-          <li>{`Tuesday: ${park.opening_hours.tuesday}`}</li>
-          <li>{`Wednesday: ${park.opening_hours.wednesday}`}</li>
-          <li>{`Thursday: ${park.opening_hours.thursday}`}</li>
-          <li>{`Friday: ${park.opening_hours.friday}`}</li>
-          <li>{`Saturday: ${park.opening_hours.saturday}`}</li>
-          <li>{`Sunday: ${park.opening_hours.sunday}`}</li>
-        </CardContent>
+        <Link key={park.id} className="card-text" to={park.id}>
+          <CardContent>
+            <Typography paragraph>Opening Hours</Typography>
+            <ul className="cards">
+              <li>{`Monday: ${park.opening_hours.monday}`}</li>
+              <li>{`Tuesday: ${park.opening_hours.tuesday}`}</li>
+              <li>{`Wednesday: ${park.opening_hours.wednesday}`}</li>
+              <li>{`Thursday: ${park.opening_hours.thursday}`}</li>
+              <li>{`Friday: ${park.opening_hours.friday}`}</li>
+              <li>{`Saturday: ${park.opening_hours.saturday}`}</li>
+              <li>{`Sunday: ${park.opening_hours.sunday}`}</li>
+            </ul>
+          </CardContent>
+        </Link>
       </Collapse>
     </Card>
   );
