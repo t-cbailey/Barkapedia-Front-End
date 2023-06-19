@@ -9,6 +9,7 @@ import server from "../Api/api";
 import { Park } from "../types/CustomTypes";
 import { LatLngTuple } from "leaflet";
 import ParksListCard from "./ParksListCard";
+import Filters from "./Filters";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -44,6 +45,7 @@ function a11yProps(index: number) {
 }
 
 export default function ShowParks() {
+  const [queries, setQueries] = React.useState<string>("");
   const [value, setValue] = React.useState(0);
   const [parks, setParks] = React.useState<Park[]>([]);
   const [mapMarkers, setMapMarkers] = React.useState<
@@ -57,8 +59,10 @@ export default function ShowParks() {
 
   const center: LatLngTuple = [51.507268, -0.166791];
 
+  const parksURL = "/parks" + queries;
   React.useEffect(() => {
-    server.get(`/parks`).then(({ data }) => {
+    console.log(parksURL);
+    server.get(parksURL).then(({ data }) => {
       setParks(data);
       setMapMarkers(
         data.map((park: Park) => ({
@@ -72,7 +76,7 @@ export default function ShowParks() {
       );
       setIsLoading(false);
     });
-  }, []);
+  }, [parksURL]);
 
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -84,6 +88,10 @@ export default function ShowParks() {
 
   return (
     <Box sx={{ width: "100%" }}>
+      <Filters setQueries={setQueries} />
+      <h3>
+        {parks.length} {parks.length > 1 ? "results" : "result"}
+      </h3>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -103,13 +111,10 @@ export default function ShowParks() {
           parks={parks}
           isListView={true}
         />
-        {selectedPark && (<ParksListCard park={selectedPark} />)}
+        {selectedPark && <ParksListCard park={selectedPark} />}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ParksList
-          parks={parks}
-          isLoading={isLoading}
-        />
+        <ParksList parks={parks} isLoading={isLoading} />
       </TabPanel>
     </Box>
   );
