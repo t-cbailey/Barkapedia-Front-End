@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { FirebaseConfig } from '../types/customTypes';
+import { FirebaseConfig } from "../types/customTypes";
 
 import {
   getAuth,
@@ -22,7 +22,7 @@ initializeApp(firebaseConfig);
 
 const auth = getAuth();
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
 }
 
@@ -50,4 +50,4 @@ export const firebaseSignIn = (email: string, password: string): void => {
     .catch((error) => {
       console.log(error);
     });
-}
+};
