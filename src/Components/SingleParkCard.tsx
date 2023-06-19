@@ -10,11 +10,12 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
-import { Park } from "../types/CustomTypes";
+import { Park, Review } from "../types/CustomTypes";
 import Box from "@mui/material/Box";
 import ParkRating from "./StarRating";
 import Map from "./Map";
 import { LatLngTuple } from "leaflet";
+import ParkReviews from "./ParkReviews";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -33,9 +34,11 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 interface SingleParkProps {
   singlePark: Park;
+  reviews: Review[];
+  isLoading: boolean;
 }
 
-export default function SingleParkCard({ singlePark }: SingleParkProps) {
+export default function SingleParkCard({ singlePark, reviews, isLoading }: SingleParkProps) {
   const [expanded, setExpanded] = useState(false);
   const [parks, setParks] = React.useState<Park[]>([]);
   const handleExpandClick = () => {
@@ -145,10 +148,8 @@ export default function SingleParkCard({ singlePark }: SingleParkProps) {
               </span>
             </li>
           </Typography>
+          <ParkReviews reviews={reviews} isLoading={isLoading} />
         </Box>
-        <CardActions>
-          <Box></Box>
-        </CardActions>
       </CardContent>
       <CardActions disableSpacing>
         <ExpandMore

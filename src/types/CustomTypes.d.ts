@@ -50,4 +50,12 @@ export interface Review {
 export interface orderObj {
   order: string;
   orderParam: string;
+    review_id: string;
+    park_id: string;
+    user_id: string;
+    rating: number;
+    title: string;
+    body: string;
+    votes: number;
+    username: string;
 }
