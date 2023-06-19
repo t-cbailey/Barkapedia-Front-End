@@ -55,7 +55,7 @@ export default function ShowParks() {
   const [selectedParkId, setSelectedParkId] = React.useState<string | null>(
     null
   );
-  const [selectedPark, setSelectedPark] = React.useState<Park | null>(null);
+  const [park, setPark] = React.useState<Park | null>(null);
 
   const center: LatLngTuple = [51.507268, -0.166791];
 
@@ -111,7 +111,9 @@ export default function ShowParks() {
           parks={parks}
           isListView={true}
         />
-        {selectedPark && <ParksListCard park={selectedPark} />}
+
+        {park && <ParksListCard park={park} fullWidth={false} />}
+
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ParksList parks={parks} isLoading={isLoading} />
