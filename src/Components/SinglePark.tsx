@@ -1,25 +1,22 @@
 import { useEffect, useState } from "react";
 import getSinglePark from "../utils/getSinglePark.utils";
 import { useParams } from "react-router-dom";
-import { Park } from "../types/CustomTypes";
+import { Park, Review } from "../types/CustomTypes";
 import SingleParkCard from "./SingleParkCard";
-import { Review } from "../types/CustomTypes";
 import getReviews from "../utils/getReviewsByPark.utils";
 
 function SinglePark() {
   const { park_id } = useParams();
   const [singlePark, setSinglePark] = useState<Park>();
   const [isLoading, setIsLoading] = useState(true);
-  const [reviews, setReviews] = useState<Review[]>([])
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
-    Promise.all(
-      [getSinglePark(park_id),
-        getReviews(park_id)])
+    Promise.all([getSinglePark(park_id), getReviews(park_id)])
       .then(([parkResponse, reviewsResponse]) => {
         setSinglePark(parkResponse.data);
         setIsLoading(false);
-        setReviews(reviewsResponse.data)
+        setReviews(reviewsResponse.data);
       })
       .catch((error) => {
         console.log("Error fetching single park or reviews", error);
@@ -36,7 +33,11 @@ function SinglePark() {
 
   return (
     <main>
-      <SingleParkCard reviews={reviews} singlePark={singlePark} isLoading={isLoading} />
+      <SingleParkCard
+        reviews={reviews}
+        singlePark={singlePark}
+        isLoading={isLoading}
+      />
     </main>
   );
 }

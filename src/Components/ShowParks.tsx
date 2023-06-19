@@ -5,12 +5,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ParksList from "./ParksList";
 import Map from "./Map";
-import { Park } from "../types/CustomTypes";
+import { Park, TabPanelProps } from "../types/CustomTypes";
 import { LatLngTuple } from "leaflet";
 import ParksListCard from "./ParksListCard";
 import Filters from "./Filters";
-import { TabPanelProps } from "../types/CustomTypes";
-
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -39,7 +37,21 @@ function a11yProps(index: number) {
   };
 }
 
-export default function ShowParks({setQueries, parks, mapMarkers, isLoading}) {
+interface ShowParks {
+  setQueries: Function;
+  parks: Park[];
+  mapMarkers: any;
+  isLoading: boolean;
+  city: string;
+}
+
+export default function ShowParks({
+  setQueries,
+  parks,
+  mapMarkers,
+  isLoading,
+  city,
+}: ShowParks) {
   const [value, setValue] = React.useState(0);
   const [selectedParkId, setSelectedParkId] = React.useState<string | null>(
     null
@@ -58,10 +70,10 @@ export default function ShowParks({setQueries, parks, mapMarkers, isLoading}) {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Filters setQueries={setQueries} />
-      <h3>
-        {parks.length} {parks.length > 1 ? "results" : "result"}
-      </h3>
+      <Filters setQueries={setQueries} city={city} />
+      <h3>{`${parks.length} ${parks.length > 1 ? "results" : "result"} ${
+        city === "" ? "" : "in" + " " + city.match(/(?<==).+/)
+      }`}</h3>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -83,7 +95,6 @@ export default function ShowParks({setQueries, parks, mapMarkers, isLoading}) {
         />
 
         {park && <ParksListCard park={park} fullWidth={false} />}
-
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ParksList parks={parks} isLoading={isLoading} />

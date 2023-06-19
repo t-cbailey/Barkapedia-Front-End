@@ -1,11 +1,6 @@
 import ParksListCard from "./ParksListCard";
-import { Park } from "../../types/CustomTypes";
-import "../Styles/card-list.css"
-
-interface ParksListProps {
-  parks: Park[];
-  isLoading: boolean;
-}
+import { ParksListProps } from "../types/CustomTypes";
+import "../Styles/card-list.css";
 
 function ParksList({ parks, isLoading }: ParksListProps) {
   return (

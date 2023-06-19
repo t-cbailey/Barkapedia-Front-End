@@ -2,25 +2,25 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import { HomeProps } from "../types/CustomTypes";
 
-function Home({ uniqueParks, setQueries }) {
-
+function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
   const [value, setValue] = React.useState<string | null>(uniqueParks[0]);
   const [inputValue, setInputValue] = React.useState("");
-  let queryString = '';
+
   const navigate = useNavigate();
 
-  function handleSubmit(){
-    setQueries(`?city=${value}`)
+  function handleSubmit() {
+    setQueries(`?city=${value}`);
+    setCity(`?city=${value}`);
     navigate(`/parks`);
   }
 
-  console.log(queryString);
   return (
     <div>
       <br />
       <Autocomplete
-        value={value}
         onChange={(event: any, newValue: string | null) => {
           setValue(newValue);
         }}
@@ -33,7 +33,9 @@ function Home({ uniqueParks, setQueries }) {
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Choose city" />}
       />
-      <button type="submit" onClick={handleSubmit}>Submit</button>
+      <Button variant="outlined" onClick={handleSubmit}>
+        Go
+      </Button>
     </div>
   );
 }

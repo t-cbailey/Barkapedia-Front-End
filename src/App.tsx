@@ -11,15 +11,15 @@ import { LatLngTuple } from "leaflet";
 function App() {
   const [parks, setParks] = React.useState<Park[]>([]);
   const [queries, setQueries] = React.useState<string>("");
-  const parksURL = "/parks" + queries;
+  const [city, setCity] = React.useState("");
   const [mapMarkers, setMapMarkers] = React.useState<
     { position: LatLngTuple; content: string; parkId: string }[]
   >([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [queryString, setQueryString] = React.useState('');
+  const [uniqueParks, setUniqueParks] = React.useState<string[]>([]);
 
+  const parksURL = "/parks" + queries;
   React.useEffect(() => {
-    console.log(parksURL);
     server.get(parksURL).then(({ data }) => {
       setParks(data);
       setMapMarkers(
@@ -36,24 +36,31 @@ function App() {
     });
   }, [parksURL]);
 
-  const uniqueParks = ["Birmingham", "London"];
-  parks.forEach((park) => {
+  parks.forEach((park: Park) => {
     if (!uniqueParks.includes(park.address.city)) {
-      uniqueParks.push(park.address.city);
+      setUniqueParks([...uniqueParks, park.address.city]);
     }
   });
   return (
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Home uniqueParks={uniqueParks} setQueryString={setQueryString} />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              uniqueParks={uniqueParks}
+              setQueries={setQueries}
+              setCity={setCity}
+            />
+          }
+        />
         <Route
           path="/parks"
           element={
             <ShowParks
-              setQueries={setQueries} 
-              setQueryString={setQueryString}
-              queryString={queryString}
+              city={city}
+              setQueries={setQueries}
               parks={parks}
               mapMarkers={mapMarkers}
               isLoading={isLoading}

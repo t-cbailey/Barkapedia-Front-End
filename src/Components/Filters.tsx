@@ -32,7 +32,12 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-function Filters({ setQueries, setQueryString, queryString }: any) {
+interface FiltersProps {
+  setQueries: Function;
+  city: string;
+}
+
+function Filters({ setQueries, city }: FiltersProps) {
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -84,7 +89,7 @@ function Filters({ setQueries, setQueryString, queryString }: any) {
     orderParam: orderParam,
   };
 
-  // let queryString = "?city=Birmingham";
+  let queryString = `${city}`;
 
   for (const checkbox in checkboxes) {
     if (checkboxes[checkbox as keyof object] === true) {
