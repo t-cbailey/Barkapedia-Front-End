@@ -28,7 +28,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 interface ParksListCardProps {
-  parks: Park[];
+  park: Park;
   fullWidth: boolean;
 }
 

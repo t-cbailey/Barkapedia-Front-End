@@ -19,10 +19,10 @@ if (!reviews || reviews.length === 0) {
 
     return (
         <>
-              {reviews.map((review) => {
+              {reviews.map((review, index) => {
                 return (
                     
-                  <li className='card-list' key={review.review_id}>
+                  <li className='card-list' key={index}>
                     <SingleReview review={review} fullWidth={true} />
                   </li>
                 )
