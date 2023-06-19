@@ -21,7 +21,7 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
     return (
         <Card sx={{ maxWidth: fullWidth ? "100%" : 345 }}>
           <CardHeader title={review.title}
-            subheader={review.rating}
+            subheader={review.user_id}
           />
           <CardContent>
             <Typography variant="body2" color="text.secondary">
@@ -29,12 +29,7 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
+
           </CardActions>
         </Card>
       );

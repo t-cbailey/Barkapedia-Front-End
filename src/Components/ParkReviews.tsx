@@ -1,5 +1,7 @@
 import { Review } from '../types/CustomTypes';
 import SingleReview from './SingleReview';
+import '../Styles/card-list.css';
+
 
 interface ReviewProps {
     reviews: Review[];
@@ -19,7 +21,8 @@ if (!reviews || reviews.length === 0) {
         <>
               {reviews.map((review) => {
                 return (
-                  <li key={review.id}>
+                    
+                  <li className='card-list' key={review.review_id}>
                     <SingleReview review={review} fullWidth={true} />
                   </li>
                 )
