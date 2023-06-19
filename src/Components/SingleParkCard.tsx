@@ -16,6 +16,7 @@ import ParkRating from "./StarRating";
 import Map from "./Map";
 import { LatLngTuple } from "leaflet";
 import ParkReviews from "./ParkReviews";
+import "../Styles/styles.css"
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -55,6 +56,10 @@ export default function SingleParkCard({ singlePark, reviews, isLoading }: Singl
       content: singlePark.name,
     },
   ];
+
+  if (isLoading) {
+    return <h3 className="loading">Loading...</h3>;
+  }
 
   return (
     <Card sx={{ maxWidth: 3000 }}>
