@@ -21,7 +21,7 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
     return (
         <Card sx={{ maxWidth: fullWidth ? "100%" : 345 }}>
           <CardHeader title={review.title}
-            subheader={review.user_id}
+            subheader={review.username}
           />
           <CardContent>
             <Typography variant="body2" color="text.secondary">
