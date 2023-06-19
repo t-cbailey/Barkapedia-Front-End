@@ -7,10 +7,10 @@ function App() {
   return (
     <>
       <Header />
-        <Routes>
-          <Route path="/parks" element={<ShowParks />} />
-          <Route path="/parks/:park_id" element={<SinglePark />}></Route>
-        </Routes>
+      <Routes>
+        <Route path="/parks" element={<ShowParks />} />
+        <Route path="/parks/:park_id" element={<SinglePark />}></Route>
+      </Routes>
     </>
   );
 }

@@ -11,14 +11,14 @@ export interface Park {
   current_average_rating: number;
   current_review_count: number;
   features: {
-    isFree: boolean,
-    isWellLit: boolean,
-    isFreeParking: boolean,
-    isParking: boolean,
-    hasAgilityEquipment: boolean,
-    isFullyEnclosed: boolean,
-    hasDisabledAccess: boolean
-  }
+    isFree: boolean;
+    isWellLit: boolean;
+    isFreeParking: boolean;
+    isParking: boolean;
+    hasAgilityEquipment: boolean;
+    isFullyEnclosed: boolean;
+    hasDisabledAccess: boolean;
+  };
   opening_hours: {
     [key: string]: string;
   };
@@ -38,6 +38,18 @@ export interface Park {
 }
 
 export interface Review {
+  review_id: string;
+  park_id: string;
+  user_id: string;
+  rating: number;
+  title: string;
+  body: string;
+  votes: number;
+}
+
+export interface orderObj {
+  order: string;
+  orderParam: string;
     review_id: string;
     park_id: string;
     user_id: string;
