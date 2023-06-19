@@ -5,17 +5,12 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ParksList from "./ParksList";
 import Map from "./Map";
-import server from "../Api/api";
 import { Park } from "../types/CustomTypes";
 import { LatLngTuple } from "leaflet";
 import ParksListCard from "./ParksListCard";
 import Filters from "./Filters";
+import { TabPanelProps } from "../types/CustomTypes";
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -44,39 +39,14 @@ function a11yProps(index: number) {
   };
 }
 
-export default function ShowParks() {
-  const [queries, setQueries] = React.useState<string>("");
+export default function ShowParks({setQueries, parks, mapMarkers, isLoading}) {
   const [value, setValue] = React.useState(0);
-  const [parks, setParks] = React.useState<Park[]>([]);
-  const [mapMarkers, setMapMarkers] = React.useState<
-    { position: LatLngTuple; content: string; parkId: string }[]
-  >([]);
-  const [isLoading, setIsLoading] = React.useState(true);
   const [selectedParkId, setSelectedParkId] = React.useState<string | null>(
     null
   );
   const [park, setPark] = React.useState<Park | null>(null);
 
   const center: LatLngTuple = [51.507268, -0.166791];
-
-  const parksURL = "/parks" + queries;
-  React.useEffect(() => {
-    console.log(parksURL);
-    server.get(parksURL).then(({ data }) => {
-      setParks(data);
-      setMapMarkers(
-        data.map((park: Park) => ({
-          position: [
-            parseFloat(park.location.lat),
-            parseFloat(park.location.long),
-          ],
-          content: park.name,
-          parkId: park.id,
-        }))
-      );
-      setIsLoading(false);
-    });
-  }, [parksURL]);
 
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
