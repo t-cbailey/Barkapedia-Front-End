@@ -10,6 +10,7 @@ import { Park } from "../types/CustomTypes";
 import { LatLngTuple } from "leaflet";
 import ParksListCard from "./ParksListCard";
 import Filters from "./Filters";
+import "../Styles/styles.css"
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -85,6 +86,10 @@ export default function ShowParks() {
   const handleMarkerClick = (parkId: string) => {
     setSelectedParkId(parkId);
   };
+
+  if (isLoading) {
+    return <h3 className="loading">Loading...</h3>;
+  }
 
   return (
     <Box sx={{ width: "100%" }}>

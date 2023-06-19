@@ -5,13 +5,14 @@ import { Park } from "../types/CustomTypes";
 import SingleParkCard from "./SingleParkCard";
 import { Review } from "../types/CustomTypes";
 import getReviews from "../utils/getReviewsByPark.utils";
+import "../Styles/styles.css"
 
 function SinglePark() {
   const { park_id } = useParams();
   const [singlePark, setSinglePark] = useState<Park>();
   const [isLoading, setIsLoading] = useState(true);
   const [reviews, setReviews] = useState<Review[]>([])
-
+  
   useEffect(() => {
     Promise.all(
       [getSinglePark(park_id),
@@ -27,7 +28,7 @@ function SinglePark() {
   }, [park_id]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <h3 className="loading">Loading...</h3>;
   }
 
   if (!singlePark) {

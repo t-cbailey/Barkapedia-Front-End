@@ -2,11 +2,9 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import { Review } from '../types/CustomTypes';
+import '../Styles/styles.css'
 
 interface SingleReviewProps {
     review: Review;
@@ -15,7 +13,7 @@ interface SingleReviewProps {
 
 export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
     if (!review) {
-        return <p>Loading...</p>
+        return <h3 className="loading">Loading...</h3>;
     }
 
     return (
