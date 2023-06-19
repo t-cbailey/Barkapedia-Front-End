@@ -45,4 +45,5 @@ export interface Review {
     title: string;
     body: string;
     votes: number;
+    username: string;
 }
