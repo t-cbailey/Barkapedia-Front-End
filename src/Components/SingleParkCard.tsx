@@ -9,12 +9,11 @@ import Collapse from "@mui/material/Collapse";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useState } from "react";
-import { Park, Review } from "../types/CustomTypes";
 import Box from "@mui/material/Box";
+import { LatLngTuple } from "leaflet";
+import { Park, Review } from "../types/CustomTypes";
 import ParkRating from "./StarRating";
 import Map from "./Map";
-import { LatLngTuple } from "leaflet";
 import ParkReviews from "./ParkReviews";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -38,8 +37,12 @@ interface SingleParkProps {
   isLoading: boolean;
 }
 
-export default function SingleParkCard({ singlePark, reviews, isLoading }: SingleParkProps) {
-  const [expanded, setExpanded] = useState(false);
+export default function SingleParkCard({
+  singlePark,
+  reviews,
+  isLoading,
+}: SingleParkProps) {
+  const [expanded, setExpanded] = React.useState(false);
   const [parks, setParks] = React.useState<Park[]>([]);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -87,13 +90,42 @@ export default function SingleParkCard({ singlePark, reviews, isLoading }: Singl
 
             {singlePark.features.isFree && <span>Free</span>}
             <br />
-    {singlePark.features.isWellLit && <span>Well Lit <br /></span>}
-    {singlePark.features.isParking && <span>Parking<br /></span>}
-    {singlePark.features.isFreeParking && <span>Free Parking<br /></span>}
-    {singlePark.features.hasAgilityEquipment && <span>Agility Equipment<br /></span>}
-    {singlePark.features.isFullyEnclosed && <span>Is Fully Enclosed<br /></span>}
-    {singlePark.features.hasDisabledAccess && <span>Disabled Access<br /></span>}
-    <br />
+            {singlePark.features.isWellLit && (
+              <span>
+                Well Lit <br />
+              </span>
+            )}
+            {singlePark.features.isParking && (
+              <span>
+                Parking
+                <br />
+              </span>
+            )}
+            {singlePark.features.isFreeParking && (
+              <span>
+                Free Parking
+                <br />
+              </span>
+            )}
+            {singlePark.features.hasAgilityEquipment && (
+              <span>
+                Agility Equipment
+                <br />
+              </span>
+            )}
+            {singlePark.features.isFullyEnclosed && (
+              <span>
+                Is Fully Enclosed
+                <br />
+              </span>
+            )}
+            {singlePark.features.hasDisabledAccess && (
+              <span>
+                Disabled Access
+                <br />
+              </span>
+            )}
+            <br />
 
             {singlePark.address.firstLine &&
               singlePark.address.firstLine + ", "}

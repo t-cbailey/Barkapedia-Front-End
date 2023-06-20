@@ -5,10 +5,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ParksList from "./ParksList";
 import Map from "./Map";
-import { Park, TabPanelProps } from "../types/CustomTypes";
-import { LatLngTuple } from "leaflet";
 import ParksListCard from "./ParksListCard";
 import Filters from "./Filters";
+import { Park, TabPanelProps, ShowParksInterface } from "../types/CustomTypes";
+import { LatLngTuple } from "leaflet";
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -37,42 +37,31 @@ function a11yProps(index: number) {
   };
 }
 
-interface ShowParks {
-  setQueries: Function;
-  parks: Park[];
-  mapMarkers: any;
-  isLoading: boolean;
-  city: string;
-}
-
 export default function ShowParks({
   setQueries,
   parks,
   mapMarkers,
   isLoading,
   city,
-}: ShowParks) {
+}: ShowParksInterface) {
   const [value, setValue] = React.useState(0);
   const [selectedParkId, setSelectedParkId] = React.useState<string | null>(
     null
   );
   const [park, setPark] = React.useState<Park | null>(null);
-
-  const center: LatLngTuple = [51.507268, -0.166791];
-
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
   const handleMarkerClick = (parkId: string) => {
     setSelectedParkId(parkId);
   };
+  const center: LatLngTuple = [51.507268, -0.166791];
 
   return (
     <Box sx={{ width: "100%" }}>
       <Filters setQueries={setQueries} city={city} />
       <h3>{`${parks.length} ${parks.length > 1 ? "results" : "result"} ${
-        city === "" ? "" : "in" + " " + city.match(/(?<==).+/)
+        city === "" ? "" : "near" + " " + city.match(/(?<==).+/)
       }`}</h3>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs

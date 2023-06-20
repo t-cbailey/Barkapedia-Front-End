@@ -16,7 +16,7 @@ function App() {
     { position: LatLngTuple; content: string; parkId: string }[]
   >([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [uniqueParks, setUniqueParks] = React.useState<string[]>([]);
+  const [uniqueParks, setUniqueParks] = React.useState<string[]>(["Any"]);
 
   const parksURL = "/parks" + queries;
   React.useEffect(() => {

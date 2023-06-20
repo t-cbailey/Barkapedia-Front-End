@@ -111,3 +111,11 @@ export interface ParkRatingProps {
   rating: number;
   reviewCount: number;
 }
+
+export interface ShowParksInterface {
+  setQueries: Function;
+  parks: Park[];
+  mapMarkers: any;
+  isLoading: boolean;
+  city: string;
+}
