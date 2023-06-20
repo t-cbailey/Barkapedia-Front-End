@@ -2,23 +2,9 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
-import { LatLngTuple, LatLngExpression } from "leaflet";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import ParksListCard from "./ParksListCard";
-import { Park } from "../types/CustomTypes";
-
-interface MapProps {
-  center: LatLngExpression;
-  markers: {
-    position: LatLngTuple;
-    content: string;
-    parkId: string;
-  }[];
-  onMarkerClick: (parkId: string) => void;
-  selectedParkId: string | null;
-  parks: Park[];
-  isListView: boolean;
-}
+import { MapProps } from "../types/CustomTypes";
 
 export default function Map({
   center,
@@ -26,7 +12,7 @@ export default function Map({
   onMarkerClick,
   selectedParkId,
   parks,
-  isListView
+  isListView,
 }: MapProps) {
   const icon = new Icon({
     iconUrl: markerIconPng,

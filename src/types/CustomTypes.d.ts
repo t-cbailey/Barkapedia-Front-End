@@ -52,3 +52,71 @@ export interface orderObj {
   order: string;
   orderParam: string;
 }
+
+export interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+export interface MapProps {
+  center: LatLngExpression;
+  markers: {
+    position: LatLngTuple;
+    content: string;
+    parkId: string;
+  }[];
+  onMarkerClick: (parkId: string) => void;
+  selectedParkId: string | null;
+  parks: Park[];
+  isListView: boolean;
+}
+
+export interface FirebaseConfig {
+  apiKey: string;
+  authDomain: string;
+  databaseURL: string;
+  projectId: string;
+  storageBucket: string;
+  messagingSenderId: string;
+  appId: string;
+}
+
+export interface HomeProps {
+  uniqueParks: string[];
+  setQueries: Function;
+  setCity: Function;
+}
+
+export interface ReviewProps {
+  reviews: Review[];
+  isLoading: boolean;
+}
+
+export interface ParksListProps {
+  parks: Park[];
+  isLoading: boolean;
+}
+
+export interface ParksListCardProps {
+  park: Park;
+  fullWidth: boolean;
+}
+
+export interface SingleReviewProps {
+  review: Review;
+  fullWidth: boolean;
+}
+
+export interface ParkRatingProps {
+  rating: number;
+  reviewCount: number;
+}
+
+export interface ShowParksInterface {
+  setQueries: Function;
+  parks: Park[];
+  mapMarkers: any;
+  isLoading: boolean;
+  city: string;
+}
