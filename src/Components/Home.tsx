@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { HomeProps } from "../types/CustomTypes";
-import { Link } from "@mui/material";
+import { Stack, Link } from "@mui/material";
 import { useContext } from "react";
 import { LoginContext } from "../Context/loginContext";
 
@@ -20,8 +20,9 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
   const { email } = useContext(LoginContext);
 
   return (
-    <div>
-      <br />
+    <Stack
+      sx={{ justifyContent: "center", alignItems: "center", height: "75%" }}
+    >
       <Autocomplete
         onChange={(event: any, newValue: string | null) => {
           setValue(newValue === "Any" ? "" : `?city=${newValue}`);
@@ -32,14 +33,28 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
         }}
         id="city-dropdown"
         options={uniqueParks}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Choose city" />}
+        sx={{
+          width: "75%",
+          maxWidth: "700px",
+          borderRadius: "5px",
+          outline: "none"
+        }}
+        renderInput={(params) => <TextField variant="standard" {...params} label="Choose city" />}
       />
-      <Button variant="outlined" onClick={handleSubmit}>
+      <Button
+        sx={{
+          width:"75%",
+          maxWidth: "700px",
+          padding: "10px",
+          marginTop: "20px",
+        }}
+        variant="contained"
+        onClick={handleSubmit}
+      >
         Go
       </Button>
-      {!email && <Link href="signin">Sign In</Link>}
-    </div>
+         {!email && <Link href="signin">Sign In</Link>}
+    </Stack>
   );
 }
 
