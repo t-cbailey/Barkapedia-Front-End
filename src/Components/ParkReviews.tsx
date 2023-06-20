@@ -1,16 +1,13 @@
-import { Review } from "../types/CustomTypes";
+
+import { ReviewProps } from "../types/CustomTypes";
 import SingleReview from "./SingleReview";
 import "../Styles/card-list.css";
 import "../Styles/styles.css"
 
-interface ReviewProps {
-  reviews: Review[];
-  isLoading: boolean;
-}
-
 export default function ParkReviews({ reviews, isLoading }: ReviewProps) {
   if (isLoading) {
     return <h3 className="loading">Loading...</h3>;
+
   }
 
   if (!reviews || reviews.length === 0) {

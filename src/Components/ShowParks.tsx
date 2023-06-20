@@ -5,21 +5,14 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ParksList from "./ParksList";
 import Map from "./Map";
-import server from "../Api/api";
-import { Park } from "../types/CustomTypes";
-import { LatLngTuple } from "leaflet";
 import ParksListCard from "./ParksListCard";
 import Filters from "./Filters";
+import { Park, TabPanelProps, ShowParksInterface } from "../types/CustomTypes";
+import { LatLngTuple } from "leaflet";
 import "../Styles/styles.css"
 import { LoginContext } from "../Context/loginContext";
 import { useContext } from "react";
 
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -49,47 +42,25 @@ function a11yProps(index: number) {
   };
 }
 
-export default function ShowParks() {
-  const [queries, setQueries] = React.useState<string>("");
+export default function ShowParks({
+  setQueries,
+  parks,
+  mapMarkers,
+  isLoading,
+  city,
+}: ShowParksInterface) {
   const [value, setValue] = React.useState(0);
-  const [parks, setParks] = React.useState<Park[]>([]);
-  const [mapMarkers, setMapMarkers] = React.useState<
-    { position: LatLngTuple; content: string; parkId: string }[]
-  >([]);
-  const [isLoading, setIsLoading] = React.useState(true);
   const [selectedParkId, setSelectedParkId] = React.useState<string | null>(
     null
   );
   const [park, setPark] = React.useState<Park | null>(null);
-
-  const center: LatLngTuple = [51.507268, -0.166791];
-
-  const parksURL = "/parks" + queries;
-  React.useEffect(() => {
-    console.log(parksURL);
-    server.get(parksURL).then(({ data }) => {
-      setParks(data);
-      setMapMarkers(
-        data.map((park: Park) => ({
-          position: [
-            parseFloat(park.location.lat),
-            parseFloat(park.location.long),
-          ],
-          content: park.name,
-          parkId: park.id,
-        }))
-      );
-      setIsLoading(false);
-    });
-  }, [parksURL]);
-
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
   const handleMarkerClick = (parkId: string) => {
     setSelectedParkId(parkId);
   };
+  const center: LatLngTuple = [51.507268, -0.166791];
 
   if (isLoading) {
     return <h3 className="loading">Loading...</h3>;
@@ -97,10 +68,10 @@ export default function ShowParks() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Filters setQueries={setQueries} />
-      <h3>
-        {parks.length} {parks.length > 1 ? "results" : "result"}
-      </h3>
+      <Filters setQueries={setQueries} city={city} />
+      <h3>{`${parks.length} ${parks.length > 1 ? "results" : "result"} ${
+        city === "" ? "" : "near" + " " + city.match(/(?<==).+/)
+      }`}</h3>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -122,7 +93,6 @@ export default function ShowParks() {
         />
 
         {park && <ParksListCard park={park} fullWidth={false} />}
-
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ParksList parks={parks} isLoading={isLoading} />

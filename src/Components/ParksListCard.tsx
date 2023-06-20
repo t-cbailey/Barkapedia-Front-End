@@ -9,7 +9,7 @@ import Collapse from "@mui/material/Collapse";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Park } from "../../types/CustomTypes";
+import { ParksListCardProps } from "../types/CustomTypes";
 import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
 import "../Styles/card-list.css";
@@ -28,11 +28,6 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-
-interface ParksListCardProps {
-  park: Park;
-  fullWidth: boolean;
-}
 
 export default function ParksListCard({ park, fullWidth }: ParksListCardProps) {
   const [expanded, setExpanded] = React.useState(false);
