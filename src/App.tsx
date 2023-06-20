@@ -3,9 +3,13 @@ import SinglePark from "./Components/SinglePark";
 import { Routes, Route } from "react-router-dom";
 import ShowParks from "./Components/ShowParks";
 import SignIn from "./Components/SignIn";
+import { LoginContext } from "./Context/loginContext";
+import { useState } from 'react';
 
 function App() {
+  const [email, setEmail] = useState(null);
   return (
+    <LoginContext.Provider value={{ email, setEmail }}>
     <>
       <Header />
       <Routes>
@@ -14,6 +18,7 @@ function App() {
         <Route path="/login" element={<SignIn />}></Route>
       </Routes>
     </>
+    </LoginContext.Provider>
   );
 }
 

@@ -11,6 +11,9 @@ import { LatLngTuple } from "leaflet";
 import ParksListCard from "./ParksListCard";
 import Filters from "./Filters";
 import "../Styles/styles.css"
+import { LoginContext } from "../Context/loginContext";
+import { useContext } from "react";
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -20,7 +23,8 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
+  const { email } = useContext(LoginContext)
+  console.log(email)
   return (
     <div
       role="tabpanel"
