@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/parks" element={<ShowParks />} />
         <Route path="/parks/:park_id" element={<SinglePark />}></Route>
-        <Route path="/login" element={<SignIn />}></Route>
+        <Route path="/signin" element={<SignIn />}></Route>
       </Routes>
     </>
     </LoginContext.Provider>

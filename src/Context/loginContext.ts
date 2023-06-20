@@ -1,3 +1,6 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
-export const LoginContext = createContext({ email: null, setEmail: () => {} })
+export const LoginContext = createContext({
+  email: null,
+  setEmail: (email: string) => {},
+});

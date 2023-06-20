@@ -11,21 +11,72 @@ import { useNavigate } from "react-router-dom";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [clientValidation, setClientValidation] = useState("");
   const { setEmail: setLoginEmail } = useContext(LoginContext);
   const navigate = useNavigate();
+  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!emailRegex.test(email) || password.trim() === "") {
+      setClientValidation("Please provide a valid email and password");
+      return;
+    }
+
+    setButtonDisabled(true);
+
     firebaseSignIn(email, password)
       .then((result) => {
         if (result) {
           setLoginEmail(email);
           navigate("/parks");
+        } else {
+          setSubmitError("Unfortunately, we do not recognize those details ☹️");
         }
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
+  };
+
+  const handleFieldBlur = (
+    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    if (name === "email") {
+      setEmailError(!emailRegex.test(value));
+      if (!emailRegex.test(value)) {
+        setClientValidation("Please provide a valid email and password");
+      } else {
+        setClientValidation("");
+      }
+    } else if (name === "password") {
+      setPasswordError(value.trim() === "");
+      if (value.trim() === "") {
+        setClientValidation("Please provide a valid email and password");
+      } else {
+        setClientValidation("");
+      }
+    }
+  };
+
+  const handleFieldClick = () => {
+    setSubmitError("");
+    setButtonDisabled(false);
   };
 
   return (
@@ -34,7 +85,7 @@ export default function SignIn() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "cente≠",
+          alignItems: "center",
         }}
       >
         <Typography sx={{ fontSize: "2em" }}>Sign In</Typography>
@@ -48,7 +99,10 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={(event) => setEmail(event.target.value)}
+            onClick={handleFieldClick}
+            onChange={handleFieldChange}
+            onBlur={(event) => handleFieldBlur(event)}
+            error={emailError}
           ></TextField>
           <TextField
             margin="normal"
@@ -59,16 +113,50 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={(event) => setPassword(event.target.value)}
+            onClick={handleFieldClick}
+            onChange={handleFieldChange}
+            onBlur={(event) => handleFieldBlur(event)}
+            error={passwordError}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            disabled={buttonDisabled}
           >
             Sign In
           </Button>
+          {submitError && (
+            <Typography
+              variant="body2"
+              color="error"
+              sx={{
+                backgroundColor: "pink",
+                textAlign: "center",
+                mt: 2,
+                border: "solid",
+                padding: "0.5rem",
+              }}
+            >
+              {submitError}
+            </Typography>
+          )}
+          {clientValidation !== "" && (
+            <Typography
+              variant="body2"
+              color="error"
+              sx={{
+                backgroundColor: "pink",
+                textAlign: "center",
+                mt: 2,
+                border: "solid",
+                padding: "0.5rem",
+              }}
+            >
+              {clientValidation}
+            </Typography>
+          )}
         </form>
       </CardContent>
     </Card>
