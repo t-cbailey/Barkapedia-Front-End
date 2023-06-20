@@ -77,7 +77,7 @@ function Filters({ setQueries, city }: FiltersProps) {
   const [agilityEquipment, setAgilityEquipment] = useState(false);
   const [isEnclosed, setIsEnclosed] = useState(false);
   const [disabledAccess, setDisabledAccess] = useState(false);
-
+  const [activeFilters, setActiveFilters] = useState(false);
   const [checkboxes, setCheckboxes] = React.useState({
     isFree: false,
     isWellLit: false,
@@ -87,6 +87,15 @@ function Filters({ setQueries, city }: FiltersProps) {
     isFullyEnclosed: false,
     hasDisabledAccess: false,
   });
+
+  React.useEffect(() => {
+    for (const box in checkboxes) {
+      if (checkboxes[box as keyof object] === true) {
+        setActiveFilters(true);
+        break;
+      } else setActiveFilters(false);
+    }
+  }, [checkboxes]);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCheckboxes({
@@ -218,71 +227,73 @@ function Filters({ setQueries, city }: FiltersProps) {
             <ExpandMoreIcon />
           </ExpandMore>
         </CardActions>
-        <CardContent className="filter-button-wrapper">
-          {isFree && (
-            <Button
-              className="filter-button"
-              variant="outlined"
-              onClick={() => removeFilter("isFree")}
-            >
-              Free Entry&nbsp;<CancelIcon></CancelIcon>
-            </Button>
-          )}
-          {wellLit && (
-            <Button
-              className="filter-button"
-              variant="outlined"
-              onClick={() => removeFilter("wellLit")}
-            >
-              Well Lit&nbsp;<CancelIcon></CancelIcon>
-            </Button>
-          )}
-          {freeParking && (
-            <Button
-              className="filter-button"
-              variant="outlined"
-              onClick={() => removeFilter("freeParking")}
-            >
-              Free Parking&nbsp;<CancelIcon></CancelIcon>
-            </Button>
-          )}
-          {anyParking && (
-            <Button
-              className="filter-button"
-              variant="outlined"
-              onClick={() => removeFilter("anyParking")}
-            >
-              Parking&nbsp;<CancelIcon></CancelIcon>
-            </Button>
-          )}
-          {isEnclosed && (
-            <Button
-              className="filter-button"
-              variant="outlined"
-              onClick={() => removeFilter("isEnclosed")}
-            >
-              Fully Enclosed&nbsp;<CancelIcon></CancelIcon>
-            </Button>
-          )}
-          {agilityEquipment && (
-            <Button
-              className="filter-button"
-              variant="outlined"
-              onClick={() => removeFilter("agilityEquipment")}
-            >
-              Agility Equipment&nbsp;<CancelIcon></CancelIcon>
-            </Button>
-          )}
-          {disabledAccess && (
-            <Button
-              className="filter-button"
-              variant="outlined"
-              onClick={() => removeFilter("disabledAccess")}
-            >
-              Mobility Accessible&nbsp;<CancelIcon></CancelIcon>
-            </Button>
-          )}
-        </CardContent>
+        {activeFilters === true ? (
+          <CardContent className="filter-button-wrapper">
+            {isFree && (
+              <Button
+                className="filter-button"
+                variant="outlined"
+                onClick={() => removeFilter("isFree")}
+              >
+                Free Entry&nbsp;<CancelIcon></CancelIcon>
+              </Button>
+            )}
+            {wellLit && (
+              <Button
+                className="filter-button"
+                variant="outlined"
+                onClick={() => removeFilter("wellLit")}
+              >
+                Well Lit&nbsp;<CancelIcon></CancelIcon>
+              </Button>
+            )}
+            {freeParking && (
+              <Button
+                className="filter-button"
+                variant="outlined"
+                onClick={() => removeFilter("freeParking")}
+              >
+                Free Parking&nbsp;<CancelIcon></CancelIcon>
+              </Button>
+            )}
+            {anyParking && (
+              <Button
+                className="filter-button"
+                variant="outlined"
+                onClick={() => removeFilter("anyParking")}
+              >
+                Parking&nbsp;<CancelIcon></CancelIcon>
+              </Button>
+            )}
+            {isEnclosed && (
+              <Button
+                className="filter-button"
+                variant="outlined"
+                onClick={() => removeFilter("isEnclosed")}
+              >
+                Fully Enclosed&nbsp;<CancelIcon></CancelIcon>
+              </Button>
+            )}
+            {agilityEquipment && (
+              <Button
+                className="filter-button"
+                variant="outlined"
+                onClick={() => removeFilter("agilityEquipment")}
+              >
+                Agility Equipment&nbsp;<CancelIcon></CancelIcon>
+              </Button>
+            )}
+            {disabledAccess && (
+              <Button
+                className="filter-button"
+                variant="outlined"
+                onClick={() => removeFilter("disabledAccess")}
+              >
+                Mobility Accessible&nbsp;<CancelIcon></CancelIcon>
+              </Button>
+            )}
+          </CardContent>
+        ) : null}
       </div>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>

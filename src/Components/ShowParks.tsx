@@ -9,7 +9,7 @@ import ParksListCard from "./ParksListCard";
 import Filters from "./Filters";
 import { Park, TabPanelProps, ShowParksInterface } from "../types/CustomTypes";
 import { LatLngTuple } from "leaflet";
-import "../Styles/styles.css"
+import "../Styles/styles.css";
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
