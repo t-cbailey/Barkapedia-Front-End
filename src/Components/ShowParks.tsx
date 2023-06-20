@@ -9,11 +9,15 @@ import ParksListCard from "./ParksListCard";
 import Filters from "./Filters";
 import { Park, TabPanelProps, ShowParksInterface } from "../types/CustomTypes";
 import { LatLngTuple } from "leaflet";
-import "../Styles/styles.css";
+import "../Styles/styles.css"
+import { LoginContext } from "../Context/loginContext";
+import { useContext } from "react";
+
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
+  const { email } = useContext(LoginContext)
+  console.log(email)
   return (
     <div
       role="tabpanel"

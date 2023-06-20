@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { FirebaseConfig } from '../types/customTypes';
+import { FirebaseConfig } from "../types/customTypes";
 
 import {
   getAuth,
@@ -22,7 +22,7 @@ initializeApp(firebaseConfig);
 
 const auth = getAuth();
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
 }
 
@@ -41,13 +41,15 @@ if (process.env.NODE_ENV !== 'production') {
 // const password = "abc1232";
 // firebaseSignIn(email, password)
 
-export const firebaseSignIn = (email: string, password: string): void => {
-  signInWithEmailAndPassword(auth, email, password)
+export const firebaseSignIn = (email: string, password: string): Promise<boolean> => {
+  return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
       console.log(`signed in ${user.uid}`);
+      return true
     })
     .catch((error) => {
       console.log(error);
+      return false
     });
-}
+};
