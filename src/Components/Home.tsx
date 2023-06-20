@@ -10,8 +10,8 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
   const [inputValue, setInputValue] = React.useState("");
   const navigate = useNavigate();
   const handleSubmit = () => {
-    setQueries(`?city=${value}`);
-    setCity(`?city=${value}`);
+    setQueries(value);
+    setCity(value);
     navigate(`/parks`);
   };
 
@@ -20,7 +20,7 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
       <br />
       <Autocomplete
         onChange={(event: any, newValue: string | null) => {
-          setValue(newValue === "Any" ? "" : newValue);
+          setValue(newValue === "Any" ? "" : `?city=${newValue}`);
         }}
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {
