@@ -42,7 +42,7 @@ export default function Register() {
     ) {
       const updatedUser = { ...user, username, email, password };
       setUser(updatedUser);
-      postUser(user)
+      postUser(updatedUser)
       .then(() => {
         console.log(user, "in register.tsx");
         console.log("submitted");
@@ -52,7 +52,7 @@ export default function Register() {
       });
     }
   }
-
+console.log(user);
   
   useEffect(() => {
       console.log(user);
