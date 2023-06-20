@@ -7,6 +7,7 @@ import * as React from "react";
 import { Park } from "./types/CustomTypes";
 import server from "./Api/api";
 import { LatLngTuple } from "leaflet";
+import Register from "./Components/Register"
 
 function App() {
   const [parks, setParks] = React.useState<Park[]>([]);
@@ -68,6 +69,7 @@ function App() {
           }
         />
         <Route path="/parks/:park_id" element={<SinglePark />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );
