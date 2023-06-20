@@ -4,7 +4,9 @@ import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { HomeProps } from "../types/CustomTypes";
-import { Stack } from "@mui/material";
+import { Stack, Link } from "@mui/material";
+import { useContext } from "react";
+import { LoginContext } from "../Context/loginContext";
 
 function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
   const [value, setValue] = React.useState<string | null>(uniqueParks[0]);
@@ -15,6 +17,7 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
     setCity(value);
     navigate(`/parks`);
   };
+  const { email } = useContext(LoginContext);
 
   return (
     <Stack
@@ -50,6 +53,7 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
       >
         Go
       </Button>
+         {!email && <Link href="signin">Sign In</Link>}
     </Stack>
   );
 }

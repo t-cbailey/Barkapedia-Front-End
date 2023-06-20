@@ -1,7 +1,11 @@
 import Header from "./Components/Header";
+import Nav from "./Components/Nav";
 import SinglePark from "./Components/SinglePark";
 import { Routes, Route } from "react-router-dom";
 import ShowParks from "./Components/ShowParks";
+import SignIn from "./Components/SignIn";
+import { LoginContext } from "./Context/loginContext";
+import { useState } from 'react';
 import Home from "./Components/Home";
 import * as React from "react";
 import { Park } from "./types/CustomTypes";
@@ -12,6 +16,7 @@ import { Stack } from "@mui/system";
 import "./Styles/reset.css"
 
 function App() {
+  const [email, setEmail] = useState(null);
   const [parks, setParks] = React.useState<Park[]>([]);
   const [queries, setQueries] = React.useState<string>("");
   const [city, setCity] = React.useState("");
@@ -45,10 +50,12 @@ function App() {
     }
   });
   return (
-    // <>
+
+  <LoginContext.Provider value={{ email, setEmail }}>
     <Box sx={{display: "flex", marginLeft: "20px", marginRight:"20px"}}> 
       <Stack sx={{backgroundColor:"white", width: "100vw", height: "100vh"}} spacing={2} >
       <Header />
+      <Nav />
       <Routes>
         <Route
           path="/"
@@ -73,10 +80,11 @@ function App() {
           }
         />
         <Route path="/parks/:park_id" element={<SinglePark />} />
+        <Route path="/signin" element={<SignIn />}></Route>
       </Routes>
       </Stack>
       </Box>  
-    // </>
+    </LoginContext.Provider>
   );
 }
 
