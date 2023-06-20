@@ -42,9 +42,9 @@ function Nav() {
   const handleSelectPage = (event: React.MouseEvent<HTMLElement>) => {
     const pageRef = (event.target as Element).innerHTML;
     let navString = "";
-    if (pageRef === "Parks") navString = "/Parks";
+    if (pageRef === "Parks") navString = "/parks";
     if (pageRef === "Search") navString = "/";
-    if (pageRef === "Add Park") navString = "/";
+    if (pageRef === "Add Park") navString = "/newpark";
     navigate(navString);
   };
 

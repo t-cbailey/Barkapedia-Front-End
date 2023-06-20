@@ -120,3 +120,30 @@ export interface ShowParksInterface {
   isLoading: boolean;
   city: string;
 }
+
+export interface FeaturesDropDownProps {
+  setParkFeatures: Function;
+}
+
+export interface ParkAddressProps {
+  setParkAddress: Function;
+}
+
+export interface ParkSizeProps {
+  setParkSize: Function;
+  parkSize: number | string;
+}
+
+export interface OpeningTimesProps {
+  setOpeningTimes: Function;
+}
+
+export interface ParkFeatures {
+  isFree: boolean;
+  isWellLit: boolean;
+  isFreeParking: boolean;
+  isParking: boolean;
+  hasAgilityEquipment: boolean;
+  isFullyEnclosed: boolean;
+  hasDisabledAccess: boolean;
+}
