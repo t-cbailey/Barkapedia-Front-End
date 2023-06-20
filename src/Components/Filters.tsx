@@ -204,7 +204,7 @@ function Filters({ setQueries, city }: FiltersProps) {
   }
 
   return (
-    <Card sx={{ maxWidth: "100%" }}>
+    <Card sx={{ maxWidth: "100%"}}>
       <div>
         <CardActions disableSpacing>
           <CardHeader title="Filters" />
