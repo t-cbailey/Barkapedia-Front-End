@@ -89,40 +89,46 @@ export default function Register() {
             sx={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "1.5em"}}
           title="Register"
         />
-        <Typography sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '1.5em'}}>Fill in the form to create your Barkapedia account, all fields must be filled in.</Typography>
+        <Typography sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '2.5em'}}>Fill in the form to create your Barkapedia account, all fields must be filled in.</Typography>
         <CardContent sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-            <ul>
-          <li><TextField
+            
+         <TextField
             variant="standard"
             onChange={(e) => handleFormChange(e, "username")}
             label="Username"
-          ></TextField></li>
-          <li><TextField
+            sx={{marginBottom: "0.8em"}}
+          ></TextField>
+          <TextField
             variant="standard"
             label="Email"
+            sx={{marginBottom: "0.8em"}}
             onChange={(e) => handleFormChange(e, "email")}
-          ></TextField></li>
-          <li><TextField
+          ></TextField>
+          <TextField
             variant="standard"
+            sx={{marginBottom: "0.8em"}}
             label="Password"
             type="password"
             onChange={(e) => handleFormChange(e, "password")}
           ></TextField>
-          <li></li><TextField
+          <TextField
             variant="standard"
             label="Re-enter Password"
             type="password"
             onChange={(e) => handleFormChange(e, "password2")}
-          ></TextField></li>
-          <Typography sx={{margin: "1.5em", marginTop:"4em"}}>Are you a business or a customer?</Typography>
+            ></TextField>
+           
+        </CardContent>
+          <Typography sx={{marginTop:"4em", display: "flex", justifyContent: "center"}}>Are you a business or a customer?</Typography>
+          
+          <CardContent sx={{margin: "auto", paddingLeft: "0"}}>
           <FormControlLabel
-          sx={{marginRight: "0.8em"}}
-            value="start"
-            control={<Checkbox />}
-            label="Customer"
-            checked={isCustomer}
-            labelPlacement="start"
-            onClick={() => handleCheckbox("consumer")}
+          value="start"
+          control={<Checkbox />}
+          label="Customer"
+          checked={isCustomer}
+          labelPlacement="start"
+          onClick={() => handleCheckbox("consumer")}
           />
           <FormControlLabel
             value="start"
@@ -131,20 +137,21 @@ export default function Register() {
             checked={isBusiness}
             labelPlacement="start"
             onClick={() => handleCheckbox("business")}
-          />
-          </ul>
+            />
+              </CardContent>
           {submittable ? (
-            <Button
+              <CardContent sx={{margin: "auto"}}>
+              <Button
               variant="contained"
-              sx={{margin: "1.5em"}}
+              sx={{width: "20em"}}
               onClick={() =>
                 createAccount(username, email, password, password2)
               }
             >
               Create Account
             </Button>
+            </CardContent>
           ) : null}
-        </CardContent>
       </FormGroup>
     </Card>
   );
