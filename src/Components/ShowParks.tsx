@@ -9,6 +9,7 @@ import ParksListCard from "./ParksListCard";
 import Filters from "./Filters";
 import { Park, TabPanelProps, ShowParksInterface } from "../types/CustomTypes";
 import { LatLngTuple } from "leaflet";
+import "../Styles/styles.css"
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -56,6 +57,10 @@ export default function ShowParks({
     setSelectedParkId(parkId);
   };
   const center: LatLngTuple = [51.507268, -0.166791];
+
+  if (isLoading) {
+    return <h3 className="loading">Loading...</h3>;
+  }
 
   return (
     <Box sx={{ width: "100%" }}>

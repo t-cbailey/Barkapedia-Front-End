@@ -1,5 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
+import CancelIcon from "@mui/icons-material/Cancel";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -16,6 +17,8 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { orderObj } from "../types/CustomTypes";
 import Button from "@mui/material/Button";
+import { useState } from "react";
+
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -42,6 +45,37 @@ function Filters({ setQueries, city }: FiltersProps) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  function submitFilter(selectedFilter: string) {
+    if (selectedFilter === "isFree" && !isFree) setIsFree(true)
+    if (selectedFilter === "isFree" && isFree) setIsFree(false)
+
+    if (selectedFilter === "wellLit" && !wellLit) setWellLit(true)
+    if (selectedFilter === "wellLit" && wellLit) setWellLit(false)
+
+    if (selectedFilter === "freeParking" && !freeParking) setFreeParking(true)
+    if (selectedFilter === "freeParking" && freeParking) setFreeParking(false)
+
+    if (selectedFilter === "anyParking" && !anyParking) setAnyParking(true)
+    if (selectedFilter === "anyParking" && anyParking) setAnyParking(false)
+
+    if (selectedFilter === "agility" && !agilityEquipment) setAgilityEquipment(true)
+    if (selectedFilter === "agility" && agilityEquipment) setAgilityEquipment(false)
+
+    if (selectedFilter === "enclosed" && !isEnclosed) setIsEnclosed(true)
+    if (selectedFilter === "enclosed" && isEnclosed) setIsEnclosed(false)
+
+    if (selectedFilter === "access" && !disabledAccess) setDisabledAccess(true)
+    if (selectedFilter === "access" && disabledAccess) setDisabledAccess(false)
+  }
+
+  const [isFree, setIsFree] = useState(false);
+  const [wellLit, setWellLit] = useState(false);
+  const [freeParking, setFreeParking] = useState(false);
+  const [anyParking, setAnyParking] = useState(false);
+  const [agilityEquipment, setAgilityEquipment] = useState(false);
+  const [isEnclosed, setIsEnclosed] = useState(false);
+  const [disabledAccess, setDisabledAccess] = useState(false);
 
   const [checkboxes, setCheckboxes] = React.useState({
     isFree: false,
@@ -82,6 +116,13 @@ function Filters({ setQueries, city }: FiltersProps) {
       isFullyEnclosed: false,
       hasDisabledAccess: false,
     });
+    setFreeParking(false)
+    setAgilityEquipment(false)
+    setAnyParking(false)
+    setIsEnclosed(false)
+    setDisabledAccess(false)
+    setWellLit(false)
+    setIsFree(false)
   };
 
   const orderObj: orderObj = {
@@ -109,6 +150,59 @@ function Filters({ setQueries, city }: FiltersProps) {
   React.useEffect(() => {
     setQueries(queryString);
   }, [queryString]);
+
+  function removeFilter(filter: string) {
+    if (filter === "isFree") {
+      setIsFree(false);
+      setCheckboxes((prevCheckboxes) => ({
+        ...prevCheckboxes,
+        isFree: false,
+      }));
+    }
+    if (filter === "wellLit") {
+      setWellLit(false);
+      setCheckboxes((prevCheckboxes) => ({
+        ...prevCheckboxes,
+        isWellLit: false,
+      }));
+    }
+    if (filter === "freeParking") {
+      setFreeParking(false);
+      setCheckboxes((prevCheckboxes) => ({
+        ...prevCheckboxes,
+        isFreeParking: false,
+      }));
+    }
+    if (filter === "anyParking") {
+      setAnyParking(false);
+      setCheckboxes((prevCheckboxes) => ({
+        ...prevCheckboxes,
+        isParking: false,
+      }));
+    }
+    if (filter === "isEnclosed") {
+      setIsEnclosed(false);
+      setCheckboxes((prevCheckboxes) => ({
+        ...prevCheckboxes,
+        isFullyEnclosed: false,
+      }));
+    }
+    if (filter === "agilityEquipment") {
+      setAgilityEquipment(false);
+      setCheckboxes((prevCheckboxes) => ({
+        ...prevCheckboxes,
+        hasAgilityEquipment: false,
+      }));
+    }
+    if (filter === "disabledAccess") {
+      setDisabledAccess(false);
+      setCheckboxes((prevCheckboxes) => ({
+        ...prevCheckboxes,
+        hasDisabledAccess: false,
+      }));
+    }
+  }
+
   return (
     <Card sx={{ maxWidth: "100%" }}>
       <div>
@@ -123,6 +217,15 @@ function Filters({ setQueries, city }: FiltersProps) {
             <ExpandMoreIcon />
           </ExpandMore>
         </CardActions>
+        <CardContent className="filter-button-wrapper">
+        {isFree && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("isFree")}>Free Entry&nbsp;<CancelIcon></CancelIcon></Button>}
+        {wellLit && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("wellLit")}>Well Lit&nbsp;<CancelIcon></CancelIcon></Button>}
+        {freeParking && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("freeParking")}>Free Parking&nbsp;<CancelIcon></CancelIcon></Button>}
+        {anyParking && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("anyParking")}>Parking&nbsp;<CancelIcon></CancelIcon></Button>}
+        {isEnclosed && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("isEnclosed")}>Fully Enclosed&nbsp;<CancelIcon></CancelIcon></Button>}
+        {agilityEquipment && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("agilityEquipment")}>Agility Equipment&nbsp;<CancelIcon></CancelIcon></Button>}
+        {disabledAccess && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("disabledAccess")}>Mobility Accessible&nbsp;<CancelIcon></CancelIcon></Button>}
+        </CardContent>
       </div>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
@@ -133,6 +236,9 @@ function Filters({ setQueries, city }: FiltersProps) {
                   checked={checkboxes.isFree}
                   onChange={handleCheckboxChange}
                   name="isFree"
+                  onClick={() => {
+                    submitFilter("isFree");
+                  }}
                 />
               }
               label="Free Entry"
@@ -143,6 +249,9 @@ function Filters({ setQueries, city }: FiltersProps) {
                   checked={checkboxes.isWellLit}
                   onChange={handleCheckboxChange}
                   name="isWellLit"
+                  onClick={() => {
+                    submitFilter("wellLit");
+                  }}
                 />
               }
               label="Well Lit"
@@ -153,6 +262,9 @@ function Filters({ setQueries, city }: FiltersProps) {
                   checked={checkboxes.isFreeParking}
                   onChange={handleCheckboxChange}
                   name="isFreeParking"
+                  onClick={() => {
+                    submitFilter("freeParking");
+                  }}
                 />
               }
               label="Free Parking"
@@ -163,6 +275,9 @@ function Filters({ setQueries, city }: FiltersProps) {
                   checked={checkboxes.isParking}
                   onChange={handleCheckboxChange}
                   name="isParking"
+                  onClick={() => {
+                    submitFilter("anyParking");
+                  }}
                 />
               }
               label="Parking Available"
@@ -173,6 +288,9 @@ function Filters({ setQueries, city }: FiltersProps) {
                   checked={checkboxes.hasAgilityEquipment}
                   onChange={handleCheckboxChange}
                   name="hasAgilityEquipment"
+                  onClick={() => {
+                    submitFilter("agility");
+                  }}
                 />
               }
               label="Agility Equipment"
@@ -183,6 +301,9 @@ function Filters({ setQueries, city }: FiltersProps) {
                   checked={checkboxes.isFullyEnclosed}
                   onChange={handleCheckboxChange}
                   name="isFullyEnclosed"
+                  onClick={() => {
+                    submitFilter("enclosed");
+                  }}
                 />
               }
               label="Fully Enclosed"
@@ -193,6 +314,9 @@ function Filters({ setQueries, city }: FiltersProps) {
                   checked={checkboxes.hasDisabledAccess}
                   onChange={handleCheckboxChange}
                   name="hasDisabledAccess"
+                  onClick={() => {
+                    submitFilter("access");
+                  }}
                 />
               }
               label="	Mobility Accessible"
