@@ -17,8 +17,8 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { orderObj } from "../types/CustomTypes";
 import Button from "@mui/material/Button";
-import { useState, useEffect } from "react";
-import "../Styles/filter.css"
+import { useState } from "react";
+
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -111,6 +111,13 @@ function Filters({ setQueries }: any) {
       isFullyEnclosed: false,
       hasDisabledAccess: false,
     });
+    setFreeParking(false)
+    setAgilityEquipment(false)
+    setAnyParking(false)
+    setIsEnclosed(false)
+    setDisabledAccess(false)
+    setWellLit(false)
+    setIsFree(false)
   };
 
   const orderObj: orderObj = {
@@ -205,7 +212,7 @@ function Filters({ setQueries }: any) {
             <ExpandMoreIcon />
           </ExpandMore>
         </CardActions>
-        <CardContent>
+        <CardContent className="filter-button-wrapper">
         {isFree && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("isFree")}>Free Entry&nbsp;<CancelIcon></CancelIcon></Button>}
         {wellLit && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("wellLit")}>Well Lit&nbsp;<CancelIcon></CancelIcon></Button>}
         {freeParking && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("freeParking")}>Free Parking&nbsp;<CancelIcon></CancelIcon></Button>}
