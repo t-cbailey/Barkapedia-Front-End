@@ -6,6 +6,7 @@ import ParkAddress from "./ParkAddress";
 import SizeDropdown from "./SizeDropdown";
 import OpeningTimes from "./OpeningTimes";
 import { Grid } from "@mui/material";
+import AddPhoto from "./AddPhoto";
 
 function CreateNewPark() {
   const [parkName, setParkName] = React.useState("");
@@ -99,6 +100,13 @@ function CreateNewPark() {
               <SizeDropdown parkSize={parkSize} setParkSize={setParkSize} />
               <FeaturesDropdown setParkFeatures={setParkFeatures} />
               <ParkAddress setParkAddress={setParkAddress} />
+              {/* <TextField
+                id="imageUrl"
+                label="image url"
+                variant="standard"
+                onChange={handleImageUrlChange}
+              /> */}
+              <AddPhoto />
             </Box>
 
             {business === true ? (
@@ -117,12 +125,6 @@ function CreateNewPark() {
                     label="phone number"
                     variant="standard"
                     onChange={handlePhoneNumberChange}
-                  />
-                  <TextField
-                    id="imageUrl"
-                    label="image url"
-                    variant="standard"
-                    onChange={handleImageUrlChange}
                   />
                 </Box>
               </Box>
