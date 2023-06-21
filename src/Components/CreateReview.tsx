@@ -25,7 +25,7 @@ interface CreateReviewProps {
 
 export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
   const [AsDescribed, setAsDescribed] = React.useState<boolean | null>(null);
-  const [toggle, setToggle] = useState(null);
+  const [toggle, setToggle] = useState("");
   const [commentTitle, setCommentTitle] = useState("");
   const [commentBody, setCommentBody] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -50,7 +50,7 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
   }
 
   function checkFormCompletion() {
-    if (rating !== null && safety !== null && toggle !== null) {
+    if (rating !== null && safety !== null && toggle !== "") {
       setIsFormVisible(true);
     } else {
       setIsFormVisible(false);
@@ -95,7 +95,7 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
       title: commentTitle,
       body: commentBody,
     };
-
+    
     postReview(reviewData)
       .then(() => {
         navigate(`/parks/${parkId}`);
@@ -111,7 +111,7 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
     newAsDescribed: string
   ) => {
     setToggle(newAsDescribed);
-    setAsDescribed(newAsDescribed === "Yes" ? true : null);
+    setAsDescribed(newAsDescribed === "Yes" ? true : false);
   };
 
   return (
