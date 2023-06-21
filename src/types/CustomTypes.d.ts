@@ -52,9 +52,11 @@ export interface Review {
   user_id: string;
   rating: number;
   title: string;
+  safety: number;
+  AsDescribed: boolean;
   body: string;
   votes: number;
-  username;
+  username: string;
 }
 
 export interface PatchReviewResponse {
@@ -134,6 +136,16 @@ export interface ShowParksInterface {
   city: string;
 }
 
+export interface ReviewData {
+  park_id: string;
+  user_id: string;
+  rating: number;
+  safety: number;
+  AsDescribed: boolean;
+  title: string;
+  body: string;
+}
+
 export interface FeaturesDropDownProps {
   setParkFeatures: Function;
 }
@@ -205,4 +217,3 @@ export interface ReviewVoteRequest {
 }
 
 type VoteValue = 1 | -1 | null;
-
