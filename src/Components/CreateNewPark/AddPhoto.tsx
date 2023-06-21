@@ -1,8 +1,9 @@
 import AddPhotoIcon from "@mui/icons-material/AddAPhoto";
 import Fab from "@mui/material/Fab";
+import React from "react";
 
 function AddPhoto() {
-  const imageHandler = (event) => {
+  const imageHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
   };
   return (
