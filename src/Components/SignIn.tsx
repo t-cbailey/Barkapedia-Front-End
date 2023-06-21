@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { firebaseSignIn } from "../../firebaseUtils/Firebase";
 import { useState, useContext } from "react";
 import { LoginContext } from "../Context/loginContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -19,6 +19,7 @@ export default function SignIn() {
   const { setEmail: setLoginEmail } = useContext(LoginContext);
   const navigate = useNavigate();
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -129,6 +130,10 @@ export default function SignIn() {
           >
             Sign In
           </Button>
+          <Typography onClick={() => {
+            setEmailError(false)
+            navigate("/register")
+            }} sx={{display: "flex", justifyContent: "center", cursor: "pointer"}}>New to Barkepedia?&nbsp;<Link to={"/register"}>Create account</Link></Typography>
           {submitError && (
             <Typography
               variant="body2"

@@ -10,6 +10,8 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import postUser from "../utils/postUser";
 import "../Styles/register.css"
+import { useNavigate } from "react-router-dom";
+
 
 export default function Register() {
   const [username, setUsername] = useState<string>("");
@@ -21,6 +23,7 @@ export default function Register() {
   const [isCustomer, setIsCustomer] = useState<boolean>(false);
   const [isBusiness, setIsBusiness] = useState<boolean>(false);
   const [user, setUser] = useState({ type: "" });
+  const navigate = useNavigate();
 
   function handleFormChange(e: any, entry: string) {
     entry === "username" && setUsername(e.target.value);
@@ -44,8 +47,7 @@ export default function Register() {
       setUser(updatedUser);
       postUser(updatedUser)
       .then(() => {
-        console.log(user, "in register.tsx");
-        console.log("submitted");
+        navigate("/signin")
       })
       .catch((err) => {
         console.dir(err);
