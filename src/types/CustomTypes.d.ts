@@ -47,7 +47,7 @@ export interface User {
 }
 
 export interface Review {
-  review_id: string;
+  id: string;
   park_id: string;
   user_id: string;
   rating: number;
@@ -55,6 +55,10 @@ export interface Review {
   body: string;
   votes: number;
   username;
+}
+
+export interface PatchReviewResponse {
+  data: Review;
 }
 
 export interface orderObj {
@@ -164,6 +168,7 @@ export interface UserRequest {
   type: string;
 }
 
+
 interface Opening_hours {
   monday: string;
   tuesday: string;
@@ -193,3 +198,11 @@ export interface ParkSubmissionObject {
   website_url: string;
   phone_number: string;
 }
+
+export interface ReviewVoteRequest {
+  review_id: string;
+  increment: number;
+}
+
+type VoteValue = 1 | -1 | null;
+
