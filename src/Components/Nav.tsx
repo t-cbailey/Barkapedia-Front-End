@@ -20,7 +20,7 @@ function Nav() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-  const pages = ["Search", "Parks", "Add Park"];
+  const pages = ["Search", "Parks", "Add Park", "About Us"];
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -36,6 +36,7 @@ function Nav() {
     if (pageRef === "Parks") navString = "/parks";
     if (pageRef === "Search") navString = "/";
     if (pageRef === "Add Park") navString = "/newpark";
+    if (pageRef === "About Us") navString = "/about";
     navigate(navString);
   };
 
