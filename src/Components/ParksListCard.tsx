@@ -40,7 +40,7 @@ export default function ParksListCard({ park, fullWidth }: ParksListCardProps) {
   }
 
   return (
-    <Card sx={{ maxWidth: fullWidth ? "100%" : 345 }}>
+    <Card sx={{ maxWidth: "850px", margin:"0 auto" }}>
       <Link className="card-text" key={park.id} to={park.id}>
         <CardHeader title={park.name} />
         <CardContent>

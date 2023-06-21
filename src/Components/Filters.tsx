@@ -19,7 +19,6 @@ import { orderObj } from "../types/CustomTypes";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 
-
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
@@ -47,26 +46,28 @@ function Filters({ setQueries, city }: FiltersProps) {
   };
 
   function submitFilter(selectedFilter: string) {
-    if (selectedFilter === "isFree" && !isFree) setIsFree(true)
-    if (selectedFilter === "isFree" && isFree) setIsFree(false)
+    if (selectedFilter === "isFree" && !isFree) setIsFree(true);
+    if (selectedFilter === "isFree" && isFree) setIsFree(false);
 
-    if (selectedFilter === "wellLit" && !wellLit) setWellLit(true)
-    if (selectedFilter === "wellLit" && wellLit) setWellLit(false)
+    if (selectedFilter === "wellLit" && !wellLit) setWellLit(true);
+    if (selectedFilter === "wellLit" && wellLit) setWellLit(false);
 
-    if (selectedFilter === "freeParking" && !freeParking) setFreeParking(true)
-    if (selectedFilter === "freeParking" && freeParking) setFreeParking(false)
+    if (selectedFilter === "freeParking" && !freeParking) setFreeParking(true);
+    if (selectedFilter === "freeParking" && freeParking) setFreeParking(false);
 
-    if (selectedFilter === "anyParking" && !anyParking) setAnyParking(true)
-    if (selectedFilter === "anyParking" && anyParking) setAnyParking(false)
+    if (selectedFilter === "anyParking" && !anyParking) setAnyParking(true);
+    if (selectedFilter === "anyParking" && anyParking) setAnyParking(false);
 
-    if (selectedFilter === "agility" && !agilityEquipment) setAgilityEquipment(true)
-    if (selectedFilter === "agility" && agilityEquipment) setAgilityEquipment(false)
+    if (selectedFilter === "agility" && !agilityEquipment)
+      setAgilityEquipment(true);
+    if (selectedFilter === "agility" && agilityEquipment)
+      setAgilityEquipment(false);
 
-    if (selectedFilter === "enclosed" && !isEnclosed) setIsEnclosed(true)
-    if (selectedFilter === "enclosed" && isEnclosed) setIsEnclosed(false)
+    if (selectedFilter === "enclosed" && !isEnclosed) setIsEnclosed(true);
+    if (selectedFilter === "enclosed" && isEnclosed) setIsEnclosed(false);
 
-    if (selectedFilter === "access" && !disabledAccess) setDisabledAccess(true)
-    if (selectedFilter === "access" && disabledAccess) setDisabledAccess(false)
+    if (selectedFilter === "access" && !disabledAccess) setDisabledAccess(true);
+    if (selectedFilter === "access" && disabledAccess) setDisabledAccess(false);
   }
 
   const [isFree, setIsFree] = useState(false);
@@ -116,13 +117,13 @@ function Filters({ setQueries, city }: FiltersProps) {
       isFullyEnclosed: false,
       hasDisabledAccess: false,
     });
-    setFreeParking(false)
-    setAgilityEquipment(false)
-    setAnyParking(false)
-    setIsEnclosed(false)
-    setDisabledAccess(false)
-    setWellLit(false)
-    setIsFree(false)
+    setFreeParking(false);
+    setAgilityEquipment(false);
+    setAnyParking(false);
+    setIsEnclosed(false);
+    setDisabledAccess(false);
+    setWellLit(false);
+    setIsFree(false);
   };
 
   const orderObj: orderObj = {
@@ -204,7 +205,7 @@ function Filters({ setQueries, city }: FiltersProps) {
   }
 
   return (
-    <Card sx={{ maxWidth: "100%" }}>
+    <Card sx={{ maxWidth: "100%"}}>
       <div>
         <CardActions disableSpacing>
           <CardHeader title="Filters" />
@@ -218,13 +219,69 @@ function Filters({ setQueries, city }: FiltersProps) {
           </ExpandMore>
         </CardActions>
         <CardContent className="filter-button-wrapper">
-        {isFree && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("isFree")}>Free Entry&nbsp;<CancelIcon></CancelIcon></Button>}
-        {wellLit && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("wellLit")}>Well Lit&nbsp;<CancelIcon></CancelIcon></Button>}
-        {freeParking && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("freeParking")}>Free Parking&nbsp;<CancelIcon></CancelIcon></Button>}
-        {anyParking && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("anyParking")}>Parking&nbsp;<CancelIcon></CancelIcon></Button>}
-        {isEnclosed && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("isEnclosed")}>Fully Enclosed&nbsp;<CancelIcon></CancelIcon></Button>}
-        {agilityEquipment && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("agilityEquipment")}>Agility Equipment&nbsp;<CancelIcon></CancelIcon></Button>}
-        {disabledAccess && <Button className="filter-button" variant="outlined" onClick={() => removeFilter("disabledAccess")}>Mobility Accessible&nbsp;<CancelIcon></CancelIcon></Button>}
+          {isFree && (
+            <Button
+              className="filter-button"
+              variant="outlined"
+              onClick={() => removeFilter("isFree")}
+            >
+              Free Entry&nbsp;<CancelIcon></CancelIcon>
+            </Button>
+          )}
+          {wellLit && (
+            <Button
+              className="filter-button"
+              variant="outlined"
+              onClick={() => removeFilter("wellLit")}
+            >
+              Well Lit&nbsp;<CancelIcon></CancelIcon>
+            </Button>
+          )}
+          {freeParking && (
+            <Button
+              className="filter-button"
+              variant="outlined"
+              onClick={() => removeFilter("freeParking")}
+            >
+              Free Parking&nbsp;<CancelIcon></CancelIcon>
+            </Button>
+          )}
+          {anyParking && (
+            <Button
+              className="filter-button"
+              variant="outlined"
+              onClick={() => removeFilter("anyParking")}
+            >
+              Parking&nbsp;<CancelIcon></CancelIcon>
+            </Button>
+          )}
+          {isEnclosed && (
+            <Button
+              className="filter-button"
+              variant="outlined"
+              onClick={() => removeFilter("isEnclosed")}
+            >
+              Fully Enclosed&nbsp;<CancelIcon></CancelIcon>
+            </Button>
+          )}
+          {agilityEquipment && (
+            <Button
+              className="filter-button"
+              variant="outlined"
+              onClick={() => removeFilter("agilityEquipment")}
+            >
+              Agility Equipment&nbsp;<CancelIcon></CancelIcon>
+            </Button>
+          )}
+          {disabledAccess && (
+            <Button
+              className="filter-button"
+              variant="outlined"
+              onClick={() => removeFilter("disabledAccess")}
+            >
+              Mobility Accessible&nbsp;<CancelIcon></CancelIcon>
+            </Button>
+          )}
         </CardContent>
       </div>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -324,9 +381,7 @@ function Filters({ setQueries, city }: FiltersProps) {
 
             <div>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id="demo-simple-select-helper-label">
-                  Sort By
-                </InputLabel>
+                <InputLabel id="Sort-By">Sort By</InputLabel>
                 <Select
                   labelId="sortByParam"
                   id="sortByParam"
@@ -346,9 +401,7 @@ function Filters({ setQueries, city }: FiltersProps) {
               </FormControl>
               {orderParam !== "" ? (
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="demo-simple-select-helper-label">
-                    Order
-                  </InputLabel>
+                  <InputLabel id="Order_by">Order</InputLabel>
                   <Select
                     labelId="sortBy"
                     id="sortBy"
