@@ -37,6 +37,15 @@ export interface Park {
   phone_number: string;
 }
 
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  type: string;
+  isVerified: boolean;
+  reviewUpvotes: number;
+}
+
 export interface Review {
   review_id: string;
   park_id: string;
