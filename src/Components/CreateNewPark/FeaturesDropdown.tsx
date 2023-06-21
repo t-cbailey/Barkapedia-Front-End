@@ -74,27 +74,25 @@ function FeaturesDropdown({ setParkFeatures }: FeaturesDropDownProps) {
   };
 
   return (
-    <div>
-      <FormControl variant="standard" sx={{ m: 2, width: 1 / 1 }}>
-        <InputLabel id="featuresCheckbox">features</InputLabel>
-        <Select
-          labelId="featuresCheckbox"
-          id="featuresCheckbox"
-          multiple
-          value={selectedFeatures}
-          onChange={handleChange}
-          renderValue={(selected) => selected.join(", ")}
-          MenuProps={MenuProps}
-        >
-          {features.map((feature) => (
-            <MenuItem key={feature} value={feature}>
-              <Checkbox checked={selectedFeatures.indexOf(feature) > -1} />
-              <ListItemText primary={feature} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
+    <FormControl variant="standard" sx={{ m: 2, width: "100%" }}>
+      <InputLabel id="featuresCheckbox">features</InputLabel>
+      <Select
+        labelId="featuresCheckbox"
+        id="featuresCheckbox"
+        multiple
+        value={selectedFeatures}
+        onChange={handleChange}
+        renderValue={(selected) => selected.join(", ")}
+        MenuProps={MenuProps}
+      >
+        {features.map((feature) => (
+          <MenuItem key={feature} value={feature}>
+            <Checkbox checked={selectedFeatures.indexOf(feature) > -1} />
+            <ListItemText primary={feature} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }
 
