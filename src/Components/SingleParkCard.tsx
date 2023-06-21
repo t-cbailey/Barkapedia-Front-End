@@ -136,7 +136,7 @@ export default function SingleParkCard({
               </Button>
             )}
             </Box>
-
+            <Box>
             {singlePark.address.firstLine &&
               singlePark.address.firstLine + ", "}
             {singlePark.address.secondLine &&
@@ -231,7 +231,7 @@ export default function SingleParkCard({
                 </a>
               </span>
             </li>
-          </Typography>
+          </Box>
           {type === "Consumer" && (
             <Link to={`/parks/${park_id}/post-review`}>Post Review</Link>
           )}
