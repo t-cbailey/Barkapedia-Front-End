@@ -49,7 +49,7 @@ export default function ParksListCard({ park, fullWidth }: ParksListCardProps) {
             reviewCount={park.current_review_count}
           />
         </CardContent>
-        <CardMedia
+        <CardMedia sx={{height:"50%", width:"100%"}}
           component="img"
           height="194"
           image={park.image_url}

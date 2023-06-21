@@ -4,9 +4,10 @@ import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { HomeProps } from "../types/CustomTypes";
-import { Stack, Link } from "@mui/material";
-import { useContext } from "react";
+import { Stack} from "@mui/material";
+import { useContext,useState } from "react";
 import { LoginContext } from "../Context/loginContext";
+
 
 function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
   const [value, setValue] = React.useState<string | null>(uniqueParks[0]);
@@ -19,6 +20,8 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
   };
   const { email } = useContext(LoginContext);
 
+  const [isComplete, setIsComplete] = useState(false);
+
   return (
     <Stack
       sx={{ justifyContent: "center", alignItems: "center", height: "75%" }}
@@ -26,6 +29,7 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
       <Autocomplete
         onChange={(event: any, newValue: string | null) => {
           setValue(newValue === "Any" ? "" : `?city=${newValue}`);
+          setIsComplete(true);
         }}
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {
@@ -50,10 +54,10 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
         }}
         variant="contained"
         onClick={handleSubmit}
+        disabled={!isComplete}
       >
         Go
       </Button>
-         {!email && <Link href="signin">Sign In</Link>}
     </Stack>
   );
 }

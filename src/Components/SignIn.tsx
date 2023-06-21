@@ -80,7 +80,7 @@ export default function SignIn() {
   };
 
   return (
-    <Card sx={{ width: "70%", margin: "auto", marginTop: "100px" }}>
+    <Card sx={{width: "100%", height: "100%"}}>
       <CardContent
         sx={{
           display: "flex",
@@ -122,7 +122,9 @@ export default function SignIn() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2,
+            padding: "10px",
+            marginTop: "40px" }}
             disabled={buttonDisabled}
           >
             Sign In

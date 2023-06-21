@@ -77,6 +77,7 @@ export default function SingleParkCard({
         />
       </CardContent>
       <CardMedia
+      sx={{height:"50%", width:"100%", maxWidth:'750px', padding:"0 15px"}}
         component="img"
         height="194"
         image={singlePark.image_url}

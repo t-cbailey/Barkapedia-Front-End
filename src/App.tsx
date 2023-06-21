@@ -11,7 +11,7 @@ import * as React from "react";
 import { Park } from "./types/CustomTypes";
 import server from "./Api/api";
 import { LatLngTuple } from "leaflet";
-import Register from "./Components/Register
+import Register from "./Components/Register"
 import Box from '@mui/material/Box';
 import { Stack } from "@mui/system";
 import "./Styles/reset.css"
@@ -53,9 +53,8 @@ function App() {
   return (
 
   <LoginContext.Provider value={{ email, setEmail }}>
-    <Box sx={{display: "flex", marginLeft: "20px", marginRight:"20px"}}> 
+    <Box sx={{display: "flex", marginLeft: "20px", marginRight:"20px", fontFamily:"Helvetica"}}> 
       <Stack sx={{backgroundColor:"white", width: "100vw", height: "100vh"}} spacing={2} >
-      <Header />
       <Nav />
       <Routes>
         <Route
