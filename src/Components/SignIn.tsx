@@ -34,7 +34,7 @@ export default function SignIn() {
       .then((result) => {
         if (result) {
           setLoginEmail(email);
-          navigate("/parks");
+          navigate("/");
         } else {
           setSubmitError("Unfortunately, we do not recognize those details ☹️");
         }

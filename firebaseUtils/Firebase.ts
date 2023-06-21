@@ -1,10 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { FirebaseConfig } from "../types/customTypes";
+import { FirebaseConfig } from "../src/types/CustomTypes";
 
 import {
   getAuth,
   signInWithEmailAndPassword,
   connectAuthEmulator,
+  signOut
 } from "firebase/auth";
 
 const firebaseConfig: FirebaseConfig = {
@@ -26,21 +27,6 @@ if (process.env.NODE_ENV !== "production") {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
 }
 
-//   To get the below to work, make sure that you have the firebase emulator running and listen.ts running
-// From there, go a POST to http://localhost:9191/api/users/ with the below ...
-// {
-//   "email": "joe@example.com",
-//   "username": "JoeB",
-//   "password": "abc1232",
-//   "type": "consumer"
-// }
-// ... from after this, the auth error should change to be "signed in user_11"
-
-// import { firebaseSignIn } from "utils/Firebase";
-// const email = "joe@example.com";
-// const password = "abc1232";
-// firebaseSignIn(email, password)
-
 export const firebaseSignIn = (email: string, password: string): Promise<boolean> => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -53,3 +39,41 @@ export const firebaseSignIn = (email: string, password: string): Promise<boolean
       return false
     });
 };
+
+export const firebaseSignOut = (): Promise<void> => {
+  return signOut(auth).then(() => {
+    console.log(`signed out`);
+  }).catch((error) => {
+    console.log(error);
+  });
+}
+
+// Example usage
+// const auth = getAuth();
+// firebaseSignIn("test@example.com", "password1234")
+//   .then((result) => {
+//     if (result) {
+//       console.log("Sign-in successful");
+//       // Check if the current user object is not null
+//       if (auth.currentUser) {
+//         console.log("Current user before sign-out:", auth.currentUser.uid);
+//         // Sign out the user
+//         firebaseSignOut().then(() => {
+//           console.log("Sign-out successful");
+//           // Check if the current user object is null
+//           if (!auth.currentUser) {
+//             console.log("Current user after sign-out: null");
+//           } else {
+//             console.log("Current user after sign-out:", auth.currentUser.uid);
+//           }
+//         });
+//       } else {
+//         console.log("Current user before sign-out: null");
+//       }
+//     } else {
+//       console.log("Sign-in failed");
+//     }
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });

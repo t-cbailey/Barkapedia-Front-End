@@ -37,6 +37,15 @@ export interface Park {
   phone_number: string;
 }
 
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  type: string;
+  isVerified: boolean;
+  reviewUpvotes: number;
+}
+
 export interface Review {
   review_id: string;
   park_id: string;
@@ -121,6 +130,7 @@ export interface ShowParksInterface {
   city: string;
 }
 
+
 export interface FeaturesDropDownProps {
   setParkFeatures: Function;
 }
@@ -147,3 +157,10 @@ export interface ParkFeatures {
   isFullyEnclosed: boolean;
   hasDisabledAccess: boolean;
 }
+export interface UserRequest {
+  email: string;
+  username: string;
+  password: string;
+  type: string;
+}
+
