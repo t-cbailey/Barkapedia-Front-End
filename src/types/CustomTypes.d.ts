@@ -37,6 +37,15 @@ export interface Park {
   phone_number: string;
 }
 
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  type: string;
+  isVerified: boolean;
+  reviewUpvotes: number;
+}
+
 export interface Review {
   id: string;
   park_id: string;
@@ -48,6 +57,10 @@ export interface Review {
   body: string;
   votes: number;
   username: string;
+}
+
+export interface PatchReviewResponse {
+  data: Review;
 }
 
 export interface orderObj {
@@ -132,3 +145,75 @@ export interface ReviewData {
   title: string;
   body: string;
 }
+
+export interface FeaturesDropDownProps {
+  setParkFeatures: Function;
+}
+
+export interface ParkAddressProps {
+  setParkAddress: Function;
+  regex: RegExp;
+}
+
+export interface ParkSizeProps {
+  setParkSize: Function;
+  parkSize: number | string;
+}
+
+export interface OpeningTimesProps {
+  setOpeningTimes: Function;
+}
+
+export interface ParkFeatures {
+  isFree: boolean;
+  isWellLit: boolean;
+  isFreeParking: boolean;
+  isParking: boolean;
+  hasAgilityEquipment: boolean;
+  isFullyEnclosed: boolean;
+  hasDisabledAccess: boolean;
+}
+export interface UserRequest {
+  email: string;
+  username: string;
+  password: string;
+  type: string;
+}
+
+
+interface Opening_hours {
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  saturday: string;
+  sunday: string;
+}
+
+interface Address {
+  firstLine: string;
+  secondLine: string;
+  postCode: string;
+  city: string;
+}
+
+export interface ParkSubmissionObject {
+  user_id: string;
+  name: string;
+  desc: string;
+  size: number;
+  features: ParkFeatures;
+  opening_hours: Opening_hours;
+  address: Address;
+  image_url: string;
+  website_url: string;
+  phone_number: string;
+}
+
+export interface ReviewVoteRequest {
+  review_id: string;
+  increment: number;
+}
+
+type VoteValue = 1 | -1 | null;

@@ -66,11 +66,11 @@ export default function ShowParks({
   }
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%"}}>
       <Filters setQueries={setQueries} city={city} />
-      <h3>{`${parks.length} ${parks.length > 1 ? "results" : "result"} ${
+      <Typography sx={{margin:"10px", textAlign:"right"}}>{`${parks.length} ${parks.length > 1 ? "results" : "result"} ${
         city === "" ? "" : "near" + " " + city.match(/(?<==).+/)
-      }`}</h3>
+      }`}</Typography>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -90,7 +90,6 @@ export default function ShowParks({
           parks={parks}
           isListView={true}
         />
-
         {park && <ParksListCard park={park} fullWidth={false} />}
       </TabPanel>
       <TabPanel value={value} index={1}>

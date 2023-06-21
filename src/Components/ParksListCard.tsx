@@ -40,7 +40,7 @@ export default function ParksListCard({ park, fullWidth }: ParksListCardProps) {
   }
 
   return (
-    <Card sx={{ maxWidth: fullWidth ? "100%" : 345 }}>
+    <Card sx={{ maxWidth: "850px", margin:"0 auto" }}>
       <Link className="card-text" key={park.id} to={park.id}>
         <CardHeader title={park.name} />
         <CardContent>
@@ -49,7 +49,7 @@ export default function ParksListCard({ park, fullWidth }: ParksListCardProps) {
             reviewCount={park.current_review_count}
           />
         </CardContent>
-        <CardMedia
+        <CardMedia sx={{height:"50%", width:"100%"}}
           component="img"
           height="194"
           image={park.image_url}

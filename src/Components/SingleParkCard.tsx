@@ -19,6 +19,7 @@ import "../Styles/styles.css";
 import { Link, useParams } from "react-router-dom";
 import { LoginContext } from "../Context/loginContext";
 import { useContext } from "react";
+import { Button } from "@mui/material";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -68,7 +69,9 @@ export default function SingleParkCard({
   }
 
   return (
-    <Card sx={{ maxWidth: 3000 }}>
+    <Card
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <CardHeader title={singlePark.name} subheader={singlePark.address.city} />
       <CardContent>
         <ParkRating
@@ -77,6 +80,7 @@ export default function SingleParkCard({
         />
       </CardContent>
       <CardMedia
+      sx={{height:"50%", width:"100%", maxWidth:'750px', padding:"0 15px"}}
         component="img"
         height="194"
         image={singlePark.image_url}
@@ -89,51 +93,50 @@ export default function SingleParkCard({
           parks={parks}
           isListView={false}
         />
-        <Typography variant="body2" color="text.secondary">
+        <Typography sx={{marginTop:"20px"}} variant="body2" color="text.secondary">
           {singlePark.desc}
         </Typography>
         <Box>
           <Typography variant="body2" color="text.secondary">
-            <br />
-
-            {singlePark.features.isFree && <span>Free</span>}
+            <Box sx={{display:"flex", justifyContent:"space-evenly", margin:"20px 0"}}>
+            {singlePark.features.isFree && <Button className="filter-button" variant="outlined">
+                Free
+              </Button>}
             <br />
             {singlePark.features.isWellLit && (
-              <span>
-                Well Lit <br />
-              </span>
+              <Button className="filter-button" variant="outlined">
+                Well Lit
+              </Button>
             )}
+
             {singlePark.features.isParking && (
-              <span>
+              <Button className="filter-button" variant="outlined">
                 Parking
-                <br />
-              </span>
+              </Button>
             )}
             {singlePark.features.isFreeParking && (
-              <span>
+              <Button className="filter-button" variant="outlined">
                 Free Parking
-                <br />
-              </span>
+              </Button>
             )}
+
             {singlePark.features.hasAgilityEquipment && (
-              <span>
+              <Button className="filter-button" variant="outlined">
                 Agility Equipment
-                <br />
-              </span>
+              </Button>
             )}
+
             {singlePark.features.isFullyEnclosed && (
-              <span>
-                Is Fully Enclosed
-                <br />
-              </span>
+              <Button className="filter-button" variant="outlined">
+                Fully Enclosed
+              </Button>
             )}
             {singlePark.features.hasDisabledAccess && (
-              <span>
+              <Button className="filter-button" variant="outlined">
                 Disabled Access
-                <br />
-              </span>
+              </Button>
             )}
-            <br />
+            </Box>
 
             {singlePark.address.firstLine &&
               singlePark.address.firstLine + ", "}
@@ -143,31 +146,73 @@ export default function SingleParkCard({
             {singlePark.address.city && singlePark.address.city}
             <br />
             <br />
-            <li style={{ display: "flex", justifyContent: "space-between" }}>
+            <li
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0 30%",
+              }}
+            >
               <span>{`Monday:`}</span>
               <span>{singlePark.opening_hours.monday}</span>
             </li>
-            <li style={{ display: "flex", justifyContent: "space-between" }}>
+            <li
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0 30%",
+              }}
+            >
               <span>{`Tuesday:`}</span>
               <span>{singlePark.opening_hours.tuesday}</span>
             </li>
-            <li style={{ display: "flex", justifyContent: "space-between" }}>
+            <li
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0 30%",
+              }}
+            >
               <span>{`Wednesday:`}</span>
               <span>{singlePark.opening_hours.wednesday}</span>
             </li>
-            <li style={{ display: "flex", justifyContent: "space-between" }}>
+            <li
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0 30%",
+              }}
+            >
               <span>{`Thursday:`}</span>
               <span>{singlePark.opening_hours.thursday}</span>
             </li>
-            <li style={{ display: "flex", justifyContent: "space-between" }}>
+            <li
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0 30%",
+              }}
+            >
               <span>{`Friday:`}</span>
               <span>{singlePark.opening_hours.friday}</span>
             </li>
-            <li style={{ display: "flex", justifyContent: "space-between" }}>
+            <li
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0 30%",
+              }}
+            >
               <span>{`Saturday:`}</span>
               <span>{singlePark.opening_hours.saturday}</span>
             </li>
-            <li style={{ display: "flex", justifyContent: "space-between" }}>
+            <li
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0 30%",
+              }}
+            >
               <span>{`Sunday:`}</span>
               <span>{singlePark.opening_hours.sunday}</span>
             </li>
@@ -175,7 +220,7 @@ export default function SingleParkCard({
               style={{
                 display: "flex",
                 justifyContent: "space-around",
-                paddingRight: "40px",
+                margin: "20px 0",
               }}
             >
               <span>

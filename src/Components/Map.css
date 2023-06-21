@@ -1,4 +1,6 @@
 .map {
-    height: 50vh;
-    width: 93vw;
+  height: 50vh;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }

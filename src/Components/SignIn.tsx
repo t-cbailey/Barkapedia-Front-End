@@ -6,8 +6,8 @@ import Button from "@mui/material/Button";
 import { firebaseSignIn } from "../../firebaseUtils/Firebase";
 import { useState, useContext } from "react";
 import { LoginContext } from "../Context/loginContext";
-import { useNavigate } from "react-router-dom";
 import getUserById from "../utils/getUserById.utils";
+import { useNavigate, Link } from "react-router-dom";
 
 interface SignInProps {
   setId: (id: string | null) => void;
@@ -25,6 +25,7 @@ export default function SignIn({ setId }: SignInProps) {
     useContext(LoginContext);
   const navigate = useNavigate();
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -91,7 +92,7 @@ export default function SignIn({ setId }: SignInProps) {
   };
 
   return (
-    <Card sx={{ width: "70%", margin: "auto", marginTop: "100px" }}>
+    <Card sx={{width: "100%", height: "100%"}}>
       <CardContent
         sx={{
           display: "flex",
@@ -133,11 +134,17 @@ export default function SignIn({ setId }: SignInProps) {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2,
+            padding: "10px",
+            marginTop: "40px" }}
             disabled={buttonDisabled}
           >
             Sign In
           </Button>
+          <Typography onClick={() => {
+            setEmailError(false)
+            navigate("/register")
+            }} sx={{display: "flex", justifyContent: "center", cursor: "pointer"}}>New to Barkepedia?&nbsp;<Link to={"/register"}>Create account</Link></Typography>
           {submitError && (
             <Typography
               variant="body2"
