@@ -12,7 +12,7 @@ import { Park } from "./types/CustomTypes";
 import server from "./Api/api";
 import { LatLngTuple } from "leaflet";
 import CreateNewPark from "./Components/CreateNewPark/CreateNewPark";
-import Register from "./Components/Register
+import Register from "./Components/Register";
 import Box from '@mui/material/Box';
 import { Stack } from "@mui/system";
 import "./Styles/reset.css"
