@@ -6,9 +6,14 @@ import Button from "@mui/material/Button";
 import { firebaseSignIn } from "../../firebaseUtils/Firebase";
 import { useState, useContext } from "react";
 import { LoginContext } from "../Context/loginContext";
+import getUserById from "../utils/getUserById.utils";
 import { useNavigate, Link } from "react-router-dom";
 
-export default function SignIn() {
+interface SignInProps {
+  setId: (id: string | null) => void;
+}
+
+export default function SignIn({ setId }: SignInProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -16,7 +21,8 @@ export default function SignIn() {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [clientValidation, setClientValidation] = useState("");
-  const { setEmail: setLoginEmail } = useContext(LoginContext);
+  const { setEmail: setLoginEmail, setType: setLoginType } =
+    useContext(LoginContext);
   const navigate = useNavigate();
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -32,10 +38,15 @@ export default function SignIn() {
     setButtonDisabled(true);
 
     firebaseSignIn(email, password)
-      .then((result) => {
-        if (result) {
-          setLoginEmail(email);
-          navigate("/");
+      .then((userId) => {
+        if (userId) {
+          getUserById(userId).then((result) => {
+            const user = result.data;
+            setLoginEmail(email);
+            setId(userId);
+            setLoginType(user.type);
+            navigate("/");
+          });
         } else {
           setSubmitError("Unfortunately, we do not recognize those details ☹️");
         }

@@ -11,16 +11,18 @@ import * as React from "react";
 import { Park } from "./types/CustomTypes";
 import server from "./Api/api";
 import { LatLngTuple } from "leaflet";
+import PostReview from "./Components/PostReview";
 import Register from "./Components/Register"
 import Box from '@mui/material/Box';
 import CreateNewPark from "./Components/CreateNewPark/CreateNewPark";
-
 import { Stack } from "@mui/system";
 import "./Styles/reset.css";
 
 function App() {
   const [email, setEmail] = useState(null);
   const [parks, setParks] = React.useState<Park[]>([]);
+  const [id, setId] = useState(null);
+  const [type, setType] = useState(null);
   const [queries, setQueries] = React.useState<string>("");
   const [city, setCity] = React.useState("");
   const [mapMarkers, setMapMarkers] = React.useState<
@@ -53,9 +55,7 @@ function App() {
     }
   });
   return (
-
-
-  <LoginContext.Provider value={{ email, setEmail }}>
+  <LoginContext.Provider value={{ email, id, type, setEmail, setId, setType }}>
     <Box sx={{display: "flex", marginLeft: "20px", marginRight:"20px", fontFamily:"Helvetica"}}> 
       <Stack sx={{backgroundColor:"white", width: "100vw", height: "100vh"}} spacing={2} >
       <Nav />
@@ -85,6 +85,8 @@ function App() {
             <Route path="/newpark" element={<CreateNewPark />} />
             <Route path="/register" element={<Register />} />
             <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/parks/:park_id/post-review" element={<PostReview />}
+          ></Route>
           </Routes>
         </Stack>
       </Box>

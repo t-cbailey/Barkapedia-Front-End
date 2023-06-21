@@ -27,16 +27,16 @@ if (process.env.NODE_ENV !== "production") {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
 }
 
-export const firebaseSignIn = (email: string, password: string): Promise<boolean> => {
+export const firebaseSignIn = (email: string, password: string): Promise<string | null> => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(`signed in ${user.uid}`);
-      return true
+      console.log(`signed in ${user.uid}`)
+      return user.uid
     })
     .catch((error) => {
       console.log(error);
-      return false
+      return null
     });
 };
 
