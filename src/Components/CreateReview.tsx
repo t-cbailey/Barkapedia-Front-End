@@ -136,49 +136,68 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
         >
           <form onSubmit={handleSubmit}>
             <Typography>How was this park? *</Typography>
-            <MdSentimentVeryDissatisfied
-              onClick={() => handleRatingClick(1)}
-              className={`icon${rating === 1 ? 1 : "default"} icon-large`}
-            />
-            <MdSentimentDissatisfied
-              onClick={() => handleRatingClick(2)}
-              className={`icon${rating === 2 ? 2 : "default"} icon-large`}
-            />
-            <MdSentimentNeutral
-              onClick={() => handleRatingClick(3)}
-              className={`icon${rating === 3 ? 3 : "default"} icon-large`}
-            />
-            <MdSentimentSatisfied
-              onClick={() => handleRatingClick(4)}
-              className={`icon${rating === 4 ? 4 : "default"} icon-large`}
-            />
-            <MdSentimentVerySatisfied
-              onClick={() => handleRatingClick(5)}
-              className={`icon${rating === 5 ? 5 : "default"} icon-large`}
-            />
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <MdSentimentVeryDissatisfied
+                onClick={() => handleRatingClick(1)}
+                className={`icon${rating === 1 ? 1 : "default"} icon-large`}
+              />
+              <MdSentimentDissatisfied
+                onClick={() => handleRatingClick(2)}
+                className={`icon${rating === 2 ? 2 : "default"} icon-large`}
+              />
+              <MdSentimentNeutral
+                onClick={() => handleRatingClick(3)}
+                className={`icon${rating === 3 ? 3 : "default"} icon-large`}
+              />
+              <MdSentimentSatisfied
+                onClick={() => handleRatingClick(4)}
+                className={`icon${rating === 4 ? 4 : "default"} icon-large`}
+              />
+              <MdSentimentVerySatisfied
+                onClick={() => handleRatingClick(5)}
+                className={`icon${rating === 5 ? 5 : "default"} icon-large`}
+              />
+            </CardContent>
             <Typography>How safe was this park? *</Typography>
-            <MdSentimentVeryDissatisfied
-              onClick={() => handleSecurityClick(1)}
-              className={`icon${safety === 1 ? 1 : "default"} icon-large`}
-            />
-            <MdSentimentDissatisfied
-              onClick={() => handleSecurityClick(2)}
-              className={`icon${safety === 2 ? 2 : "default"} icon-large`}
-            />
-            <MdSentimentNeutral
-              onClick={() => handleSecurityClick(3)}
-              className={`icon${safety === 3 ? 3 : "default"} icon-large`}
-            />
-            <MdSentimentSatisfied
-              onClick={() => handleSecurityClick(4)}
-              className={`icon${safety === 4 ? 4 : "default"} icon-large`}
-            />
-            <MdSentimentVerySatisfied
-              onClick={() => handleSecurityClick(5)}
-              className={`icon${safety === 5 ? 5 : "default"} icon-large`}
-            />
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <MdSentimentVeryDissatisfied
+                onClick={() => handleSecurityClick(1)}
+                className={`icon${safety === 1 ? 1 : "default"} icon-large`}
+              />
+              <MdSentimentDissatisfied
+                onClick={() => handleSecurityClick(2)}
+                className={`icon${safety === 2 ? 2 : "default"} icon-large`}
+              />
+              <MdSentimentNeutral
+                onClick={() => handleSecurityClick(3)}
+                className={`icon${safety === 3 ? 3 : "default"} icon-large`}
+              />
+              <MdSentimentSatisfied
+                onClick={() => handleSecurityClick(4)}
+                className={`icon${safety === 4 ? 4 : "default"} icon-large`}
+              />
+              <MdSentimentVerySatisfied
+                onClick={() => handleSecurityClick(5)}
+                className={`icon${safety === 5 ? 5 : "default"} icon-large`}
+              />
+            </CardContent>
             <br />
             <Typography>Was this park as described? *</Typography>
+            <br />
             <ToggleButtonGroup
               color="primary"
               value={toggle}
@@ -194,6 +213,7 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
               <ToggleButton value="Yes">Yes</ToggleButton>
               <ToggleButton value="No">No</ToggleButton>
             </ToggleButtonGroup>
+            <br />
             <Typography>
               Write a few words about your experience at {parkName}
             </Typography>
