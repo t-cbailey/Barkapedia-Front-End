@@ -20,7 +20,7 @@ import "./Styles/reset.css";
 function App() {
   const [email, setEmail] = useState(null);
   const [parks, setParks] = React.useState<Park[]>([]);
-  const [id, setId] = useState(null);
+  const [id, setId] = useState<string | null>(null);
   const [type, setType] = useState(null);
   const [queries, setQueries] = React.useState<string>("");
   const [city, setCity] = React.useState("");
@@ -93,7 +93,7 @@ function App() {
             <Route path="/parks/:park_id" element={<SinglePark />} />
             <Route path="/newpark" element={<CreateNewPark />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/signin" element={<SignIn />}></Route>
+            <Route path="/signin" element={<SignIn setId={setId} />}></Route>
         <Route path="/parks/:park_id/post-review" element={<PostReview />}
           ></Route>
           </Routes>
