@@ -32,6 +32,7 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
   const [showBusinessIcon, setShowBusinessIcon] = useState<boolean>(false);
   const [vote, setVote] = useState<VoteValue>(null);
   const [voteCount, setVoteCount] = useState<number>(review.votes);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     getUserByID(review.user_id).then((user) => setUserData(user));
@@ -48,8 +49,10 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
     _event: React.MouseEvent<HTMLElement>,
     newVote: VoteValue
   ) => {
+    setIsDisabled(true);
     if (newVote === null) {
       setVote(vote);
+      setIsDisabled(false);
       return;
     }
     const increment = newVote;
@@ -70,6 +73,9 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        setIsDisabled(false);
       });
   };
 
@@ -81,10 +87,18 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
           <Box component="span" sx={{ display: "flex", alignItems: "center" }}>
             {review.username}
             {showVerifiedIcon && (
-              <VerifiedIcon aria-hidden={false} aria-label="Verified user" color="primary" />
+              <VerifiedIcon
+                aria-hidden={false}
+                aria-label="Verified user"
+                color="primary"
+              />
             )}
             {showBusinessIcon && (
-              <BusinessIcon aria-hidden={false} aria-label="Business User" color="primary"/>
+              <BusinessIcon
+                aria-hidden={false}
+                aria-label="Business User"
+                color="primary"
+              />
             )}
           </Box>
         }
@@ -99,10 +113,10 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
           onChange={handleChange}
           aria-label="vote"
         >
-          <ToggleButton value={1} aria-label="upvote">
+          <ToggleButton value={1} aria-label="upvote" disabled={isDisabled}>
             <ThumbUpIcon />
           </ToggleButton>
-          <ToggleButton value={-1} aria-label="downvote">
+          <ToggleButton value={-1} aria-label="downvote" disabled={isDisabled}>
             <ThumbDownIcon />
           </ToggleButton>
         </ToggleButtonGroup>
