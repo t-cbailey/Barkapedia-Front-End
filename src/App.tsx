@@ -5,18 +5,19 @@ import { Routes, Route } from "react-router-dom";
 import ShowParks from "./Components/ShowParks";
 import SignIn from "./Components/SignIn";
 import { LoginContext } from "./Context/loginContext";
-import { useState } from 'react';
+import { useState } from "react";
 import Home from "./Components/Home";
 import * as React from "react";
 import { Park } from "./types/CustomTypes";
 import server from "./Api/api";
 import { LatLngTuple } from "leaflet";
-import CreateReview from "./Components/CreateReview"
 import PostReview from "./Components/PostReview";
 
 function App() {
   const [email, setEmail] = useState(null);
   const [parks, setParks] = React.useState<Park[]>([]);
+  const [id, setId] = useState(null);
+  const [type, setType] = useState(null);
   const [queries, setQueries] = React.useState<string>("");
   const [city, setCity] = React.useState("");
   const [mapMarkers, setMapMarkers] = React.useState<
@@ -49,39 +50,43 @@ function App() {
     }
   });
   return (
-    <LoginContext.Provider value={{ email, setEmail }}>
-    <>
-      {/* <Header /> */}
-      <Nav />
-      <Routes>
-        
-        <Route
-          path="/"
-          element={
-            <Home
-              uniqueParks={uniqueParks}
-              setQueries={setQueries}
-              setCity={setCity}
-            />
-          }
-        />
-        <Route
-          path="/parks"
-          element={
-            <ShowParks
-              city={city}
-              setQueries={setQueries}
-              parks={parks}
-              mapMarkers={mapMarkers}
-              isLoading={isLoading}
-            />
-          }
-        />
-        <Route path="/parks/:park_id" element={<SinglePark />} />
-        <Route path="/signin" element={<SignIn />}></Route>
-        <Route path="/parks/:park_id/post-review" element={<PostReview />}></Route>
-      </Routes>
-    </>
+    <LoginContext.Provider
+      value={{ email, id, type, setEmail, setId, setType }}
+    >
+      <>
+        {/* <Header /> */}
+        <Nav />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                uniqueParks={uniqueParks}
+                setQueries={setQueries}
+                setCity={setCity}
+              />
+            }
+          />
+          <Route
+            path="/parks"
+            element={
+              <ShowParks
+                city={city}
+                setQueries={setQueries}
+                parks={parks}
+                mapMarkers={mapMarkers}
+                isLoading={isLoading}
+              />
+            }
+          />
+          <Route path="/parks/:park_id" element={<SinglePark />} />
+          <Route path="/signin" element={<SignIn setId={setId} />}></Route>
+          <Route
+            path="/parks/:park_id/post-review"
+            element={<PostReview />}
+          ></Route>
+        </Routes>
+      </>
     </LoginContext.Provider>
   );
 }

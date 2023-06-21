@@ -41,15 +41,15 @@ if (process.env.NODE_ENV !== "production") {
 // const password = "abc1232";
 // firebaseSignIn(email, password)
 
-export const firebaseSignIn = (email: string, password: string): Promise<boolean> => {
+export const firebaseSignIn = (email: string, password: string): Promise<string | null> => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(`signed in ${user.uid}`);
-      return true
+      console.log(`signed in ${user}`)
+      return user.uid
     })
     .catch((error) => {
       console.log(error);
-      return false
+      return null
     });
 };

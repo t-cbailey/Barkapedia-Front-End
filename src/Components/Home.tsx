@@ -17,7 +17,9 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
     setCity(value);
     navigate(`/parks`);
   };
-  const { email } = useContext(LoginContext);
+  const { email, id, type } = useContext(LoginContext);
+
+  console.log(email, id, type)
 
   return (
     <div>

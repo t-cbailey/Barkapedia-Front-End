@@ -8,15 +8,23 @@ import { useState, useContext } from "react";
 import { LoginContext } from "../Context/loginContext";
 import { useNavigate } from "react-router-dom";
 
-export default function SignIn() {
+interface SignInProps {
+  setId: (id: string | null) => void;
+}
+
+export default function SignIn({ setId }: SignInProps) {
   const [email, setEmail] = useState("");
+  const [type, setType] = useState(null);
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [clientValidation, setClientValidation] = useState("");
-  const { setEmail: setLoginEmail } = useContext(LoginContext);
+  const {
+    setEmail: setLoginEmail,
+    setType: setLoginType,
+  } = useContext(LoginContext);
   const navigate = useNavigate();
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -31,9 +39,11 @@ export default function SignIn() {
     setButtonDisabled(true);
 
     firebaseSignIn(email, password)
-      .then((result) => {
-        if (result) {
+      .then((userId) => {
+        if (userId) {
           setLoginEmail(email);
+          setId(userId);
+          setLoginType(type);
           navigate("/");
         } else {
           setSubmitError("Unfortunately, we do not recognize those details ☹️");
