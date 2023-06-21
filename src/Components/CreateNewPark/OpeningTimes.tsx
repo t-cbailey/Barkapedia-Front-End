@@ -1,6 +1,6 @@
 import { OpeningTimesProps } from "../../types/CustomTypes";
 import * as React from "react";
-import { TextField } from "@mui/material";
+import { TextField, Box } from "@mui/material";
 
 function OpeningTimes({ setOpeningTimes }: OpeningTimesProps) {
   const [monday, setMonday] = React.useState("");
@@ -48,56 +48,65 @@ function OpeningTimes({ setOpeningTimes }: OpeningTimesProps) {
 
   return (
     <>
-      <h2>Opening Times</h2>
-      <TextField
-        id="mondayOpening"
-        label="Monday"
-        variant="standard"
-        sx={{ m: 1 }}
-        onChange={handleMondayChange}
-      />
-      <TextField
-        id="tuesdayOpening"
-        label="Tuesday"
-        variant="standard"
-        sx={{ m: 1 }}
-        onChange={handleTuesdayChange}
-      />
-      <TextField
-        id="wednesdayOpening"
-        label="Wednesday"
-        variant="standard"
-        sx={{ m: 1 }}
-        onChange={handleWednesdayChange}
-      />
-      <TextField
-        id="thursdayOpening"
-        label="Thursday"
-        variant="standard"
-        sx={{ m: 1 }}
-        onChange={handleThursdayChange}
-      />
-      <TextField
-        id="fridayOpening"
-        label="Friday"
-        variant="standard"
-        sx={{ m: 1 }}
-        onChange={handleFridayChange}
-      />
-      <TextField
-        id="saturdayOpening"
-        label="Saturday"
-        variant="standard"
-        sx={{ m: 1 }}
-        onChange={handleSaturdayChange}
-      />
-      <TextField
-        id="sundayOpening"
-        label="Sunday"
-        variant="standard"
-        sx={{ m: 1 }}
-        onChange={handleSundayChange}
-      />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+          m: 3,
+        }}
+      >
+        <h2> Business Opening Times</h2>
+        <TextField
+          id="mondayOpening"
+          label="Monday"
+          variant="standard"
+          sx={{ m: 1 }}
+          onChange={handleMondayChange}
+        />
+        <TextField
+          id="tuesdayOpening"
+          label="Tuesday"
+          variant="standard"
+          sx={{ m: 1 }}
+          onChange={handleTuesdayChange}
+        />
+        <TextField
+          id="wednesdayOpening"
+          label="Wednesday"
+          variant="standard"
+          sx={{ m: 1 }}
+          onChange={handleWednesdayChange}
+        />
+        <TextField
+          id="thursdayOpening"
+          label="Thursday"
+          variant="standard"
+          sx={{ m: 1 }}
+          onChange={handleThursdayChange}
+        />
+        <TextField
+          id="fridayOpening"
+          label="Friday"
+          variant="standard"
+          sx={{ m: 1 }}
+          onChange={handleFridayChange}
+        />
+        <TextField
+          id="saturdayOpening"
+          label="Saturday"
+          variant="standard"
+          sx={{ m: 1 }}
+          onChange={handleSaturdayChange}
+        />
+        <TextField
+          id="sundayOpening"
+          label="Sunday"
+          variant="standard"
+          sx={{ m: 1 }}
+          onChange={handleSundayChange}
+        />
+      </Box>
     </>
   );
 }
