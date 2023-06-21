@@ -45,7 +45,7 @@ export const firebaseSignIn = (email: string, password: string): Promise<string 
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(`signed in ${user}`)
+      console.log(`signed in ${user.uid}`)
       return user.uid
     })
     .catch((error) => {

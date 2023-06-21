@@ -122,3 +122,13 @@ export interface ShowParksInterface {
   isLoading: boolean;
   city: string;
 }
+
+export interface ReviewData {
+  park_id: string;
+  user_id: string;
+  rating: number;
+  safety: number;
+  AsDescribed: boolean;
+  title: string;
+  body: string;
+}

@@ -15,9 +15,10 @@ import { Park, Review } from "../types/CustomTypes";
 import ParkRating from "./StarRating";
 import Map from "./Map";
 import ParkReviews from "./ParkReviews";
-import "../Styles/styles.css"
+import "../Styles/styles.css";
 import { Link, useParams } from "react-router-dom";
-
+import { LoginContext } from "../Context/loginContext";
+import { useContext } from "react";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -46,15 +47,13 @@ export default function SingleParkCard({
   isLoading,
 }: SingleParkProps) {
   const [expanded, setExpanded] = React.useState(false);
-  const [parks, setParks] = React.useState<Park[]>([]);
-  const {park_id} = useParams();
+  const [parks, _setParks] = React.useState<Park[]>([]);
+  const { park_id } = useParams();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-console.log(park_id);
   const parsedLat = parseFloat(singlePark.location.lat);
   const parsedLong = parseFloat(singlePark.location.long);
-
   const parsedCenter: LatLngTuple = [parsedLat, parsedLong];
   const mapMarkers = [
     {
@@ -62,6 +61,7 @@ console.log(park_id);
       content: singlePark.name,
     },
   ];
+  const { type } = useContext(LoginContext);
 
   if (isLoading) {
     return <h3 className="loading">Loading...</h3>;
@@ -188,7 +188,9 @@ console.log(park_id);
               </span>
             </li>
           </Typography>
-          <Link to={`/parks/${park_id}/post-review`}>Post Review</Link>
+          {type === "Consumer" && (
+            <Link to={`/parks/${park_id}/post-review`}>Post Review</Link>
+          )}
           <ParkReviews reviews={reviews} isLoading={isLoading} />
         </Box>
       </CardContent>

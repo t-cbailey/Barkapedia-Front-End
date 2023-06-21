@@ -24,34 +24,33 @@ interface CreateReviewProps {
 }
 
 export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
-  const [AsDescribed, setAsDescribed] = React.useState("Yes");
+  const [AsDescribed, setAsDescribed] = React.useState<boolean | null>(null);
+  const [toggle, setToggle] = useState(null);
   const [commentTitle, setCommentTitle] = useState("");
   const [commentBody, setCommentBody] = useState("");
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [clientValidation, setClientValidation] = useState("");
   const navigate = useNavigate();
-  const [rating, setRating] = useState(null);
-  const [safety, setSafety] = useState(null);
+  const [rating, setRating] = useState<number | null>(null);
+  const [safety, setSafety] = useState<number | null>(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const { email } = useContext(LoginContext)
+  const { id } = useContext(LoginContext);
 
   React.useEffect(() => {
     checkFormCompletion();
-  }, [rating, safety]);
+  }, [rating, safety, toggle]);
 
-  function handleRatingClick(value) {
+  function handleRatingClick(value: number) {
     setRating(value);
   }
 
-  function handleSecurityClick(value) {
+  function handleSecurityClick(value: number) {
     setSafety(value);
   }
 
   function checkFormCompletion() {
-    if (rating !== null && safety !== null) {
+    if (rating !== null && safety !== null && toggle !== null) {
       setIsFormVisible(true);
     } else {
       setIsFormVisible(false);
@@ -85,35 +84,34 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
       return;
     }
 
-    setButtonDisabled(true)
+    setButtonDisabled(true);
 
     const reviewData: ReviewData = {
       park_id: parkId,
+      user_id: id,
       rating: rating,
       safety: safety,
       AsDescribed: AsDescribed,
       title: commentTitle,
       body: commentBody,
-      username: email,
-      votes: 0,
-
-    }
+    };
 
     postReview(reviewData)
-    .then(() => {
-      navigate(`/parks/${parkId}`)
-    })
-    .catch(error => {
-      setSubmitError('Error posting review. Please try again later.');
-      setButtonDisabled(false);
-    })
+      .then(() => {
+        navigate(`/parks/${parkId}`);
+      })
+      .catch(() => {
+        setSubmitError("Error posting review. Please try again later.");
+        setButtonDisabled(false);
+      });
   };
 
-  const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
+  const handleAsDescribedChange = (
+    _event: React.MouseEvent<HTMLElement>,
     newAsDescribed: string
   ) => {
-    setAsDescribed(newAsDescribed);
+    setToggle(newAsDescribed);
+    setAsDescribed(newAsDescribed === "Yes" ? true : null);
   };
 
   return (
@@ -137,7 +135,7 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
           }}
         >
           <form onSubmit={handleSubmit}>
-            <Typography>How was this park?</Typography>
+            <Typography>How was this park? *</Typography>
             <MdSentimentVeryDissatisfied
               onClick={() => handleRatingClick(1)}
               className={`icon${rating === 1 ? 1 : "default"} icon-large`}
@@ -158,7 +156,7 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
               onClick={() => handleRatingClick(5)}
               className={`icon${rating === 5 ? 5 : "default"} icon-large`}
             />
-            <Typography>How safe was this park?</Typography>
+            <Typography>How safe was this park? *</Typography>
             <MdSentimentVeryDissatisfied
               onClick={() => handleSecurityClick(1)}
               className={`icon${safety === 1 ? 1 : "default"} icon-large`}
@@ -180,12 +178,12 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
               className={`icon${safety === 5 ? 5 : "default"} icon-large`}
             />
             <br />
-            <Typography>Was this park as described?</Typography>
+            <Typography>Was this park as described? *</Typography>
             <ToggleButtonGroup
               color="primary"
-              value={AsDescribed}
+              value={toggle}
               exclusive
-              onChange={handleChange}
+              onChange={handleAsDescribedChange}
               aria-label="Platform"
               sx={{
                 display: "flex",
@@ -225,9 +223,40 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                disabled={buttonDisabled}
               >
                 Post Review
               </Button>
+            )}
+            {submitError && (
+              <Typography
+                variant="body2"
+                color="error"
+                sx={{
+                  backgroundColor: "pink",
+                  textAlign: "center",
+                  mt: 2,
+                  border: "solid",
+                  padding: "0.5rem",
+                }}
+              >
+                {submitError}
+              </Typography>
+            )}
+            {clientValidation !== "" && (
+              <Typography
+                variant="body2"
+                color="error"
+                sx={{
+                  backgroundColor: "pink",
+                  textAlign: "center",
+                  mt: 2,
+                  border: "solid",
+                  padding: "0.5rem",
+                }}
+              >
+                {clientValidation}
+              </Typography>
             )}
           </form>
         </CardContent>

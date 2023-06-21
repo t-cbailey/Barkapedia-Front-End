@@ -17,7 +17,6 @@ import { useContext } from "react";
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
   const { email } = useContext(LoginContext)
-  console.log(email)
   return (
     <div
       role="tabpanel"
