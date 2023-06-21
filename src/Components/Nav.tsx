@@ -113,7 +113,7 @@ function Nav() {
             </Menu>
           </Box>
           {/* LOGO = TITLE */}
-          <PetsIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1,marginBottom:"4px"}} />
+          <PetsIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1,marginBottom:"4px"} } />
           <Typography
             variant="h5"
             noWrap
@@ -121,14 +121,15 @@ function Nav() {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: "flex", md: "none" },
+              display: { xs: "block", md: "none" },
+              fontSize: {xs: "14px", sm: "20px"},
               flexGrow: 1,
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              marginBottom:"4px"
+              marginBottom:"4px",
             }}
           >
             Barkapedia
@@ -167,9 +168,10 @@ function Nav() {
               </Button>
             ))}
           </Box>
-          {!email && <Link style={{textDecoration:"none"}} to="/signin"><Typography sx={{color:"white", marginRight:"10px", fontSize:".875em",
+          {!email && <Link style={{textDecoration:"none"}} to="/signin"><Typography sx={{color:"white", marginRight:"10px",
                   display: "block",
                   position: "relative",
+                  fontSize: {xs: ".7em", sm: ".875em"},
                   "&::after": {
                     content: '""',
                     position: "absolute",
