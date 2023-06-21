@@ -11,6 +11,7 @@ import * as React from "react";
 import { Park } from "./types/CustomTypes";
 import server from "./Api/api";
 import { LatLngTuple } from "leaflet";
+import Register from "./Components/Register
 import Box from '@mui/material/Box';
 import { Stack } from "@mui/system";
 import "./Styles/reset.css"
@@ -80,7 +81,9 @@ function App() {
           }
         />
         <Route path="/parks/:park_id" element={<SinglePark />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<SignIn />}></Route>
+
       </Routes>
       </Stack>
       </Box>  

@@ -120,3 +120,10 @@ export interface ShowParksInterface {
   isLoading: boolean;
   city: string;
 }
+
+export interface UserRequest {
+  email: string;
+  username: string;
+  password: string;
+  type: string;
+}
