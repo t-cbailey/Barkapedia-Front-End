@@ -13,10 +13,9 @@ import server from "./Api/api";
 import { LatLngTuple } from "leaflet";
 import CreateNewPark from "./Components/CreateNewPark/CreateNewPark";
 import Register from "./Components/Register";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import { Stack } from "@mui/system";
-import "./Styles/reset.css"
-
+import "./Styles/reset.css";
 
 function App() {
   const [email, setEmail] = useState(null);
@@ -53,45 +52,44 @@ function App() {
     }
   });
   return (
-
-
-  <LoginContext.Provider value={{ email, setEmail }}>
-    <Box sx={{display: "flex", marginLeft: "20px", marginRight:"20px"}}> 
-      <Stack sx={{backgroundColor:"white", width: "100vw", height: "100vh"}} spacing={2} >
-      <Header />
-      <Nav />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              uniqueParks={uniqueParks}
-              setQueries={setQueries}
-              setCity={setCity}
+    <LoginContext.Provider value={{ email, setEmail }}>
+      <Box sx={{ display: "flex", marginLeft: "20px", marginRight: "20px" }}>
+        <Stack
+          sx={{ backgroundColor: "white", width: "100vw", height: "100vh" }}
+          spacing={2}
+        >
+          <Header />
+          <Nav />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  uniqueParks={uniqueParks}
+                  setQueries={setQueries}
+                  setCity={setCity}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="/parks"
-          element={
-            <ShowParks
-              city={city}
-              setQueries={setQueries}
-              parks={parks}
-              mapMarkers={mapMarkers}
-              isLoading={isLoading}
+            <Route
+              path="/parks"
+              element={
+                <ShowParks
+                  city={city}
+                  setQueries={setQueries}
+                  parks={parks}
+                  mapMarkers={mapMarkers}
+                  isLoading={isLoading}
+                />
+              }
             />
-          }
-        />
-        <Route path="/parks/:park_id" element={<SinglePark />} />
-        <Route path="/newpark" element={<CreateNewPark />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/signin" element={<SignIn />}></Route>
-
-      </Routes>
-      </Stack>
-      </Box>  
-
+            <Route path="/parks/:park_id" element={<SinglePark />} />
+            <Route path="/newpark" element={<CreateNewPark />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/signin" element={<SignIn />}></Route>
+          </Routes>
+        </Stack>
+      </Box>
     </LoginContext.Provider>
   );
 }

@@ -130,13 +130,13 @@ export interface ShowParksInterface {
   city: string;
 }
 
-
 export interface FeaturesDropDownProps {
   setParkFeatures: Function;
 }
 
 export interface ParkAddressProps {
   setParkAddress: Function;
+  regex: RegExp;
 }
 
 export interface ParkSizeProps {
@@ -164,3 +164,32 @@ export interface UserRequest {
   type: string;
 }
 
+interface Opening_hours {
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  saturday: string;
+  sunday: string;
+}
+
+interface Address {
+  firstLine: string;
+  secondLine: string;
+  postCode: string;
+  city: string;
+}
+
+export interface ParkSubmissionObject {
+  user_id: string;
+  name: string;
+  desc: string;
+  size: number;
+  features: ParkFeatures;
+  opening_hours: Opening_hours;
+  address: Address;
+  image_url: string;
+  website_url: string;
+  phone_number: string;
+}
