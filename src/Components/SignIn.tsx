@@ -16,7 +16,7 @@ export default function SignIn() {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [clientValidation, setClientValidation] = useState("");
-  const { setEmail: setLoginEmail, setUser } = useContext(LoginContext);
+  const { setEmail: setLoginEmail } = useContext(LoginContext);
   const navigate = useNavigate();
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -34,7 +34,6 @@ export default function SignIn() {
       .then((result) => {
         if (result) {
           setLoginEmail(email);
-          se
           navigate("/");
         } else {
           setSubmitError("Unfortunately, we do not recognize those details ☹️");
