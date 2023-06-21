@@ -31,29 +31,24 @@ function SizeDropdown({ parkSize, setParkSize }: ParkSizeProps) {
   };
 
   return (
-    <div>
-      <FormControl
-        variant="standard"
-        sx={{ m: 2, minWidth: 120, width: 1 / 1 }}
+    <FormControl variant="standard" sx={{ m: 2, width: "90%" }}>
+      <InputLabel id="park size">park size</InputLabel>
+      <Select
+        labelId="park size"
+        id="park size"
+        onChange={handleChange}
+        label="size"
+        value={`${parkSize}`}
       >
-        <InputLabel id="park size">park size</InputLabel>
-        <Select
-          labelId="park size"
-          id="park size"
-          onChange={handleChange}
-          label="size"
-          value={`${parkSize}`}
-        >
-          {sizes.map((size) => {
-            return (
-              <MenuItem key={size.label} value={size.value}>
-                <ListItemText primary={`${size.label}`} />
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-    </div>
+        {sizes.map((size) => {
+          return (
+            <MenuItem key={size.label} value={size.value}>
+              <ListItemText primary={`${size.label}`} />
+            </MenuItem>
+          );
+        })}
+      </Select>
+    </FormControl>
   );
 }
 

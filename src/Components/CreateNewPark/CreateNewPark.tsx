@@ -5,10 +5,12 @@ import FeaturesDropdown from "./FeaturesDropdown";
 import ParkAddress from "./ParkAddress";
 import SizeDropdown from "./SizeDropdown";
 import OpeningTimes from "./OpeningTimes";
-import { Grid, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import postPark from "../../utils/postPark";
 import { ParkSubmissionObject } from "../../types/CustomTypes";
-import { Form, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { LoginContext } from "../../Context/loginContext";
+
 // import AddPhoto from "./AddPhoto";
 
 function CreateNewPark() {
@@ -45,8 +47,11 @@ function CreateNewPark() {
   const [loading, setLoading] = React.useState(false);
   const [submissionAllowed, setSubmissionAllowed] = React.useState(false);
 
+  const { id } = React.useContext(LoginContext);
+  const { type } = React.useContext(LoginContext);
+
   const verified = true;
-  const business = true;
+  const accountType = "personal";
   const user_id = "user_1";
 
   const navigate = useNavigate();
@@ -90,7 +95,11 @@ function CreateNewPark() {
     /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/;
 
   React.useEffect(() => {
-    if (parkName.length > 0 && regex.test(parkAddress.postCode)) {
+    if (
+      parkName.length > 0 &&
+      regex.test(parkAddress.postCode) &&
+      parkAddress.city.length > 0
+    ) {
       setSubmissionAllowed(true);
     } else {
       setSubmissionAllowed(false);
@@ -101,13 +110,13 @@ function CreateNewPark() {
     setLoading(true);
     event.preventDefault();
     postPark(submissionObj)
-      .then((res: any) => {
+      .then((res) => {
         setLoading(false);
         alert("Park created successsfully!");
         navigate(`/parks/${res.data.id}`);
       })
       .catch((err) => {
-        alert("Error- Please try again!");
+        alert("Error- Please reload the page and try again!");
         console.log(err);
       });
   };
@@ -117,76 +126,88 @@ function CreateNewPark() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <Grid
-          container
-          spacing={0}
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          sx={{ minHeight: "100vh" }}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+          }}
         >
           <h1>Add a new park</h1>
           {verified === true ? (
             <Box
               component="form"
               sx={{
-                "& > :not(style)": { m: 1, width: "50ch" },
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: "90%",
+                maxWidth: "900px",
               }}
-              noValidate
               autoComplete="on"
             >
-              <Box sx={{ m: 2 }}>
-                <TextField
-                  error={parkName.length < 1 ? true : false}
-                  helperText={parkName.length < 1 ? "enter a park name" : null}
-                  id="parkName"
-                  label="park name"
-                  variant="standard"
-                  required
-                  sx={{ m: 2, width: "50ch" }}
-                  onChange={handleParkNameChange}
-                />
+              <TextField
+                error={parkName.length < 1 ? true : false}
+                helperText={parkName.length < 1 ? "enter a park name" : null}
+                id="parkName"
+                label="park name"
+                variant="standard"
+                required
+                sx={{ m: 2, width: "90%" }}
+                onChange={handleParkNameChange}
+              />
 
-                <TextField
-                  sx={{ m: 2, width: "50ch" }}
-                  id="parkDescription"
-                  label="park description"
-                  variant="standard"
-                  multiline
-                  minRows={1}
-                  maxRows={6}
-                  onChange={handleParkDescriptionChange}
-                />
-                <SizeDropdown parkSize={parkSize} setParkSize={setParkSize} />
-                <FeaturesDropdown setParkFeatures={setParkFeatures} />
-                <ParkAddress setParkAddress={setParkAddress} regex={regex} />
-                <TextField
-                  id="imageUrl"
-                  label="image url"
-                  variant="standard"
-                  onChange={handleImageUrlChange}
-                />
-                {/* <AddPhoto /> */}
-              </Box>
+              <TextField
+                sx={{ m: 2, width: "90%" }}
+                id="parkDescription"
+                label="park description"
+                variant="standard"
+                multiline
+                minRows={1}
+                maxRows={6}
+                onChange={handleParkDescriptionChange}
+              />
+              <SizeDropdown parkSize={parkSize} setParkSize={setParkSize} />
+              <FeaturesDropdown setParkFeatures={setParkFeatures} />
+              <TextField
+                id="imageUrl"
+                label="image url"
+                variant="standard"
+                onChange={handleImageUrlChange}
+                sx={{ m: 2, width: "90%" }}
+              />
+              <ParkAddress setParkAddress={setParkAddress} regex={regex} />
 
-              {business === true ? (
-                <Box>
+              {/* <AddPhoto /> */}
+
+              {accountType === "business" ? (
+                <Box
+                  sx={{
+                    width: "100%",
+                    borderTop: 1,
+                    m: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
                   <OpeningTimes setOpeningTimes={setOpeningTimes} />
 
-                  <Box>
-                    <TextField
-                      id="website URL"
-                      label="website URL"
-                      variant="standard"
-                      onChange={handleWebsiteUrlChange}
-                    />
-                    <TextField
-                      id="phone number"
-                      label="phone number"
-                      variant="standard"
-                      onChange={handlePhoneNumberChange}
-                    />
-                  </Box>
+                  <TextField
+                    id="website URL"
+                    label="website URL"
+                    variant="standard"
+                    onChange={handleWebsiteUrlChange}
+                    sx={{ width: "40%", m: 2 }}
+                  />
+                  <TextField
+                    id="phone number"
+                    label="phone number"
+                    variant="standard"
+                    onChange={handlePhoneNumberChange}
+                    sx={{ width: "40%", m: 2 }}
+                  />
                 </Box>
               ) : null}
               <Button
@@ -195,6 +216,7 @@ function CreateNewPark() {
                 id="submit"
                 type="submit"
                 onClick={handleSubmit}
+                sx={{ m: 3, width: "40%" }}
               >
                 Submit
               </Button>
@@ -202,7 +224,7 @@ function CreateNewPark() {
           ) : (
             <p>You must be signed in and verified to post add a new park</p>
           )}
-        </Grid>
+        </Box>
       )}
     </>
   );

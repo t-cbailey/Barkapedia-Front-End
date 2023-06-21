@@ -38,6 +38,7 @@ function SinglePark() {
         reviews={reviews}
         singlePark={singlePark}
         isLoading={isLoading}
+        parkId={park_id}
       />
     </main>
   );
