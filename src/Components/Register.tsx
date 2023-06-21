@@ -85,7 +85,7 @@ console.log(user);
   }
 
   return (
-    <Card sx={{ width: "70%", margin: "auto", marginTop: "100px"}}>
+    <Card sx={{ width: "100", height:"100%"}}>
       <FormGroup>
         <CardHeader
             sx={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "1.5em"}}

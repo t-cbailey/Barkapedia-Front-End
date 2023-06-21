@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import PetsIcon from "@mui/icons-material/Pets";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
 import { LoginContext } from "../Context/loginContext";
 
@@ -52,10 +52,10 @@ function Nav() {
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
+    <AppBar position="static" sx={{marginTop:"20px"}}>
+      <Container maxWidth="xl" >
         <Toolbar disableGutters>
-          <PetsIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <PetsIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1, marginBottom:"4px"}} />
           <Typography
             variant="h6"
             noWrap
@@ -69,9 +69,10 @@ function Nav() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              marginBottom:"4px"
             }}
           >
-            LOGO
+            Barkapedia
           </Typography>
 
           {/* //PAGES DROPDOWN */}
@@ -112,7 +113,7 @@ function Nav() {
             </Menu>
           </Box>
           {/* LOGO = TITLE */}
-          <PetsIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <PetsIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1,marginBottom:"4px"}} />
           <Typography
             variant="h5"
             noWrap
@@ -127,24 +128,64 @@ function Nav() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              marginBottom:"4px"
             }}
           >
             Barkapedia
           </Typography>
 
+        
           {/* USER DROPDOWN */}
-
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{
+                  color: "white",
+                  display: "block",
+                  position: "relative",
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    left: 0,
+                    bottom: 6,
+                    width: "100%",
+                    height: "2px",
+                    background: "white",
+                    transform: "scaleX(0)",
+                    transformOrigin: "left",
+                    transition: "transform 0.3s ease-in-out",
+                  },
+                  "&:hover::after": {
+                    transform: "scaleX(1)",
+                    transformOrigin: "right",
+                  },
+                }}
               >
                 {page}
               </Button>
             ))}
           </Box>
+          {!email && <Link style={{textDecoration:"none"}} to="/signin"><Typography sx={{color:"white", marginRight:"10px", fontSize:".875em",
+                  display: "block",
+                  position: "relative",
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    left: 0,
+                    bottom: -2,
+                    width: "100%",
+                    height: "2px",
+                    background: "white",
+                    transform: "scaleX(0)",
+                    transformOrigin: "left",
+                    transition: "transform 0.3s ease-in-out",
+                  },
+                  "&:hover::after": {
+                    transform: "scaleX(1)",
+                    transformOrigin: "right",
+                  },}}>SIGN IN</Typography></Link>}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
