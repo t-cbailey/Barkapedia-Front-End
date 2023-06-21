@@ -74,7 +74,7 @@ function FeaturesDropdown({ setParkFeatures }: FeaturesDropDownProps) {
   };
 
   return (
-    <FormControl variant="standard" sx={{ m: 2, width: "100%" }}>
+    <FormControl variant="standard" sx={{ m: 2, width: "90%" }}>
       <InputLabel id="featuresCheckbox">features</InputLabel>
       <Select
         labelId="featuresCheckbox"

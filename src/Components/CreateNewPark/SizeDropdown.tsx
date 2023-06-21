@@ -31,7 +31,7 @@ function SizeDropdown({ parkSize, setParkSize }: ParkSizeProps) {
   };
 
   return (
-    <FormControl variant="standard" sx={{ m: 2, width: "100%" }}>
+    <FormControl variant="standard" sx={{ m: 2, width: "90%" }}>
       <InputLabel id="park size">park size</InputLabel>
       <Select
         labelId="park size"

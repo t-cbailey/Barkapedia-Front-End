@@ -5,10 +5,12 @@ import FeaturesDropdown from "./FeaturesDropdown";
 import ParkAddress from "./ParkAddress";
 import SizeDropdown from "./SizeDropdown";
 import OpeningTimes from "./OpeningTimes";
-import { Grid, Button, FormGroup } from "@mui/material";
+import { Button } from "@mui/material";
 import postPark from "../../utils/postPark";
 import { ParkSubmissionObject } from "../../types/CustomTypes";
 import { useNavigate } from "react-router-dom";
+import { LoginContext } from "../../Context/loginContext";
+
 // import AddPhoto from "./AddPhoto";
 
 function CreateNewPark() {
@@ -45,8 +47,11 @@ function CreateNewPark() {
   const [loading, setLoading] = React.useState(false);
   const [submissionAllowed, setSubmissionAllowed] = React.useState(false);
 
+  const { id } = React.useContext(LoginContext);
+  const { type } = React.useContext(LoginContext);
+
   const verified = true;
-  const business = true;
+  const accountType = "personal";
   const user_id = "user_1";
 
   const navigate = useNavigate();
@@ -111,7 +116,7 @@ function CreateNewPark() {
         navigate(`/parks/${res.data.id}`);
       })
       .catch((err) => {
-        alert("Error- Please try again!");
+        alert("Error- Please reload the page and try again!");
         console.log(err);
       });
   };
@@ -126,7 +131,7 @@ function CreateNewPark() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            width: "90%",
+            width: "100%",
           }}
         >
           <h1>Add a new park</h1>
@@ -138,6 +143,7 @@ function CreateNewPark() {
                 flexDirection: "column",
                 alignItems: "center",
                 width: "90%",
+                maxWidth: "900px",
               }}
               autoComplete="on"
             >
@@ -148,12 +154,12 @@ function CreateNewPark() {
                 label="park name"
                 variant="standard"
                 required
-                sx={{ m: 2 }}
+                sx={{ m: 2, width: "90%" }}
                 onChange={handleParkNameChange}
               />
 
               <TextField
-                sx={{ m: 2 }}
+                sx={{ m: 2, width: "90%" }}
                 id="parkDescription"
                 label="park description"
                 variant="standard"
@@ -164,17 +170,28 @@ function CreateNewPark() {
               />
               <SizeDropdown parkSize={parkSize} setParkSize={setParkSize} />
               <FeaturesDropdown setParkFeatures={setParkFeatures} />
-              <ParkAddress setParkAddress={setParkAddress} regex={regex} />
               <TextField
                 id="imageUrl"
                 label="image url"
                 variant="standard"
                 onChange={handleImageUrlChange}
+                sx={{ m: 2, width: "90%" }}
               />
+              <ParkAddress setParkAddress={setParkAddress} regex={regex} />
+
               {/* <AddPhoto /> */}
 
-              {business === true ? (
-                <Box sx={{ width: "100%" }}>
+              {accountType === "business" ? (
+                <Box
+                  sx={{
+                    width: "100%",
+                    borderTop: 1,
+                    m: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
                   <OpeningTimes setOpeningTimes={setOpeningTimes} />
 
                   <TextField
@@ -182,12 +199,14 @@ function CreateNewPark() {
                     label="website URL"
                     variant="standard"
                     onChange={handleWebsiteUrlChange}
+                    sx={{ width: "40%", m: 2 }}
                   />
                   <TextField
                     id="phone number"
                     label="phone number"
                     variant="standard"
                     onChange={handlePhoneNumberChange}
+                    sx={{ width: "40%", m: 2 }}
                   />
                 </Box>
               ) : null}
@@ -197,6 +216,7 @@ function CreateNewPark() {
                 id="submit"
                 type="submit"
                 onClick={handleSubmit}
+                sx={{ m: 3, width: "40%" }}
               >
                 Submit
               </Button>
