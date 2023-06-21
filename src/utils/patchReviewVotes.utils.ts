@@ -1,5 +1,5 @@
 import server from "../Api/api";
-import { PatchReviewResponse, Review, ReviewVoteRequest } from "../types/CustomTypes";
+import { PatchReviewResponse, ReviewVoteRequest } from "../types/CustomTypes";
 
 const patchReviewVotes = (reviewRequest: ReviewVoteRequest): Promise<PatchReviewResponse> => {
   const { review_id, increment } = reviewRequest;

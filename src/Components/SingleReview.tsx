@@ -11,7 +11,12 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import BusinessIcon from "@mui/icons-material/Business";
 
-import { PatchReviewResponse, SingleReviewProps, User, VoteValue } from "../types/CustomTypes";
+import {
+  PatchReviewResponse,
+  SingleReviewProps,
+  User,
+  VoteValue,
+} from "../types/CustomTypes";
 import "../Styles/styles.css";
 import { useState, useEffect } from "react";
 import getUserByID from "../utils/getUserByID.utils";
@@ -39,34 +44,34 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
     }
   }, [userData]);
 
-const handleChange = (
-  _event: React.MouseEvent<HTMLElement>,
-  newVote: VoteValue
-) => {
-  if (newVote === null) {
-    setVote(vote);
-    return;
-  }
-  const increment = newVote;
-  const reviewRequest = { review_id: review.id, increment };
-  patchReviewVotes(reviewRequest)
-    .then((response: PatchReviewResponse) => {
-      setVote(newVote);
-      setVoteCount(response.data.votes);
-    })
-    .then(() => {
-      if ((newVote === 1 && vote === -1) || (newVote === -1 && vote === 1)) {
-        return patchReviewVotes(reviewRequest).then(
-          (response: PatchReviewResponse) => {
-            setVoteCount(response.data.votes);
-          }
-        );
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};  
+  const handleChange = (
+    _event: React.MouseEvent<HTMLElement>,
+    newVote: VoteValue
+  ) => {
+    if (newVote === null) {
+      setVote(vote);
+      return;
+    }
+    const increment = newVote;
+    const reviewRequest = { review_id: review.id, increment };
+    patchReviewVotes(reviewRequest)
+      .then((response: PatchReviewResponse) => {
+        setVote(newVote);
+        setVoteCount(response.data.votes);
+      })
+      .then(() => {
+        if ((newVote === 1 && vote === -1) || (newVote === -1 && vote === 1)) {
+          return patchReviewVotes(reviewRequest).then(
+            (response: PatchReviewResponse) => {
+              setVoteCount(response.data.votes);
+            }
+          );
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <Card sx={{ maxWidth: fullWidth ? "100%" : 345 }}>
@@ -76,10 +81,10 @@ const handleChange = (
           <Box component="span" sx={{ display: "flex", alignItems: "center" }}>
             {review.username}
             {showVerifiedIcon && (
-              <VerifiedIcon aria-hidden={false} aria-label="Verified user" />
+              <VerifiedIcon aria-hidden={false} aria-label="Verified user" color="primary" />
             )}
             {showBusinessIcon && (
-              <BusinessIcon aria-hidden={false} aria-label="Business User" />
+              <BusinessIcon aria-hidden={false} aria-label="Business User" color="primary"/>
             )}
           </Box>
         }
