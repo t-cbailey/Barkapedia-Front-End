@@ -94,12 +94,11 @@ export default function SingleParkCard({
           {singlePark.desc}
         </Typography>
         <Box>
-          <Typography variant="body2" color="text.secondary">
+          {/* <Typography variant="body2" color="text.secondary"> */}
             <Box sx={{display:"flex", justifyContent:"space-evenly", margin:"20px 0"}}>
             {singlePark.features.isFree && <Button className="filter-button" variant="outlined">
                 Free
               </Button>}
-            <br />
             {singlePark.features.isWellLit && (
               <Button className="filter-button" variant="outlined">
                 Well Lit
@@ -229,7 +228,7 @@ export default function SingleParkCard({
                 </a>
               </span>
             </li>
-          </Typography>
+          {/* </Typography> */}
           <ParkReviews reviews={reviews} isLoading={isLoading} />
         </Box>
       </CardContent>

@@ -1,4 +1,3 @@
-import Header from "./Components/Header";
 import Nav from "./Components/Nav";
 import SinglePark from "./Components/SinglePark";
 import { Routes, Route } from "react-router-dom";
@@ -56,7 +55,7 @@ function App() {
 
 
   <LoginContext.Provider value={{ email, setEmail }}>
-    <Box sx={{display: "flex", marginLeft: "20px", marginRight:"20px", fontFamily:"Helvetica"}}> 
+    <Box sx={{display: "flex", fontFamily:"Helvetica"}}> 
       <Stack sx={{backgroundColor:"white", width: "100vw", height: "100vh"}} spacing={2} >
       <Nav />
       <Routes>
