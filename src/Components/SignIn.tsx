@@ -41,7 +41,7 @@ export default function SignIn({ setId }: SignInProps) {
       .then((userId) => {
         if (userId) {
           getUserById(userId).then((result) => {
-            const user = result.data;
+            const user = result;
             setLoginEmail(email);
             setId(userId);
             setLoginType(user.type);
