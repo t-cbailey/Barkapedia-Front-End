@@ -5,16 +5,18 @@ import { Routes, Route } from "react-router-dom";
 import ShowParks from "./Components/ShowParks";
 import SignIn from "./Components/SignIn";
 import { LoginContext } from "./Context/loginContext";
-import { useState } from 'react';
+import { useState } from "react";
 import Home from "./Components/Home";
 import * as React from "react";
 import { Park } from "./types/CustomTypes";
 import server from "./Api/api";
 import { LatLngTuple } from "leaflet";
-import Register from "./Components/Register
+import CreateNewPark from "./Components/CreateNewPark/CreateNewPark";
+import Register from "./Components/Register";
 import Box from '@mui/material/Box';
 import { Stack } from "@mui/system";
 import "./Styles/reset.css"
+
 
 function App() {
   const [email, setEmail] = useState(null);
@@ -52,6 +54,7 @@ function App() {
   });
   return (
 
+
   <LoginContext.Provider value={{ email, setEmail }}>
     <Box sx={{display: "flex", marginLeft: "20px", marginRight:"20px"}}> 
       <Stack sx={{backgroundColor:"white", width: "100vw", height: "100vh"}} spacing={2} >
@@ -81,12 +84,14 @@ function App() {
           }
         />
         <Route path="/parks/:park_id" element={<SinglePark />} />
+        <Route path="/newpark" element={<CreateNewPark />} />
         <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<SignIn />}></Route>
 
       </Routes>
       </Stack>
       </Box>  
+
     </LoginContext.Provider>
   );
 }

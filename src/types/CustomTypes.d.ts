@@ -134,6 +134,32 @@ export interface ShowParksInterface {
   city: string;
 }
 
+export interface FeaturesDropDownProps {
+  setParkFeatures: Function;
+}
+
+export interface ParkAddressProps {
+  setParkAddress: Function;
+}
+
+export interface ParkSizeProps {
+  setParkSize: Function;
+  parkSize: number | string;
+}
+
+export interface OpeningTimesProps {
+  setOpeningTimes: Function;
+}
+
+export interface ParkFeatures {
+  isFree: boolean;
+  isWellLit: boolean;
+  isFreeParking: boolean;
+  isParking: boolean;
+  hasAgilityEquipment: boolean;
+  isFullyEnclosed: boolean;
+  hasDisabledAccess: boolean;
+}
 export interface UserRequest {
   email: string;
   username: string;
@@ -145,7 +171,5 @@ export interface ReviewVoteRequest {
   review_id: string;
   increment: number;
 }
-
-
 
 type VoteValue = 1 | -1 | null;
