@@ -7,9 +7,9 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
+// import Avatar from "@mui/material/Avatar";
+// import Button from "@mui/material/Button";
+// import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import PetsIcon from "@mui/icons-material/Pets";
 import { useNavigate, Link } from "react-router-dom";
@@ -18,30 +18,30 @@ import { LoginContext } from "../Context/loginContext";
 
 function Nav() {
   const pages = ["Search", "Parks", "Add Park"];
-  const settings = ["Profile", "Account", "Dashboard", "Logout"];
-  const { email } = useContext(LoginContext)
+  // const settings = ["Profile", "Account", "Dashboard", "Logout"];
+  const { email } = useContext(LoginContext);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  // const [_anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+  //   null
+  //   );
 
-  const navigate = useNavigate();
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  // const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  //   setAnchorElUser(event.currentTarget);
+  // };
   const handleCloseNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     handleSelectPage(event);
     setAnchorElNav(null);
   };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
+  const navigate = useNavigate();
   const handleSelectPage = (event: React.MouseEvent<HTMLElement>) => {
     const pageRef = (event.target as Element).innerHTML;
     let navString = "";
@@ -52,10 +52,16 @@ function Nav() {
   };
 
   return (
-    <AppBar position="static" sx={{marginTop:"20px"}}>
-      <Container maxWidth="xl" >
+    <AppBar position="static" sx={{ marginTop: "20px" }}>
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <PetsIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1, marginBottom:"4px"}} />
+          <PetsIcon
+            sx={{
+              display: { xs: "none", md: "flex" },
+              mr: 1,
+              marginBottom: "4px",
+            }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -69,7 +75,7 @@ function Nav() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              marginBottom:"4px"
+              marginBottom: "4px",
             }}
           >
             Barkapedia
@@ -113,7 +119,13 @@ function Nav() {
             </Menu>
           </Box>
           {/* LOGO = TITLE */}
-          <PetsIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1,marginBottom:"4px"} } />
+          <PetsIcon
+            sx={{
+              display: { xs: "flex", md: "none" },
+              mr: 1,
+              marginBottom: "4px",
+            }}
+          />
           <Typography
             variant="h5"
             noWrap
@@ -122,22 +134,21 @@ function Nav() {
             sx={{
               mr: 2,
               display: { xs: "block", md: "none" },
-              fontSize: {xs: "14px", sm: "20px"},
+              fontSize: { xs: "14px", sm: "20px" },
               flexGrow: 1,
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              marginBottom:"4px",
+              marginBottom: "4px",
             }}
           >
             Barkapedia
           </Typography>
 
-        
           {/* USER DROPDOWN */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          {/* <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -167,11 +178,16 @@ function Nav() {
                 {page}
               </Button>
             ))}
-          </Box>
-          {!email && <Link style={{textDecoration:"none"}} to="/signin"><Typography sx={{color:"white", marginRight:"10px",
+          </Box> */}
+          {!email && (
+            <Link style={{ textDecoration: "none" }} to="/signin">
+              <Typography
+                sx={{
+                  color: "white",
+                  marginRight: "10px",
                   display: "block",
                   position: "relative",
-                  fontSize: {xs: ".7em", sm: ".875em"},
+                  fontSize: { xs: ".7em", sm: ".875em" },
                   "&::after": {
                     content: '""',
                     position: "absolute",
@@ -187,8 +203,14 @@ function Nav() {
                   "&:hover::after": {
                     transform: "scaleX(1)",
                     transformOrigin: "right",
-                  },}}>SIGN IN</Typography></Link>}
-          <Box sx={{ flexGrow: 0 }}>
+                  },
+                }}
+              >
+                SIGN IN
+              </Typography>
+            </Link>
+          )}
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="UserName" />
@@ -218,7 +240,7 @@ function Nav() {
                 )
               )}
             </Menu>
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>
