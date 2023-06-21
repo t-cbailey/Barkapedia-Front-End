@@ -3,14 +3,24 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
-import { SingleReviewProps, User } from "../types/CustomTypes";
-import "../Styles/styles.css";
 import { Box } from "@mui/material";
-
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import VerifiedIcon from "@mui/icons-material/Verified";
-import BusinessIcon from '@mui/icons-material/Business';
+import BusinessIcon from "@mui/icons-material/Business";
+
+import {
+  PatchReviewResponse,
+  SingleReviewProps,
+  User,
+  VoteValue,
+} from "../types/CustomTypes";
+import "../Styles/styles.css";
 import { useState, useEffect } from "react";
 import getUserByID from "../utils/getUserByID.utils";
+import patchReviewVotes from "../utils/patchReviewVotes.utils";
 
 export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
   if (!review) {
@@ -20,6 +30,8 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
   const [userData, setUserData] = useState<User | undefined>();
   const [showVerifiedIcon, setShowVerifiedIcon] = useState<boolean>(false);
   const [showBusinessIcon, setShowBusinessIcon] = useState<boolean>(false);
+  const [vote, setVote] = useState<VoteValue>(null);
+  const [voteCount, setVoteCount] = useState<number>(review.votes);
 
   useEffect(() => {
     getUserByID(review.user_id).then((user) => setUserData(user));
@@ -32,6 +44,35 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
     }
   }, [userData]);
 
+  const handleChange = (
+    _event: React.MouseEvent<HTMLElement>,
+    newVote: VoteValue
+  ) => {
+    if (newVote === null) {
+      setVote(vote);
+      return;
+    }
+    const increment = newVote;
+    const reviewRequest = { review_id: review.id, increment };
+    patchReviewVotes(reviewRequest)
+      .then((response: PatchReviewResponse) => {
+        setVote(newVote);
+        setVoteCount(response.data.votes);
+      })
+      .then(() => {
+        if ((newVote === 1 && vote === -1) || (newVote === -1 && vote === 1)) {
+          return patchReviewVotes(reviewRequest).then(
+            (response: PatchReviewResponse) => {
+              setVoteCount(response.data.votes);
+            }
+          );
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <Card sx={{ maxWidth: fullWidth ? "100%" : 345 }}>
       <CardHeader
@@ -39,14 +80,34 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
         subheader={
           <Box component="span" sx={{ display: "flex", alignItems: "center" }}>
             {review.username}
-            {showVerifiedIcon && <VerifiedIcon aria-hidden={false} aria-label="Verified user" />}
-            {showBusinessIcon && <BusinessIcon aria-hidden={false} aria-label="Business User" />}
+            {showVerifiedIcon && (
+              <VerifiedIcon aria-hidden={false} aria-label="Verified user" color="primary" />
+            )}
+            {showBusinessIcon && (
+              <BusinessIcon aria-hidden={false} aria-label="Business User" color="primary"/>
+            )}
           </Box>
         }
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           {review.body}
+        </Typography>
+        <ToggleButtonGroup
+          value={vote}
+          exclusive
+          onChange={handleChange}
+          aria-label="vote"
+        >
+          <ToggleButton value={1} aria-label="upvote">
+            <ThumbUpIcon />
+          </ToggleButton>
+          <ToggleButton value={-1} aria-label="downvote">
+            <ThumbDownIcon />
+          </ToggleButton>
+        </ToggleButtonGroup>
+        <Typography variant="body2" color="text.secondary">
+          Vote count: {voteCount}
         </Typography>
       </CardContent>
       <CardActions disableSpacing></CardActions>
