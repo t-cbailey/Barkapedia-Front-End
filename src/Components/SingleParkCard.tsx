@@ -16,6 +16,8 @@ import ParkRating from "./StarRating";
 import Map from "./Map";
 import ParkReviews from "./ParkReviews";
 import "../Styles/styles.css"
+import { Link, useParams } from "react-router-dom";
+
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -45,10 +47,11 @@ export default function SingleParkCard({
 }: SingleParkProps) {
   const [expanded, setExpanded] = React.useState(false);
   const [parks, setParks] = React.useState<Park[]>([]);
+  const {park_id} = useParams();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+console.log(park_id);
   const parsedLat = parseFloat(singlePark.location.lat);
   const parsedLong = parseFloat(singlePark.location.long);
 
@@ -185,6 +188,7 @@ export default function SingleParkCard({
               </span>
             </li>
           </Typography>
+          <Link to={`/parks/${park_id}/post-review`}>Post Review</Link>
           <ParkReviews reviews={reviews} isLoading={isLoading} />
         </Box>
       </CardContent>

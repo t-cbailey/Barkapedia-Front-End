@@ -11,6 +11,8 @@ import * as React from "react";
 import { Park } from "./types/CustomTypes";
 import server from "./Api/api";
 import { LatLngTuple } from "leaflet";
+import CreateReview from "./Components/CreateReview"
+import PostReview from "./Components/PostReview";
 
 function App() {
   const [email, setEmail] = useState(null);
@@ -77,6 +79,7 @@ function App() {
         />
         <Route path="/parks/:park_id" element={<SinglePark />} />
         <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/parks/:park_id/post-review" element={<PostReview />}></Route>
       </Routes>
     </>
     </LoginContext.Provider>

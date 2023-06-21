@@ -1,0 +1,41 @@
+.icon {
+  z-index: 2;
+  width: 10%;
+}
+.default {
+  color: rgba(123, 123, 123, 0.423);
+}
+.default:hover {
+  color: rgba(0, 0, 0, 0.423);
+  transform: scale(1.15);
+}
+
+.icon-large {
+  font-size: 60px;
+  color: rgba(123, 123, 123, 0.423);
+}
+.icon-large:hover {
+  color: rgba(0, 0, 0, 0.423);
+  transform: scale(1.15);
+}
+
+.icon5 {
+  color: rgb(0, 176, 35);
+}
+.icon4 {
+  color: rgb(111, 176, 0);
+}
+.icon3 {
+  color: rgba(183, 180, 0, 0.783);
+}
+.icon2 {
+  color: rgb(176, 97, 0);
+}
+.icon1 {
+  color: rgb(176, 35, 0);
+}
+
+form {
+  width: 100%;
+}
+
