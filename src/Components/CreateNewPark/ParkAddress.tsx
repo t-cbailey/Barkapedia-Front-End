@@ -2,7 +2,6 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { ParkAddressProps } from "../../types/CustomTypes";
-import { FormGroup } from "@mui/material";
 
 function ParkAddress({ setParkAddress, regex }: ParkAddressProps) {
   const [firstLine, setFirstLine] = React.useState("");
@@ -38,7 +37,7 @@ function ParkAddress({ setParkAddress, regex }: ParkAddressProps) {
 
   return (
     <>
-      <Box>
+      <Box sx={{ width: "100%" }}>
         <h2>Park address</h2>
         <TextField
           id="street"
@@ -65,9 +64,12 @@ function ParkAddress({ setParkAddress, regex }: ParkAddressProps) {
           sx={{ m: 1 }}
         />
         <TextField
+          error={city.length < 1 ? true : false}
+          helperText={city.length < 1 ? "enter a city/ town name" : null}
           id="city/town"
           label="city/town"
           variant="standard"
+          required
           onChange={handleCityChange}
           sx={{ m: 1 }}
         />

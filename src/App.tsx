@@ -1,4 +1,3 @@
-import Header from "./Components/Header";
 import Nav from "./Components/Nav";
 import SinglePark from "./Components/SinglePark";
 import { Routes, Route } from "react-router-dom";
@@ -55,19 +54,29 @@ function App() {
     }
   });
   return (
-  <LoginContext.Provider value={{ email, id, type, setEmail, setId, setType }}>
-    <Box sx={{display: "flex", marginLeft: "20px", marginRight:"20px", fontFamily:"Helvetica"}}> 
-      <Stack sx={{backgroundColor:"white", width: "100vw", height: "100vh"}} spacing={2} >
-      <Nav />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              uniqueParks={uniqueParks}
-              setQueries={setQueries}
-              setCity={setCity}
-            />}
+
+    <LoginContext.Provider value={{ email, id, type, setEmail, setId, setType }}>
+      <Box
+        sx={{
+          display: "flex",
+          fontFamily: "Helvetica",
+        }}
+      >
+        <Stack
+          sx={{ backgroundColor: "white", width: "100vw", height: "100vh" }}
+          spacing={2}
+        >
+          <Nav />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  uniqueParks={uniqueParks}
+                  setQueries={setQueries}
+                  setCity={setCity}
+                />
+              }
             />
             <Route
               path="/parks"

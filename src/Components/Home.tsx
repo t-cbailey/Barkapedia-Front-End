@@ -4,10 +4,9 @@ import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { HomeProps } from "../types/CustomTypes";
-import { Stack} from "@mui/material";
-import { useContext,useState } from "react";
+import { Stack } from "@mui/material";
+import { useContext, useState } from "react";
 import { LoginContext } from "../Context/loginContext";
-
 
 function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
   const [value, setValue] = React.useState<string | null>(uniqueParks[0]);
@@ -41,13 +40,15 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
           width: "75%",
           maxWidth: "700px",
           borderRadius: "5px",
-          outline: "none"
+          outline: "none",
         }}
-        renderInput={(params) => <TextField variant="standard" {...params} label="Choose city" />}
+        renderInput={(params) => (
+          <TextField variant="standard" {...params} label="Choose city" />
+        )}
       />
       <Button
         sx={{
-          width:"75%",
+          width: "75%",
           maxWidth: "700px",
           padding: "10px",
           marginTop: "20px",
