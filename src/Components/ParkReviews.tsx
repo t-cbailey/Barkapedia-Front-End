@@ -16,13 +16,17 @@ export default function ParkReviews({ reviews, isLoading }: ReviewProps) {
 
   return (
     <>
-      {reviews.map((review, index) => {
+    {reviews.map((review, index) => {
+      if (review.body !== "") {
         return (
           <li className="card-list" key={index}>
             <SingleReview review={review} fullWidth={true} />
           </li>
         );
-      })}
-    </>
+      } else {
+        return null;
+      }
+    })}
+  </>
   );
 }
