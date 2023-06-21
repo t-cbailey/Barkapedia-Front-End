@@ -115,7 +115,19 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
   };
 
   return (
-    <Card sx={{ width: "70%", margin: "auto", marginTop: "100px" }}>
+    <Card
+      sx={{
+        width: "100%",
+        margin: "auto",
+        overflowY: "auto",
+        maxHeight: "100vh",
+        minWidth: "20%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
       <CardContent
         sx={{
           display: "flex",
@@ -123,7 +135,9 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
           alignItems: "center",
         }}
       >
-        <Typography sx={{ fontSize: "2em" }}>
+        <Typography
+          sx={{ fontSize: "2em", paddingLeft: "1em", display: "flex", paddingRight: "1em", textAlign: "center" }}
+        >
           Post Review for {parkName}
         </Typography>
         <CardContent
@@ -242,7 +256,6 @@ export default function CreateReview({ parkId, parkName }: CreateReviewProps) {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
                 disabled={buttonDisabled}
               >
                 Post Review
