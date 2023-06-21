@@ -180,7 +180,6 @@ export interface UserRequest {
   type: string;
 }
 
-
 interface Opening_hours {
   monday: string;
   tuesday: string;
@@ -217,3 +216,8 @@ export interface ReviewVoteRequest {
 }
 
 type VoteValue = 1 | -1 | null;
+
+export interface CreateNewParkProps {
+  parks: Parks[];
+  setForceGetParks: Function;
+}

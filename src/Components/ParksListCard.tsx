@@ -13,6 +13,7 @@ import { ParksListCardProps } from "../types/CustomTypes";
 import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
 import "../Styles/card-list.css";
+import { Box } from "@mui/system";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -36,11 +37,11 @@ export default function ParksListCard({ park, fullWidth }: ParksListCardProps) {
   };
 
   if (!park) {
-    return <p>Loading...</p>;
+    return <Box>Loading...</Box>;
   }
 
   return (
-    <Card sx={{ maxWidth: "850px", margin:"0 auto" }}>
+    <Card sx={{ maxWidth: "850px", margin: "0 auto" }}>
       <Link className="card-text" key={park.id} to={park.id}>
         <CardHeader title={park.name} />
         <CardContent>
@@ -49,7 +50,8 @@ export default function ParksListCard({ park, fullWidth }: ParksListCardProps) {
             reviewCount={park.current_review_count}
           />
         </CardContent>
-        <CardMedia sx={{height:"50%", width:"100%"}}
+        <CardMedia
+          sx={{ height: "50%", width: "100%" }}
           component="img"
           height="194"
           image={park.image_url}

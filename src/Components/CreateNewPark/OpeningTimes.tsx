@@ -56,7 +56,8 @@ function OpeningTimes({ setOpeningTimes }: OpeningTimesProps) {
           m: 3,
         }}
       >
-        <h2> Business Opening Times</h2>
+        <Box sx={{ fontSize: "1.2em" }}>Opening Times</Box>
+
         <TextField
           id="mondayOpening"
           label="Monday"

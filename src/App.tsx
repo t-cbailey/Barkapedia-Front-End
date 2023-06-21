@@ -11,8 +11,8 @@ import { Park } from "./types/CustomTypes";
 import server from "./Api/api";
 import { LatLngTuple } from "leaflet";
 import PostReview from "./Components/PostReview";
-import Register from "./Components/Register"
-import Box from '@mui/material/Box';
+import Register from "./Components/Register";
+import Box from "@mui/material/Box";
 import CreateNewPark from "./Components/CreateNewPark/CreateNewPark";
 import { Stack } from "@mui/system";
 import "./Styles/reset.css";
@@ -29,6 +29,7 @@ function App() {
   >([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [uniqueParks, setUniqueParks] = React.useState<string[]>(["Any"]);
+  const [forceGetParks, setForceGetParks] = React.useState(true);
 
   const parksURL = "/parks" + queries;
   React.useEffect(() => {
@@ -46,7 +47,7 @@ function App() {
       );
       setIsLoading(false);
     });
-  }, [parksURL]);
+  }, [parksURL, forceGetParks]);
 
   parks.forEach((park: Park) => {
     if (!uniqueParks.includes(park.address.city)) {
@@ -54,8 +55,9 @@ function App() {
     }
   });
   return (
-
-    <LoginContext.Provider value={{ email, id, type, setEmail, setId, setType }}>
+    <LoginContext.Provider
+      value={{ email, id, type, setEmail, setId, setType }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -91,11 +93,21 @@ function App() {
               }
             />
             <Route path="/parks/:park_id" element={<SinglePark />} />
-            <Route path="/newpark" element={<CreateNewPark />} />
+            <Route
+              path="/newpark"
+              element={
+                <CreateNewPark
+                  parks={parks}
+                  setForceGetParks={setForceGetParks}
+                />
+              }
+            />
             <Route path="/register" element={<Register />} />
             <Route path="/signin" element={<SignIn setId={setId} />}></Route>
-        <Route path="/parks/:park_id/post-review" element={<PostReview />}
-          ></Route>
+            <Route
+              path="/parks/:park_id/post-review"
+              element={<PostReview />}
+            ></Route>
           </Routes>
         </Stack>
       </Box>
