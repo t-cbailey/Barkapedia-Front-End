@@ -19,8 +19,8 @@ import {
 } from "../types/CustomTypes";
 import "../Styles/styles.css";
 import { useState, useEffect } from "react";
-import getUserByID from "../utils/getUserByID.utils";
 import patchReviewVotes from "../utils/patchReviewVotes.utils";
+import getUserByID from "../utils/getUserByID.utils";
 
 export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
   if (!review) {
