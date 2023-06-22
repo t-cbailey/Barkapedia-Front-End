@@ -178,7 +178,7 @@ function CreateNewPark({ parks, setForceGetParks }: CreateNewParkProps) {
         >
           <Box sx={{ fontSize: "1.2em" }}>Add a new park</Box>
 
-          {verified === true ? (
+          {(verified === true && type === "consumer") || type === "business" ? (
             <Box
               component="form"
               sx={{
