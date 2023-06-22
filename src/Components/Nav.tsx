@@ -7,9 +7,8 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-// import Avatar from "@mui/material/Avatar";
-// import Button from "@mui/material/Button";
-// import Tooltip from "@mui/material/Tooltip";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import PetsIcon from "@mui/icons-material/Pets";
 import { useNavigate, Link } from "react-router-dom";
@@ -17,32 +16,22 @@ import { useContext } from "react";
 import { LoginContext } from "../Context/loginContext";
 
 function Nav() {
-  const pages = ["Search", "Parks", "Add Park"];
-  const settings = ["Profile", "Account", "Dashboard", "Logout"];
   const { email } = useContext(LoginContext);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-  // const [_anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-  //   null
-  //   );
+  const pages = ["Search", "Parks", "Add Park"];
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  // const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
   const handleCloseNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     handleSelectPage(event);
     setAnchorElNav(null);
   };
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
-  const navigate = useNavigate();
   const handleSelectPage = (event: React.MouseEvent<HTMLElement>) => {
-    const pageRef = (event.target as Element).innerHTML;
+    const pageRef = event.currentTarget.textContent;
     let navString = "";
     if (pageRef === "Parks") navString = "/parks";
     if (pageRef === "Search") navString = "/";
@@ -146,8 +135,8 @@ function Nav() {
             Barkapedia
           </Typography>
 
-          {/* USER DROPDOWN */}
-          {/* <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          {/* Desktop Links! */}
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -177,8 +166,7 @@ function Nav() {
                 {page}
               </Button>
             ))}
-
-          </Box> */}
+          </Box>
 
           {!email && (
             <Link style={{ textDecoration: "none" }} to="/signin">
@@ -212,38 +200,9 @@ function Nav() {
             </Link>
           )}
 
-          {/* <Box sx={{ flexGrow: 0 }}>
-
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="UserName" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) =>
-                setting === "Logout" && !email ? null : (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                )
-              )}
-            </Menu>
-          </Box> */}
+          <Box sx={{ flexGrow: 0 }}>
+            <Avatar alt="UserName" />
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
