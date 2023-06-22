@@ -277,7 +277,7 @@ function CreateNewPark({ parks, setForceGetParks }: CreateNewParkProps) {
                 m: 4,
               }}
             >
-              You must be signed in and verified to post add a new park
+              You must be signed in and verified to add a new park
             </Box>
           )}
         </Box>

@@ -229,7 +229,7 @@ export default function SingleParkCard({
               </span>
             </li>
           </Box>
-          {type === "Consumer" ? (
+          {type === "consumer" ? (
             <Link
               to={`/parks/${park_id}/post-review`}
               style={{ textDecoration: "none" }}

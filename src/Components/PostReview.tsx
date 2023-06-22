@@ -27,7 +27,7 @@ export default function PostReview() {
 
   return (
     <>
-      {type === "Consumer" ? (
+      {type === "consumer" ? (
         singlePark && (
           <CreateReview parkId={park_id} parkName={singlePark.name} />
         )
