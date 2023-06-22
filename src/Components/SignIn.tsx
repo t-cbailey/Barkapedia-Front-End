@@ -21,11 +21,14 @@ export default function SignIn({ setId }: SignInProps) {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [clientValidation, setClientValidation] = useState("");
-  const { setEmail: setLoginEmail, setType: setLoginType, setIsVerified: setLoginIsVerified } = useContext(LoginContext);
+  const {
+    setEmail: setLoginEmail,
+    setType: setLoginType,
+    setIsVerified: setLoginIsVerified,
+  } = useContext(LoginContext);
 
   const navigate = useNavigate();
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,7 +48,7 @@ export default function SignIn({ setId }: SignInProps) {
             setLoginEmail(email);
             setId(userId);
             setLoginType(user.type);
-            setLoginIsVerified(user.isVerified)
+            setLoginIsVerified(user.isVerified);
             navigate("/");
           });
         } else {
@@ -93,7 +96,7 @@ export default function SignIn({ setId }: SignInProps) {
   };
 
   return (
-    <Card sx={{width: "100%", height: "100%"}}>
+    <Card sx={{ width: "100%", height: "100%" }}>
       <CardContent
         sx={{
           display: "flex",
@@ -102,81 +105,91 @@ export default function SignIn({ setId }: SignInProps) {
         }}
       >
         <Typography sx={{ fontSize: "2em" }}>Sign In</Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onClick={handleFieldClick}
-            onChange={handleFieldChange}
-            onBlur={(event) => handleFieldBlur(event)}
-            error={emailError}
-          ></TextField>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onClick={handleFieldClick}
-            onChange={handleFieldChange}
-            onBlur={(event) => handleFieldBlur(event)}
-            error={passwordError}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2,
-            padding: "10px",
-            marginTop: "40px" }}
-            disabled={buttonDisabled}
-          >
-            Sign In
-          </Button>
-          <Typography onClick={() => {
-            setEmailError(false)
-            navigate("/register")
-            }} sx={{display: "flex", justifyContent: "center", cursor: "pointer"}}>New to Barkepedia?&nbsp;<Link to={"/register"}>Create account</Link></Typography>
-          {submitError && (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <form onSubmit={handleSubmit} style={{ maxWidth: "700px" }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onClick={handleFieldClick}
+              onChange={handleFieldChange}
+              onBlur={(event) => handleFieldBlur(event)}
+              error={emailError}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onClick={handleFieldClick}
+              onChange={handleFieldChange}
+              onBlur={(event) => handleFieldBlur(event)}
+              error={passwordError}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2, padding: "10px", marginTop: "40px" }}
+              disabled={buttonDisabled}
+            >
+              Sign In
+            </Button>
             <Typography
-              variant="body2"
-              color="error"
+              onClick={() => {
+                setEmailError(false);
+                navigate("/register");
+              }}
               sx={{
-                backgroundColor: "pink",
-                textAlign: "center",
-                mt: 2,
-                border: "solid",
-                padding: "0.5rem",
+                display: "flex",
+                justifyContent: "center",
+                cursor: "pointer",
               }}
             >
-              {submitError}
+              New to Barkepedia?&nbsp;
+              <Link to={"/register"}>Create account</Link>
             </Typography>
-          )}
-          {clientValidation !== "" && (
-            <Typography
-              variant="body2"
-              color="error"
-              sx={{
-                backgroundColor: "pink",
-                textAlign: "center",
-                mt: 2,
-                border: "solid",
-                padding: "0.5rem",
-              }}
-            >
-              {clientValidation}
-            </Typography>
-          )}
-        </form>
+            {submitError && (
+              <Typography
+                variant="body2"
+                color="error"
+                sx={{
+                  backgroundColor: "pink",
+                  textAlign: "center",
+                  mt: 2,
+                  border: "solid",
+                  padding: "0.5rem",
+                }}
+              >
+                {submitError}
+              </Typography>
+            )}
+            {clientValidation !== "" && (
+              <Typography
+                variant="body2"
+                color="error"
+                sx={{
+                  backgroundColor: "pink",
+                  textAlign: "center",
+                  mt: 2,
+                  border: "solid",
+                  padding: "0.5rem",
+                }}
+              >
+                {clientValidation}
+              </Typography>
+            )}
+          </form>
+        </div>
       </CardContent>
     </Card>
   );
