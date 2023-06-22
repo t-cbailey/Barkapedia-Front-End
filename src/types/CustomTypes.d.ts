@@ -198,7 +198,7 @@ interface Address {
 }
 
 export interface ParkSubmissionObject {
-  user_id: string;
+  user_id: string | null;
   name: string;
   desc: string;
   size: number;
@@ -214,7 +214,6 @@ export interface ReviewVoteRequest {
   review_id: string;
   increment: number;
 }
-
 
 type VoteValue = 1 | -1 | null;
 
@@ -233,6 +232,3 @@ export interface LoginContextType {
   setType: (type: any) => void;
   setIsVerified: (isVerified: any) => void;
 }
-
-
-
