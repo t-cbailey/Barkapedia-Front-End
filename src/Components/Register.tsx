@@ -9,9 +9,8 @@ import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import postUser from "../utils/postUser";
-import "../Styles/register.css"
+import "../Styles/register.css";
 import { useNavigate } from "react-router-dom";
-
 
 export default function Register() {
   const [username, setUsername] = useState<string>("");
@@ -41,28 +40,25 @@ export default function Register() {
     if (
       /^[\w.-]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,})+$/.test(email) &&
       password === password2 &&
-      username.length > 5
+      username.length > 0
     ) {
       const updatedUser = { ...user, username, email, password };
       setUser(updatedUser);
       postUser(updatedUser)
-      .then(() => {
-        navigate("/signin")
-      })
-      .catch((err) => {
-        console.dir(err);
-      });
+        .then(() => {
+          navigate("/signin");
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
     }
   }
-console.log(user);
-  
+
   useEffect(() => {
-      console.log(user);
     if (username !== "" && email !== "" && password !== "") {
       if (isBusiness || isCustomer) setSubmittable(true);
     }
   }, [username, email, password, isBusiness, isCustomer]);
-  console.log(type);
 
   function handleCheckbox(type: string) {
     if (type === "business" && !isBusiness) {
@@ -85,30 +81,50 @@ console.log(user);
   }
 
   return (
-    <Card sx={{ width: "100", height:"100%"}}>
+    <Card sx={{ width: "100", height: "100%" }}>
       <FormGroup>
         <CardHeader
-            sx={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "1.5em"}}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "1.5em",
+          }}
           title="Register"
         />
-        <Typography sx={{display: "flex", flexDirection: "column", alignItems: "center", margin: '2.5em'}}>Fill in the form to create your Barkapedia account, all fields must be filled in.</Typography>
-        <CardContent sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-            
-         <TextField
+        <Typography
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            margin: "2.5em",
+          }}
+        >
+          Fill in the form to create your Barkapedia account, all fields must be
+          filled in.
+        </Typography>
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <TextField
             variant="standard"
             onChange={(e) => handleFormChange(e, "username")}
             label="Username"
-            sx={{marginBottom: "0.8em"}}
+            sx={{ marginBottom: "0.8em" }}
           ></TextField>
           <TextField
             variant="standard"
             label="Email"
-            sx={{marginBottom: "0.8em"}}
+            sx={{ marginBottom: "0.8em" }}
             onChange={(e) => handleFormChange(e, "email")}
           ></TextField>
           <TextField
             variant="standard"
-            sx={{marginBottom: "0.8em"}}
+            sx={{ marginBottom: "0.8em" }}
             label="Password"
             type="password"
             onChange={(e) => handleFormChange(e, "password")}
@@ -118,19 +134,22 @@ console.log(user);
             label="Re-enter Password"
             type="password"
             onChange={(e) => handleFormChange(e, "password2")}
-            ></TextField>
-           
+          ></TextField>
         </CardContent>
-          <Typography sx={{marginTop:"4em", display: "flex", justifyContent: "center"}}>Are you a business or a customer?</Typography>
-          
-          <CardContent sx={{margin: "auto", paddingLeft: "0"}}>
+        <Typography
+          sx={{ marginTop: "4em", display: "flex", justifyContent: "center" }}
+        >
+          Are you a business or a customer?
+        </Typography>
+
+        <CardContent sx={{ margin: "auto", paddingLeft: "0" }}>
           <FormControlLabel
-          value="start"
-          control={<Checkbox />}
-          label="Customer"
-          checked={isCustomer}
-          labelPlacement="start"
-          onClick={() => handleCheckbox("consumer")}
+            value="start"
+            control={<Checkbox />}
+            label="Customer"
+            checked={isCustomer}
+            labelPlacement="start"
+            onClick={() => handleCheckbox("consumer")}
           />
           <FormControlLabel
             value="start"
@@ -139,21 +158,21 @@ console.log(user);
             checked={isBusiness}
             labelPlacement="start"
             onClick={() => handleCheckbox("business")}
-            />
-              </CardContent>
-          {submittable ? (
-              <CardContent sx={{margin: "auto"}}>
-              <Button
+          />
+        </CardContent>
+        {submittable ? (
+          <CardContent sx={{ margin: "auto" }}>
+            <Button
               variant="contained"
-              sx={{width: "20em"}}
+              sx={{ width: "20em" }}
               onClick={() =>
                 createAccount(username, email, password, password2)
               }
             >
               Create Account
             </Button>
-            </CardContent>
-          ) : null}
+          </CardContent>
+        ) : null}
       </FormGroup>
     </Card>
   );
