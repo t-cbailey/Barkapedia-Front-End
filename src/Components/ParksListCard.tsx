@@ -58,37 +58,10 @@ export default function ParksListCard({ park }: ParksListCardProps) {
           alt={park.name}
         />
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {park.desc}
-          </Typography>
         </CardContent>
       </Link>
       <CardActions disableSpacing>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <Link key={park.id} className="card-text" to={park.id}>
-          <CardContent>
-            <Typography paragraph>Opening Hours</Typography>
-            <ul className="cards">
-              <li>{`Monday: ${park.opening_hours.monday}`}</li>
-              <li>{`Tuesday: ${park.opening_hours.tuesday}`}</li>
-              <li>{`Wednesday: ${park.opening_hours.wednesday}`}</li>
-              <li>{`Thursday: ${park.opening_hours.thursday}`}</li>
-              <li>{`Friday: ${park.opening_hours.friday}`}</li>
-              <li>{`Saturday: ${park.opening_hours.saturday}`}</li>
-              <li>{`Sunday: ${park.opening_hours.sunday}`}</li>
-            </ul>
-          </CardContent>
-        </Link>
-      </Collapse>
+        </CardActions>
     </Card>
   );
 }
