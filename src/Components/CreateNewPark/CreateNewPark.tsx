@@ -53,8 +53,9 @@ function CreateNewPark({ parks, setForceGetParks }: CreateNewParkProps) {
 
   const { id } = React.useContext(LoginContext);
   const { type } = React.useContext(LoginContext);
+  const { isVerified } = React.useContext(LoginContext);
 
-  const verified = true;
+  const verified = isVerified;
   const accountType = type;
   const user_id = id;
 
@@ -267,7 +268,16 @@ function CreateNewPark({ parks, setForceGetParks }: CreateNewParkProps) {
               </Button>
             </Box>
           ) : (
-            <p>You must be signed in and verified to post add a new park</p>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              You must be signed in and verified to post add a new park
+            </Box>
           )}
         </Box>
       )}
