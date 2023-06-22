@@ -1,10 +1,13 @@
 import { createContext } from "react";
+import { LoginContextType } from "../types/CustomTypes";
 
-export const LoginContext = createContext({
+export const LoginContext = createContext<LoginContextType>({
   email: null,
   id: null,
   type: null,
-  setEmail: (email: string) => {},
-  setId: (id: string) => {},
-  setType: (type: string) => {},
+  isVerified: null,
+  setEmail: (_email: string) => {},
+  setId: (_id: string) => {},
+  setType: (_type: string) => {},
+  setIsVerified: (_isVerified: boolean) => {}
 });
