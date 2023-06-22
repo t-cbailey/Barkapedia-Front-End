@@ -43,7 +43,7 @@ export default function PostReview() {
                 padding: "0.5rem",
               }}
             >
-              Please log in as a consumer to post a review
+              Please log in as a customer to post a review
             </Typography>
       )}
     </>

@@ -81,7 +81,12 @@ export default function SingleParkCard({
         />
       </CardContent>
       <CardMedia
-      sx={{height:"50%", width:"100%", maxWidth:'750px', padding:"0 15px"}}
+        sx={{
+          height: "50%",
+          width: "100%",
+          maxWidth: "750px",
+          padding: "0 15px",
+        }}
         component="img"
         height="194"
         image={singlePark.image_url}
@@ -94,15 +99,27 @@ export default function SingleParkCard({
           parks={parks}
           isListView={false}
         />
-        <Typography sx={{marginTop:"20px"}} variant="body2" color="text.secondary">
+        <Typography
+          sx={{ marginTop: "20px" }}
+          variant="body2"
+          color="text.secondary"
+        >
           {singlePark.desc}
         </Typography>
         <Box>
           {/* <Typography variant="body2" color="text.secondary"> */}
-            <Box sx={{display:"flex", justifyContent:"space-evenly", margin:"20px 0"}}>
-            {singlePark.features.isFree && <Button className="filter-button" variant="outlined">
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              margin: "20px 0",
+            }}
+          >
+            {singlePark.features.isFree && (
+              <Button className="filter-button" variant="outlined">
                 Free
-              </Button>}
+              </Button>
+            )}
             {singlePark.features.isWellLit && (
               <Button className="filter-button" variant="outlined">
                 Well Lit
@@ -136,8 +153,8 @@ export default function SingleParkCard({
                 Disabled Access
               </Button>
             )}
-            </Box>
-            <Box>
+          </Box>
+          <Box>
             {singlePark.address.firstLine &&
               singlePark.address.firstLine + ", "}
             {singlePark.address.secondLine &&
@@ -234,22 +251,27 @@ export default function SingleParkCard({
             </li>
           </Box>
           {type === "Consumer" ? (
-            <Link to={`/parks/${park_id}/post-review`} style={{ textDecoration: "none" }}><Typography
-            variant="body2"
-            color="white"
-            sx={{
-              backgroundColor: "info.main",
-              textAlign: "center",
-              mt: 2,
-              border: "solid",
-              padding: "0.5rem",
-            }}
-          >
-            Post Review
-          </Typography></Link>
-          ) : (
+            <Link
+              to={`/parks/${park_id}/post-review`}
+              style={{ textDecoration: "none" }}
+            >
+              <Typography
+                variant="body2"
+                color="white"
+                sx={{
+                  backgroundColor: "info.main",
+                  textAlign: "center",
+                  mt: 2,
+                  border: "solid",
+                  padding: "0.5rem",
+                }}
+              >
+                Post Review
+              </Typography>
+            </Link>
+          ) : type === "Business" ? null : (
             <Link to="/signin" style={{ textDecoration: "none" }}>
-            <Typography
+              <Typography
                 variant="body2"
                 color="white"
                 sx={{
@@ -267,8 +289,7 @@ export default function SingleParkCard({
           <ParkReviews reviews={reviews} isLoading={isLoading} />
         </Box>
       </CardContent>
-      <CardActions disableSpacing>
-      </CardActions>
+      <CardActions disableSpacing></CardActions>
     </Card>
   );
 }
