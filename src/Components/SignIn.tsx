@@ -21,8 +21,8 @@ export default function SignIn({ setId }: SignInProps) {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [clientValidation, setClientValidation] = useState("");
-  const { setEmail: setLoginEmail, setType: setLoginType } =
-    useContext(LoginContext);
+  const { setEmail: setLoginEmail, setType: setLoginType, setIsVerified: setLoginIsVerified } = useContext(LoginContext);
+
   const navigate = useNavigate();
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -45,6 +45,7 @@ export default function SignIn({ setId }: SignInProps) {
             setLoginEmail(email);
             setId(userId);
             setLoginType(user.type);
+            setLoginIsVerified(user.isVerified)
             navigate("/");
           });
         } else {

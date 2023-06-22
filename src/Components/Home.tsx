@@ -5,8 +5,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { HomeProps } from "../types/CustomTypes";
 import { Stack } from "@mui/material";
-import { useContext, useState } from "react";
-import { LoginContext } from "../Context/loginContext";
+import { useState } from "react";
 
 function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
   const [value, setValue] = React.useState<string | null>(uniqueParks[0]);
@@ -17,7 +16,6 @@ function Home({ uniqueParks, setQueries, setCity }: HomeProps) {
     setCity(value);
     navigate(`/parks`);
   };
-  const { email } = useContext(LoginContext);
 
   const [isComplete, setIsComplete] = useState(false);
 
