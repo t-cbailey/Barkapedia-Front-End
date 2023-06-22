@@ -7,7 +7,6 @@ import ParksListCard from "./ParksListCard";
 import { MapProps } from "../types/CustomTypes";
 
 export default function Map({
-  center,
   markers,
   onMarkerClick,
   selectedParkId,
