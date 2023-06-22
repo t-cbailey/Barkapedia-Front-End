@@ -9,14 +9,10 @@ import ParksListCard from "./ParksListCard";
 import Filters from "./Filters";
 import { Park, TabPanelProps, ShowParksInterface } from "../types/CustomTypes";
 import { LatLngTuple } from "leaflet";
-import "../Styles/styles.css"
-import { LoginContext } from "../Context/loginContext";
-import { useContext } from "react";
-
+import "../Styles/styles.css";
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-  const { email } = useContext(LoginContext)
   return (
     <div
       role="tabpanel"
@@ -52,7 +48,7 @@ export default function ShowParks({
   const [selectedParkId, setSelectedParkId] = React.useState<string | null>(
     null
   );
-  const [park, setPark] = React.useState<Park | null>(null);
+  const [park, _setPark] = React.useState<Park | null>(null);
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -90,7 +86,7 @@ export default function ShowParks({
           parks={parks}
           isListView={true}
         />
-        {park && <ParksListCard park={park} fullWidth={false} />}
+        {park && <ParksListCard park={park} parks={parks} fullWidth={false} />}
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ParksList parks={parks} isLoading={isLoading} />

@@ -30,7 +30,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function ParksListCard({ park, fullWidth }: ParksListCardProps) {
+export default function ParksListCard({ park }: ParksListCardProps) {
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);

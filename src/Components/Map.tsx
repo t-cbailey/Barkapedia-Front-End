@@ -7,7 +7,6 @@ import ParksListCard from "./ParksListCard";
 import { MapProps } from "../types/CustomTypes";
 
 export default function Map({
-  center,
   markers,
   onMarkerClick,
   selectedParkId,
@@ -20,7 +19,9 @@ export default function Map({
   });
 
   const handleMarkerClick = (parkId: string) => {
-    onMarkerClick(parkId);
+    if (onMarkerClick) {
+      onMarkerClick(parkId);
+    }
   };
 
   return (

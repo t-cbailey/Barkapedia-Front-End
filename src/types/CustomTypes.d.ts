@@ -81,8 +81,8 @@ export interface MapProps {
     content: string;
     parkId: string;
   }[];
-  onMarkerClick: (parkId: string) => void;
-  selectedParkId: string | null;
+  onMarkerClick?: (parkId: string) => void;
+  selectedParkId?: string | null;
   parks: Park[];
   isListView: boolean;
 }
@@ -114,7 +114,8 @@ export interface ParksListProps {
 }
 
 export interface ParksListCardProps {
-  park: Park;
+  park: Park | null;
+  parks: Park[];
   fullWidth: boolean;
 }
 
