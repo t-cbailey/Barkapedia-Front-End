@@ -137,13 +137,13 @@ export interface ShowParksInterface {
 }
 
 export interface ReviewData {
-  park_id: string;
-  user_id: string;
-  rating: number;
-  safety: number;
-  AsDescribed: boolean;
-  title: string;
-  body: string;
+  park_id: string | undefined;
+  user_id: string | null;
+  rating: number | null;
+  safety: number | null;
+  AsDescribed: boolean | null;
+  title: string | null;
+  body: string | null;
 }
 
 export interface FeaturesDropDownProps {
@@ -215,5 +215,17 @@ export interface ReviewVoteRequest {
   review_id: string;
   increment: number;
 }
+
+export interface LoginContextType {
+  email: string | null;
+  id: string | null;
+  type: string | null;
+  isVerified: boolean | null;
+  setEmail: (email: any) => void;
+  setId: (id: any) => void;
+  setType: (type: any) => void;
+  setIsVerified: (isVerified: any) => void;
+}
+
 
 type VoteValue = 1 | -1 | null;

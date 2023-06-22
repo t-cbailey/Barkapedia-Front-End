@@ -22,6 +22,7 @@ function App() {
   const [parks, setParks] = React.useState<Park[]>([]);
   const [id, setId] = useState<string | null>(null);
   const [type, setType] = useState(null);
+  const [isVerified, setIsVerified] = useState(null);
   const [queries, setQueries] = React.useState<string>("");
   const [city, setCity] = React.useState("");
   const [mapMarkers, setMapMarkers] = React.useState<
@@ -55,7 +56,7 @@ function App() {
   });
   return (
 
-    <LoginContext.Provider value={{ email, id, type, setEmail, setId, setType }}>
+    <LoginContext.Provider value={{ email, id, type, setEmail, setId, setType, setIsVerified, isVerified }}>
       <Box
         sx={{
           display: "flex",

@@ -14,12 +14,13 @@ import { MdSentimentSatisfied } from "react-icons/md";
 import { MdSentimentNeutral } from "react-icons/md";
 import { MdSentimentDissatisfied } from "react-icons/md";
 import { MdSentimentVeryDissatisfied } from "react-icons/md";
-import { postReview, ReviewData } from "../utils/postReview.utils";
+import { postReview } from "../utils/postReview.utils";
 
 import "../Styles/post-review.css";
+import { ReviewData } from "../types/CustomTypes";
 
 interface CreateReviewProps {
-  parkId: string;
+  parkId: string | undefined;
   parkName: string;
 }
 
