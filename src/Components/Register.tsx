@@ -18,7 +18,7 @@ export default function Register() {
   const [password, setPassword] = useState<string>("");
   const [password2, setPassword2] = useState<string>("");
   const [submittable, setSubmittable] = useState<boolean>(false);
-  const [type, setType] = useState<string>("");
+  const [_type, setType] = useState<string>("");
   const [isCustomer, setIsCustomer] = useState<boolean>(false);
   const [isBusiness, setIsBusiness] = useState<boolean>(false);
   const [user, setUser] = useState({ type: "" });
