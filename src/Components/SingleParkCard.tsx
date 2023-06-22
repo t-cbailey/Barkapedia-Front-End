@@ -20,6 +20,7 @@ import { Link, useParams } from "react-router-dom";
 import { LoginContext } from "../Context/loginContext";
 import { useContext } from "react";
 import { Button } from "@mui/material";
+import { link } from "fs";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -232,8 +233,36 @@ export default function SingleParkCard({
               </span>
             </li>
           </Box>
-          {type === "Consumer" && (
-            <Link to={`/parks/${park_id}/post-review`}>Post Review</Link>
+          {type === "Consumer" ? (
+            <Link to={`/parks/${park_id}/post-review`} style={{ textDecoration: "none" }}><Typography
+            variant="body2"
+            color="white"
+            sx={{
+              backgroundColor: "info.main",
+              textAlign: "center",
+              mt: 2,
+              border: "solid",
+              padding: "0.5rem",
+            }}
+          >
+            Post Review
+          </Typography></Link>
+          ) : (
+            <Link to="/signin" style={{ textDecoration: "none" }}>
+            <Typography
+                variant="body2"
+                color="white"
+                sx={{
+                  backgroundColor: "info.main",
+                  textAlign: "center",
+                  mt: 2,
+                  border: "solid",
+                  padding: "0.5rem",
+                }}
+              >
+                Please sign in to post a review
+              </Typography>
+            </Link>
           )}
           <ParkReviews reviews={reviews} isLoading={isLoading} />
         </Box>
