@@ -20,6 +20,7 @@ import { Button } from "@mui/material";
 
 interface SingleParkProps {
   singlePark: Park;
+  parkId: string | undefined;
   reviews: Review[];
   isLoading: boolean;
 }
@@ -38,6 +39,7 @@ export default function SingleParkCard({
     {
       position: [parsedLat, parsedLong] as LatLngTuple,
       content: singlePark.name,
+      parkId: singlePark.id
     },
   ];
   const { type } = useContext(LoginContext);

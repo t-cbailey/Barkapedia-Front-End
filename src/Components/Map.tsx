@@ -19,7 +19,9 @@ export default function Map({
   });
 
   const handleMarkerClick = (parkId: string) => {
-    onMarkerClick(parkId);
+    if (onMarkerClick) {
+      onMarkerClick(parkId);
+    }
   };
 
   return (

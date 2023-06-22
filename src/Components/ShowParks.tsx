@@ -86,7 +86,7 @@ export default function ShowParks({
           parks={parks}
           isListView={true}
         />
-        {park && <ParksListCard park={park} fullWidth={false} />}
+        {park && <ParksListCard park={park} parks={parks} fullWidth={false} />}
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ParksList parks={parks} isLoading={isLoading} />

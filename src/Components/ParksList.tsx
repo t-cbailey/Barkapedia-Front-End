@@ -15,7 +15,7 @@ function ParksList({ parks, isLoading }: ParksListProps) {
         {parks.map((park) => {
           return (
             <Grid sx={{margin:{ sm: "10px"}, width: {xs: "100%", sm: "42vw"}, maxWidth:"300px"}} key={park.id} className="card">
-              <ParksListCard park={park} fullWidth={true} />
+              <ParksListCard park={park} parks={parks} fullWidth={true} />
             </Grid>
           );
         })}
