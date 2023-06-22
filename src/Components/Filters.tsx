@@ -214,7 +214,7 @@ function Filters({ setQueries, city }: FiltersProps) {
   }
 
   return (
-    <Card sx={{ maxWidth: "100%"}}>
+    <Card sx={{ maxWidth: "100%" }}>
       <div>
         <CardActions disableSpacing>
           <CardHeader title="Filters" />
@@ -228,12 +228,13 @@ function Filters({ setQueries, city }: FiltersProps) {
           </ExpandMore>
         </CardActions>
         {activeFilters === true ? (
-          <CardContent className="filter-button-wrapper">
+          <CardContent>
             {isFree && (
               <Button
                 className="filter-button"
                 variant="outlined"
                 onClick={() => removeFilter("isFree")}
+                sx={{ marginLeft: "10px", marginBottom: "10px" }}
               >
                 Free Entry&nbsp;<CancelIcon></CancelIcon>
               </Button>
@@ -243,6 +244,7 @@ function Filters({ setQueries, city }: FiltersProps) {
                 className="filter-button"
                 variant="outlined"
                 onClick={() => removeFilter("wellLit")}
+                sx={{ marginLeft: "10px", marginBottom: "10px" }}
               >
                 Well Lit&nbsp;<CancelIcon></CancelIcon>
               </Button>
@@ -252,6 +254,7 @@ function Filters({ setQueries, city }: FiltersProps) {
                 className="filter-button"
                 variant="outlined"
                 onClick={() => removeFilter("freeParking")}
+                sx={{ marginLeft: "10px", marginBottom: "10px" }}
               >
                 Free Parking&nbsp;<CancelIcon></CancelIcon>
               </Button>
@@ -261,6 +264,7 @@ function Filters({ setQueries, city }: FiltersProps) {
                 className="filter-button"
                 variant="outlined"
                 onClick={() => removeFilter("anyParking")}
+                sx={{ marginLeft: "10px", marginBottom: "10px" }}
               >
                 Parking&nbsp;<CancelIcon></CancelIcon>
               </Button>
@@ -270,6 +274,7 @@ function Filters({ setQueries, city }: FiltersProps) {
                 className="filter-button"
                 variant="outlined"
                 onClick={() => removeFilter("isEnclosed")}
+                sx={{ marginLeft: "10px", marginBottom: "10px" }}
               >
                 Fully Enclosed&nbsp;<CancelIcon></CancelIcon>
               </Button>
@@ -279,6 +284,7 @@ function Filters({ setQueries, city }: FiltersProps) {
                 className="filter-button"
                 variant="outlined"
                 onClick={() => removeFilter("agilityEquipment")}
+                sx={{ marginLeft: "10px", marginBottom: "10px" }}
               >
                 Agility Equipment&nbsp;<CancelIcon></CancelIcon>
               </Button>
@@ -288,6 +294,7 @@ function Filters({ setQueries, city }: FiltersProps) {
                 className="filter-button"
                 variant="outlined"
                 onClick={() => removeFilter("disabledAccess")}
+                sx={{ marginLeft: "10px", marginBottom: "10px" }}
               >
                 Mobility Accessible&nbsp;<CancelIcon></CancelIcon>
               </Button>
