@@ -55,8 +55,8 @@ function CreateNewPark({ parks, setForceGetParks }: CreateNewParkProps) {
   const { type } = React.useContext(LoginContext);
 
   const verified = true;
-  const accountType = "personal";
-  const user_id = "user_1";
+  const accountType = type;
+  const user_id = id;
 
   const navigate = useNavigate();
 
@@ -156,7 +156,16 @@ function CreateNewPark({ parks, setForceGetParks }: CreateNewParkProps) {
   return (
     <>
       {loading ? (
-        <Box>Loading...</Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          Loading...
+        </Box>
       ) : (
         <Box
           sx={{

@@ -19,7 +19,7 @@ import { LoginContext } from "../Context/loginContext";
 function Nav() {
   const pages = ["Search", "Parks", "Add Park"];
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
-  const { email } = useContext(LoginContext)
+  const { email } = useContext(LoginContext);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -52,10 +52,16 @@ function Nav() {
   };
 
   return (
-    <AppBar position="static" sx={{marginTop:"20px"}}>
-      <Container maxWidth="xl" >
+    <AppBar position="static" sx={{ marginTop: "20px" }}>
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <PetsIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1, marginBottom:"4px"}} />
+          <PetsIcon
+            sx={{
+              display: { xs: "none", md: "flex" },
+              mr: 1,
+              marginBottom: "4px",
+            }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -69,7 +75,7 @@ function Nav() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              marginBottom:"4px"
+              marginBottom: "4px",
             }}
           >
             Barkapedia
@@ -113,7 +119,13 @@ function Nav() {
             </Menu>
           </Box>
           {/* LOGO = TITLE */}
-          <PetsIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1,marginBottom:"4px"} } />
+          <PetsIcon
+            sx={{
+              display: { xs: "flex", md: "none" },
+              mr: 1,
+              marginBottom: "4px",
+            }}
+          />
           <Typography
             variant="h5"
             noWrap
@@ -122,20 +134,19 @@ function Nav() {
             sx={{
               mr: 2,
               display: { xs: "block", md: "none" },
-              fontSize: {xs: "14px", sm: "20px"},
+              fontSize: { xs: "14px", sm: "20px" },
               flexGrow: 1,
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              marginBottom:"4px",
+              marginBottom: "4px",
             }}
           >
             Barkapedia
           </Typography>
 
-        
           {/* USER DROPDOWN */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -168,10 +179,15 @@ function Nav() {
               </Button>
             ))}
           </Box>
-          {!email && <Link style={{textDecoration:"none"}} to="/signin"><Typography sx={{color:"white", marginRight:"10px",
+          {!email && (
+            <Link style={{ textDecoration: "none" }} to="/signin">
+              <Typography
+                sx={{
+                  color: "white",
+                  marginRight: "10px",
                   display: "block",
                   position: "relative",
-                  fontSize: {xs: ".7em", sm: ".875em"},
+                  fontSize: { xs: ".7em", sm: ".875em" },
                   "&::after": {
                     content: '""',
                     position: "absolute",
@@ -187,7 +203,13 @@ function Nav() {
                   "&:hover::after": {
                     transform: "scaleX(1)",
                     transformOrigin: "right",
-                  },}}>SIGN IN</Typography></Link>}
+                  },
+                }}
+              >
+                SIGN IN
+              </Typography>
+            </Link>
+          )}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
