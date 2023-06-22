@@ -272,8 +272,9 @@ function CreateNewPark({ parks, setForceGetParks }: CreateNewParkProps) {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
-                width: "100%",
+                textAlign: "center",
+                width: "60%",
+                m: 4,
               }}
             >
               You must be signed in and verified to post add a new park
