@@ -7,13 +7,16 @@ import SizeDropdown from "./SizeDropdown";
 import OpeningTimes from "./OpeningTimes";
 import { Button } from "@mui/material";
 import postPark from "../../utils/postPark";
-import { ParkSubmissionObject } from "../../types/CustomTypes";
+import {
+  CreateNewParkProps,
+  ParkSubmissionObject,
+} from "../../types/CustomTypes";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../../Context/loginContext";
 
 // import AddPhoto from "./AddPhoto";
 
-function CreateNewPark() {
+function CreateNewPark({ parks, setForceGetParks }: CreateNewParkProps) {
   const [parkName, setParkName] = React.useState("");
   const [parkSize, setParkSize] = React.useState("");
   const [parkDescription, setParkDescription] = React.useState("");
@@ -46,17 +49,19 @@ function CreateNewPark() {
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [submissionAllowed, setSubmissionAllowed] = React.useState(false);
+  const [parkNameChange, setParkNameChange] = React.useState(false);
 
   const { id } = React.useContext(LoginContext);
   const { type } = React.useContext(LoginContext);
 
   const verified = true;
-  const accountType = "personal";
-  const user_id = "user_1";
+  const accountType = type;
+  const user_id = id;
 
   const navigate = useNavigate();
 
   const handleParkNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setParkNameChange(true);
     setParkName(event.target.value);
   };
   const handleParkDescriptionChange = (
@@ -107,16 +112,43 @@ function CreateNewPark() {
   }, [parkName, parkAddress.postCode]);
 
   const handleSubmit = (event: React.MouseEvent<HTMLElement>) => {
-    setLoading(true);
     event.preventDefault();
+
+    const namesArr = parks.map((park) => {
+      return park.name;
+    });
+    const postCodesArr = parks.map((park) => {
+      return park.address.postCode;
+    });
+
+    if (
+      namesArr.includes(submissionObj.name) &&
+      postCodesArr.includes(submissionObj.address.postCode)
+    ) {
+      alert("park already exists!");
+      window.location.reload();
+
+      throw "park already exists";
+    }
+
+    setLoading(true);
     postPark(submissionObj)
       .then((res) => {
         setLoading(false);
+        return res;
+      })
+      .then((res) => {
+        setForceGetParks((currState: boolean) => {
+          return currState === true ? false : true;
+        });
+        return res;
+      })
+      .then((res) => {
         alert("Park created successsfully!");
         navigate(`/parks/${res.data.id}`);
       })
+
       .catch((err) => {
-        alert("Error- Please reload the page and try again!");
         console.log(err);
       });
   };
@@ -124,7 +156,16 @@ function CreateNewPark() {
   return (
     <>
       {loading ? (
-        <p>Loading...</p>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          Loading...
+        </Box>
       ) : (
         <Box
           sx={{
@@ -134,7 +175,8 @@ function CreateNewPark() {
             width: "100%",
           }}
         >
-          <h1>Add a new park</h1>
+          <Box sx={{ fontSize: "1.2em" }}>Add a new park</Box>
+
           {verified === true ? (
             <Box
               component="form"
@@ -148,8 +190,12 @@ function CreateNewPark() {
               autoComplete="on"
             >
               <TextField
-                error={parkName.length < 1 ? true : false}
-                helperText={parkName.length < 1 ? "enter a park name" : null}
+                error={parkName.length < 1 && parkNameChange ? true : false}
+                helperText={
+                  parkName.length < 1 && parkNameChange
+                    ? "enter a park name"
+                    : null
+                }
                 id="parkName"
                 label="park name"
                 variant="standard"
@@ -178,6 +224,7 @@ function CreateNewPark() {
                 sx={{ m: 2, width: "90%" }}
               />
               <ParkAddress setParkAddress={setParkAddress} regex={regex} />
+              <OpeningTimes setOpeningTimes={setOpeningTimes} />
 
               {/* <AddPhoto /> */}
 
@@ -192,8 +239,6 @@ function CreateNewPark() {
                     alignItems: "center",
                   }}
                 >
-                  <OpeningTimes setOpeningTimes={setOpeningTimes} />
-
                   <TextField
                     id="website URL"
                     label="website URL"

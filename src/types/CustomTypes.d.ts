@@ -180,7 +180,6 @@ export interface UserRequest {
   type: string;
 }
 
-
 interface Opening_hours {
   monday: string;
   tuesday: string;
@@ -216,6 +215,14 @@ export interface ReviewVoteRequest {
   increment: number;
 }
 
+
+type VoteValue = 1 | -1 | null;
+
+export interface CreateNewParkProps {
+  parks: Parks[];
+  setForceGetParks: Function;
+}
+
 export interface LoginContextType {
   email: string | null;
   id: string | null;
@@ -228,4 +235,4 @@ export interface LoginContextType {
 }
 
 
-type VoteValue = 1 | -1 | null;
+

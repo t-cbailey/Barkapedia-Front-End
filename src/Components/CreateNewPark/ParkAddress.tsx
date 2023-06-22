@@ -8,6 +8,8 @@ function ParkAddress({ setParkAddress, regex }: ParkAddressProps) {
   const [secondLine, setSecondLine] = React.useState("");
   const [postCode, setPostCode] = React.useState("");
   const [city, setCity] = React.useState("");
+  const [postcodeChange, setPostcodeChange] = React.useState(false);
+  const [cityChange, setCityChange] = React.useState(false);
 
   const handleStreetChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -19,10 +21,12 @@ function ParkAddress({ setParkAddress, regex }: ParkAddressProps) {
   };
   const handlePostcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
+    setPostcodeChange(true);
     setPostCode(event.target.value);
   };
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
+    setCityChange(true);
     setCity(event.target.value);
   };
 
@@ -48,7 +52,7 @@ function ParkAddress({ setParkAddress, regex }: ParkAddressProps) {
         }}
       >
         <Box sx={{ m: 3 }}>
-          <h2>Park address</h2>
+          <Box sx={{ fontSize: "1.2em" }}>Park address</Box>
         </Box>
         <Box
           sx={{
@@ -77,8 +81,12 @@ function ParkAddress({ setParkAddress, regex }: ParkAddressProps) {
             sx={{ m: 1, width: "40%" }}
           />
           <TextField
-            error={regex.test(postCode) ? false : true}
-            helperText={regex.test(postCode) ? "enter a park name" : null}
+            error={postcodeChange && !regex.test(postCode) ? true : false}
+            helperText={
+              !regex.test(postCode) && postcodeChange
+                ? "enter a valid postcode"
+                : null
+            }
             id="post code"
             label="post code"
             required={true}
@@ -87,8 +95,10 @@ function ParkAddress({ setParkAddress, regex }: ParkAddressProps) {
             sx={{ m: 1, width: "40%" }}
           />
           <TextField
-            error={city.length < 1 ? true : false}
-            helperText={city.length < 1 ? "enter a city/ town name" : null}
+            error={city.length < 1 && cityChange ? true : false}
+            helperText={
+              city.length < 1 && cityChange ? "enter a city/ town name" : null
+            }
             id="city/town"
             label="city/town"
             variant="standard"

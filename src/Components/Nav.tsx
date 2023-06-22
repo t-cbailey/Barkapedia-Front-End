@@ -18,9 +18,8 @@ import { LoginContext } from "../Context/loginContext";
 
 function Nav() {
   const pages = ["Search", "Parks", "Add Park"];
-  // const settings = ["Profile", "Account", "Dashboard", "Logout"];
+  const settings = ["Profile", "Account", "Dashboard", "Logout"];
   const { email } = useContext(LoginContext);
-
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -178,7 +177,9 @@ function Nav() {
                 {page}
               </Button>
             ))}
+
           </Box> */}
+
           {!email && (
             <Link style={{ textDecoration: "none" }} to="/signin">
               <Typography
@@ -210,7 +211,9 @@ function Nav() {
               </Typography>
             </Link>
           )}
+
           {/* <Box sx={{ flexGrow: 0 }}>
+
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="UserName" />
