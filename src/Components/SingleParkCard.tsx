@@ -1,14 +1,10 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Box from "@mui/material/Box";
 import { LatLngTuple } from "leaflet";
 import { Park, Review } from "../types/CustomTypes";
@@ -21,20 +17,6 @@ import { LoginContext } from "../Context/loginContext";
 import { useContext } from "react";
 import { Button } from "@mui/material";
 
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 interface SingleParkProps {
   singlePark: Park;
@@ -47,12 +29,8 @@ export default function SingleParkCard({
   reviews,
   isLoading,
 }: SingleParkProps) {
-  const [expanded, setExpanded] = React.useState(false);
   const [parks, _setParks] = React.useState<Park[]>([]);
   const { park_id } = useParams();
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
   const parsedLat = parseFloat(singlePark.location.lat);
   const parsedLong = parseFloat(singlePark.location.long);
   const parsedCenter: LatLngTuple = [parsedLat, parsedLong];
