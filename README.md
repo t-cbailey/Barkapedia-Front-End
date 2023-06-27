@@ -46,7 +46,7 @@ This can be found on the project settings page. For more information, see [Googl
 
 You will need to update the `Firebase.ts` file with your own config data.
 
-## Run React site
+## Running Locally 
 
 The React front-end can be initalised with `npm run dev`. 
 
