@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { firebaseSignIn } from "../../firebaseUtils/Firebase";
 import { useState, useContext } from "react";
 import { LoginContext } from "../Context/loginContext";
-import getUserById from "../utils/getUserByID.utils";
+import getUserById from "../utils/getUserById.utils";
 import { useNavigate, Link } from "react-router-dom";
 
 interface SignInProps {

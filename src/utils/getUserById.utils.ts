@@ -1,7 +1,7 @@
 import server from "../Api/api";
 import { User } from "../types/CustomTypes";
 
-const getUserByID = (user_id: string): Promise<User> => {
+const getUserById = (user_id: string): Promise<User> => {
   return server
     .get(`users/${user_id}`)
     .then((userData) => {
@@ -10,4 +10,4 @@ const getUserByID = (user_id: string): Promise<User> => {
     .catch((err) => err);
 };
 
-export default getUserByID;
+export default getUserById;

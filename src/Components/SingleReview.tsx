@@ -20,7 +20,7 @@ import {
 import "../Styles/styles.css";
 import { useState, useEffect } from "react";
 import patchReviewVotes from "../utils/patchReviewVotes.utils";
-import getUserByID from "../utils/getUserByID.utils";
+import getUserById from "../utils/getUserById.utils";
 
 export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
   if (!review) {
@@ -35,7 +35,7 @@ export default function SingleReview({ review, fullWidth }: SingleReviewProps) {
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
-    getUserByID(review.user_id).then((user) => setUserData(user));
+    getUserById(review.user_id).then((user) => setUserData(user));
   }, []);
 
   useEffect(() => {
