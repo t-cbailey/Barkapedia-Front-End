@@ -15,7 +15,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import { orderObj, FiltersProps } from "../types/CustomTypes";
+import { FiltersProps } from "../types/CustomTypes";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 
@@ -34,7 +34,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-function Filters({ setQueries, city }: FiltersProps) {
+function Filters({ setQueries, city, setOrderBy }: FiltersProps) {
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -86,10 +86,9 @@ function Filters({ setQueries, city }: FiltersProps) {
     setOrder(event.target.value);
   };
 
-  const orderObj: orderObj = {
-    order: order,
-    orderParam: orderParam,
-  };
+  React.useEffect(() => {
+    setOrderBy([order, orderParam]);
+  }, [order, orderParam]);
 
   let queryString = `${city}`;
 
@@ -97,16 +96,6 @@ function Filters({ setQueries, city }: FiltersProps) {
     if (checkboxes[checkbox as keyof object] === true) {
       queryString += `${queryString.length === 0 ? "?" : "&"}${checkbox}=true`;
     }
-  }
-
-  if (orderObj.orderParam !== "") {
-    queryString += `${queryString.length === 0 ? "?" : "&"}orderBy=${
-      orderObj.orderParam
-    }`;
-  }
-
-  if (orderObj.order !== "") {
-    queryString += `:${orderObj.order}`;
   }
 
   React.useEffect(() => {

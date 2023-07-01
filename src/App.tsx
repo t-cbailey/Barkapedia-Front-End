@@ -13,7 +13,7 @@ import { LatLngTuple } from "leaflet";
 import PostReview from "./Components/PostReview";
 import Register from "./Components/Register";
 import Box from "@mui/material/Box";
-import AboutUs from "./Components/About"
+import AboutUs from "./Components/About";
 import CreateNewPark from "./Components/CreateNewPark/CreateNewPark";
 import { Stack } from "@mui/system";
 import "./Styles/reset.css";
@@ -57,9 +57,18 @@ function App() {
     }
   });
   return (
-
-    <LoginContext.Provider value={{ email, id, type, setEmail, setId, setType, setIsVerified, isVerified }}>
-
+    <LoginContext.Provider
+      value={{
+        email,
+        id,
+        type,
+        setEmail,
+        setId,
+        setType,
+        setIsVerified,
+        isVerified,
+      }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -91,6 +100,7 @@ function App() {
                   parks={parks}
                   mapMarkers={mapMarkers}
                   isLoading={isLoading}
+                  setParks={setParks}
                 />
               }
             />
@@ -110,8 +120,7 @@ function App() {
               path="/parks/:park_id/post-review"
               element={<PostReview />}
             ></Route>
-            <Route path="/about" element={<AboutUs />}>
-            </Route>
+            <Route path="/about" element={<AboutUs />}></Route>
           </Routes>
         </Stack>
       </Box>

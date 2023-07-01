@@ -10,6 +10,7 @@ import Filters from "./Filters";
 import { Park, TabPanelProps, ShowParksInterface } from "../types/CustomTypes";
 import { LatLngTuple } from "leaflet";
 import "../Styles/styles.css";
+import { sortParks } from "../utils/sortParks";
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -52,19 +53,32 @@ export default function ShowParks({
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+  const [orderBy, setOrderBy] = React.useState<string[]>(["", ""]);
+  const [orderedParks, setOrderedParks] = React.useState<Park[]>([]);
   const handleMarkerClick = (parkId: string) => {
     setSelectedParkId(parkId);
   };
   const center: LatLngTuple = [51.507268, -0.166791];
+
+  React.useEffect(() => {
+    if (parks) {
+      const orderedParksArr = sortParks(parks, orderBy);
+      setOrderedParks([...orderedParksArr]);
+    }
+  }, [orderBy, parks]);
+
+  console.log(orderedParks);
 
   if (isLoading) {
     return <h3 className="loading">Loading...</h3>;
   }
 
   return (
-    <Box sx={{ width: "100%"}}>
-      <Filters setQueries={setQueries} city={city} />
-      <Typography sx={{margin:"10px", textAlign:"right"}}>{`${parks.length} ${parks.length > 1 ? "results" : "result"} ${
+    <Box sx={{ width: "100%" }}>
+      <Filters setQueries={setQueries} city={city} setOrderBy={setOrderBy} />
+      <Typography sx={{ margin: "10px", textAlign: "right" }}>{`${
+        parks.length
+      } ${parks.length > 1 ? "results" : "result"} ${
         city === "" ? "" : "near" + " " + city.match(/(?<==).+/)
       }`}</Typography>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -86,10 +100,10 @@ export default function ShowParks({
           parks={parks}
           isListView={true}
         />
-        {park && <ParksListCard park={park} parks={parks} fullWidth={false} />}
+        {park && <ParksListCard park={park} fullWidth={false} />}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ParksList parks={parks} isLoading={isLoading} />
+        <ParksList orderedParks={orderedParks} isLoading={isLoading} />
       </TabPanel>
     </Box>
   );
