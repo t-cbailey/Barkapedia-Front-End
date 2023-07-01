@@ -67,8 +67,6 @@ export default function ShowParks({
     }
   }, [orderBy, parks]);
 
-  console.log(orderedParks);
-
   if (isLoading) {
     return <h3 className="loading">Loading...</h3>;
   }
