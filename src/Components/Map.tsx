@@ -57,7 +57,6 @@ export default function Map({
           park={
             parks.find((park) => park.id.toString() === selectedParkId) || null
           }
-          parks={parks}
           fullWidth={true}
         />
       )}

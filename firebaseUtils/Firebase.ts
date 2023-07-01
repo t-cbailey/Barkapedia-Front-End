@@ -5,18 +5,18 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   connectAuthEmulator,
-  signOut
+  signOut,
 } from "firebase/auth";
 
 const firebaseConfig: FirebaseConfig = {
-  apiKey: "AIzaSyCcBtVyduWfeLb9teFNhq2j98Ny4FWLvVc",
-  authDomain: "nc-parks.firebaseapp.com",
+  apiKey: "AIzaSyDiKtuX-0xusTCMUEO7cEkuhujQ4oUn2Dg",
+  authDomain: "barkapedia.firebaseapp.com",
   databaseURL:
-    "https://nc-parks-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "nc-parks",
-  storageBucket: "nc-parks.appspot.com",
-  messagingSenderId: "188799614960",
-  appId: "1:188799614960:web:02e0940c242d71545d6735",
+    "https://barkapedia-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "barkapedia",
+  storageBucket: "barkapedia.appspot.com",
+  messagingSenderId: "739316678884",
+  appId: "1:739316678884:web:cb71037d6584e1f985ecf1",
 };
 
 initializeApp(firebaseConfig);
@@ -27,26 +27,31 @@ if (process.env.NODE_ENV !== "production") {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
 }
 
-export const firebaseSignIn = (email: string, password: string): Promise<string | null> => {
+export const firebaseSignIn = (
+  email: string,
+  password: string
+): Promise<string | null> => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(`signed in ${user.uid}`)
-      return user.uid
+      console.log(`signed in ${user.uid}`);
+      return user.uid;
     })
     .catch((error) => {
       console.log(error);
-      return null
+      return null;
     });
 };
 
 export const firebaseSignOut = (): Promise<void> => {
-  return signOut(auth).then(() => {
-    console.log(`signed out`);
-  }).catch((error) => {
-    console.log(error);
-  });
-}
+  return signOut(auth)
+    .then(() => {
+      console.log(`signed out`);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 // Example usage
 // const auth = getAuth();

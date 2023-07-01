@@ -109,13 +109,12 @@ export interface ReviewProps {
 }
 
 export interface ParksListProps {
-  parks: Park[];
+  orderedParks: Park[];
   isLoading: boolean;
 }
 
 export interface ParksListCardProps {
   park: Park | null;
-  parks: Park[];
   fullWidth: boolean;
 }
 
@@ -135,6 +134,7 @@ export interface ShowParksInterface {
   mapMarkers: any;
   isLoading: boolean;
   city: string;
+  setParks: Function;
 }
 
 export interface ReviewData {
@@ -236,4 +236,5 @@ export interface LoginContextType {
 interface FiltersProps {
   setQueries: Function;
   city: string;
+  setOrderBy: Function;
 }
